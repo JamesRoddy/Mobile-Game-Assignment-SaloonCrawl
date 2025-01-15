@@ -20,7 +20,7 @@ public class TouchControls : MonoBehaviour
 
 
         player = FindObjectOfType<playerController>();
-        Debug.Log("start");
+     
     }
 
     // Update is called once per frame

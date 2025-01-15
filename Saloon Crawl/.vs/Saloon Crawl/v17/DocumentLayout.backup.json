@@ -3,7 +3,27 @@
   "WorkspaceRootPath": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|c:\\users\\richa\\onedrive\\desktop\\salooncrawl\\saloon-crawl\\saloon crawl\\assets\\scripts\\playermovment\\touchcontrols.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|c:\\users\\richa\\onedrive\\desktop\\salooncrawl\\saloon-crawl\\saloon crawl\\assets\\scripts\\terraingeneration\\terraingeneration\\terraintype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\terraingeneration\\terraingeneration\\terraintype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\assets\\scripts\\terraingeneration\\terraingeneration\\terrainmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\terraingeneration\\terraingeneration\\terrainmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\assets\\scripts\\terraingeneration\\terraingeneration\\terraincategories.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\terraingeneration\\terraingeneration\\terraincategories.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\assets\\scripts\\terraingeneration\\terraingeneration\\poolterrainmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\terraingeneration\\terraingeneration\\poolterrainmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\assets\\scripts\\playermovment\\playercam.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playermovment\\playercam.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\assets\\scripts\\playermovment\\touchcontrols.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playermovment\\touchcontrols.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -27,19 +47,79 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "TerrainType.cs",
+              "DocumentMoniker": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\TerrainGeneration\\TerrainGeneration\\TerrainType.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\TerrainGeneration\\TerrainGeneration\\TerrainType.cs",
+              "ToolTip": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\TerrainGeneration\\TerrainGeneration\\TerrainType.cs",
+              "RelativeToolTip": "Assets\\Scripts\\TerrainGeneration\\TerrainGeneration\\TerrainType.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAUwCAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-14T13:57:46.723Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TerrainCategories.cs",
+              "DocumentMoniker": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\TerrainGeneration\\TerrainGeneration\\TerrainCategories.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\TerrainGeneration\\TerrainGeneration\\TerrainCategories.cs",
+              "ToolTip": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\TerrainGeneration\\TerrainGeneration\\TerrainCategories.cs",
+              "RelativeToolTip": "Assets\\Scripts\\TerrainGeneration\\TerrainGeneration\\TerrainCategories.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-14T13:54:38.791Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PoolTerrainManager.cs",
+              "DocumentMoniker": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\TerrainGeneration\\TerrainGeneration\\PoolTerrainManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\TerrainGeneration\\TerrainGeneration\\PoolTerrainManager.cs",
+              "ToolTip": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\TerrainGeneration\\TerrainGeneration\\PoolTerrainManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\TerrainGeneration\\TerrainGeneration\\PoolTerrainManager.cs",
+              "ViewState": "AgIAAD0AAAAAAAAAAAAUwEwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-14T13:53:56.201Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TerrainManager.cs",
+              "DocumentMoniker": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\TerrainGeneration\\TerrainGeneration\\TerrainManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\TerrainGeneration\\TerrainGeneration\\TerrainManager.cs",
+              "ToolTip": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\TerrainGeneration\\TerrainGeneration\\TerrainManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\TerrainGeneration\\TerrainGeneration\\TerrainManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-14T13:53:20.542Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "PlayerCam.cs",
+              "DocumentMoniker": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\PlayerCam.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerMovment\\PlayerCam.cs",
+              "ToolTip": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\PlayerCam.cs",
+              "RelativeToolTip": "Assets\\Scripts\\PlayerMovment\\PlayerCam.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-14T13:44:25.41Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "TouchControls.cs",
               "DocumentMoniker": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\TouchControls.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerMovment\\TouchControls.cs",
               "ToolTip": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\TouchControls.cs",
               "RelativeToolTip": "Assets\\Scripts\\PlayerMovment\\TouchControls.cs",
-              "ViewState": "AgIAADYAAAAAAAAAAAAkwBgAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADYAAAAAAAAAAAAkwEAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-14T13:24:26.69Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-14T13:24:26.69Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 6,
               "Title": "PlayerMovment.cs",
               "DocumentMoniker": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\PlayerMovment.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerMovment\\PlayerMovment.cs",
@@ -47,8 +127,7 @@
               "RelativeToolTip": "Assets\\Scripts\\PlayerMovment\\PlayerMovment.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-14T13:19:35.97Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-14T13:19:35.97Z"
             }
           ]
         }
