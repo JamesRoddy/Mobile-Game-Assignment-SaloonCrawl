@@ -1159,6 +1159,7 @@ GameObject:
   - component: {fileID: 527695567}
   - component: {fileID: 527695569}
   - component: {fileID: 527695568}
+  - component: {fileID: 527695570}
   m_Layer: 5
   m_Name: Title Sign
   m_TagString: Untagged
@@ -1180,7 +1181,7 @@ RectTransform:
   m_Children:
   - {fileID: 2088258698}
   m_Father: {fileID: 1091264026}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -9.516517}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: -40, y: 303}
@@ -1224,6 +1225,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 527695566}
   m_CullTransparentMesh: 1
+--- !u!111 &527695570
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 527695566}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 7400000, guid: 246b5dc334a4e0c4cbda9fcb7b8d7eb1, type: 2}
+  m_Animations:
+  - {fileID: 7400000, guid: 246b5dc334a4e0c4cbda9fcb7b8d7eb1, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &544205220
 GameObject:
   m_ObjectHideFlags: 0
