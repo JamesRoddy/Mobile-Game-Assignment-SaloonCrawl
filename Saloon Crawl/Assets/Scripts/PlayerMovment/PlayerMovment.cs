@@ -17,11 +17,14 @@ public class playerController : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
     bool grounded = false;
     float jumpVelocity = 5.0f;
+    private Animator CowboyAnim;
+
     // Start is called before the first frame update
     void Start()
     {
         playerBoxCollider = GetComponent<BoxCollider2D>();
         playerRigidBody = GetComponent<Rigidbody2D>();
+        CowboyAnim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -31,7 +34,7 @@ public class playerController : MonoBehaviour
         grounded = isGrounded();
         addMomentum();
         jump();
-
+        CowboyAnim.SetBool("OnGround", grounded);
 
 
     }
@@ -83,7 +86,7 @@ public class playerController : MonoBehaviour
     {
 
         RaycastHit2D hit = Physics2D.BoxCast(playerBoxCollider.bounds.center, playerBoxCollider.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
-
+        
         return hit.collider != null;
     }
 
