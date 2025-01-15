@@ -11,7 +11,7 @@ public class SallonTerrainType : TerrainType
     public override bool Validate()
     {
         Debug.Log("saloon trigger condition hit " + (Vector3.Distance(previousTransFormPosition, player.transform.position) > baseSaloonDist));
-        return transform.position.z>0.0f;
+        return (Vector3.Distance(previousTransFormPosition, player.transform.position) > baseSaloonDist);
 
     }
     public override void randomizeInteractablePositions()

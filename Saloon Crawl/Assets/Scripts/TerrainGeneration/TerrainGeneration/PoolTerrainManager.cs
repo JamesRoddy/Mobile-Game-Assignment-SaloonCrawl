@@ -30,7 +30,7 @@ public class PoolTerrainManager : MonoBehaviour
             newTerrain.GetComponent<TerrainType>().setValues();
            
             maxSuccessionRequests = newTerrain.GetComponent<TerrainType>().getAdjacencyCount;
-            Debug.Log("max succession requests " + maxSuccessionRequests);
+           
             newTerrain.SetActive(false);
             pool.Add(newTerrain);
 
@@ -80,14 +80,14 @@ public class PoolTerrainManager : MonoBehaviour
     {
         
             requestsSuccessionCount = 0;
-            Debug.Log("successionCountWasHitFor " + pool[0].GetComponent<TerrainType>().GetClassification);
+         
         
     }
 
     public bool hasHitSuccessionCount()
     {
 
-        return requestsSuccessionCount >= maxSuccessionRequests-1;
+        return requestsSuccessionCount >= maxSuccessionRequests;
 
     }
 

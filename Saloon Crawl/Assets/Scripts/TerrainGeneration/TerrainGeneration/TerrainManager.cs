@@ -13,6 +13,7 @@ public class TerrainManager : MonoBehaviour
     [SerializeField] List<GameObject> terrainTypeObjects = new List<GameObject>();
     private TerrainClassifications nextTerrain;
     private Vector3 initialPos = Vector3.zero;
+    Vector3 genericPadding = new Vector3(0.0005f,0.0f,0.0f);
 /*    private bool terrainRequestFailed = false;
 */
     /*private int maxTerrainCycles = 4;*/
@@ -61,7 +62,7 @@ public class TerrainManager : MonoBehaviour
     {
         if (shouldGenerate)
         {
-            Debug.Log("generating new chunk " + shouldGenerate);
+            Debug.Log("generating new chunk " + currentTerrainCycles);
             Vector3 positionToOffsetFrom = activeTerrain[activeTerrain.Count - 1].transform.position;
             GameObject currentTerrain = activeTerrain[activeTerrain.Count - 1];
             PoolTerrainManager currentPool = terrainPools[ currentTerrain.GetComponent<TerrainType>().GetClassification];
@@ -108,7 +109,7 @@ public class TerrainManager : MonoBehaviour
             {
                 Debug.Log("terrain succession count hit but not reset " + currentType);
             }
-            Debug.Log("new succession count next terrrain  " + currentType);
+            Debug.Log("new succession count next terrrain  " + nextTerrain);
             currentPool = terrainPools[nextTerrain];
 
         }
@@ -124,16 +125,16 @@ public class TerrainManager : MonoBehaviour
             }
 
             currentPool = terrainPools[nextTerrain];
-            Debug.Log("new  terrrain due to all terrain being active   " + currentType);
+            Debug.Log("new  terrrain due to all terrain being active   " + nextTerrain);
 
 
         }
-       
-        
+
+        GameObject previous = activeTerrain[activeTerrain.Count - 1];
         requestTerrainFromPool(currentPool.PoolTerrain);
         Debug.Log(activeTerrain.Count + " new active terrain count ");
         spawnCount = spawnCount+1;
-        Vector3 newPosition = new Vector3(positionToOffsetFrom.x + activeTerrain[activeTerrain.Count - 1].transform.localScale.x, positionToOffsetFrom.y, positionToOffsetFrom.z);
+        Vector3 newPosition = getNewPositionOnX(previous, activeTerrain[activeTerrain.Count - 1]);
         Debug.Log("next position for terrain " + newPosition);
         activeTerrain[activeTerrain.Count - 1].transform.position = newPosition;
         generationStep(nextTerrain, currentPool, spawnCount, activeTerrain[activeTerrain.Count-1].transform.position);
@@ -158,7 +159,7 @@ public class TerrainManager : MonoBehaviour
         foreach (TerrainClassifications terrainClassifications in adjacencyOptions) {
 
             if (terrainPools[terrainClassifications].validateTerrainType()  )
-            { 
+            {
                 terrainOptions.Add(terrainClassifications);
             }
             
@@ -236,6 +237,21 @@ public class TerrainManager : MonoBehaviour
 
     }
 
+
+    private Vector3 getNewPositionOnX(GameObject gameObjectToOffsetFrom,GameObject gamObjectToPlace)
+    {
+
+        float widthOffset = (gameObjectToOffsetFrom.GetComponent<BoxCollider2D>().bounds.size.x - gamObjectToPlace.GetComponent<BoxCollider2D>().bounds.size.x) / 2.0f;
+
+
+        return new Vector3(gameObjectToOffsetFrom.transform.position.x + ((gamObjectToPlace.GetComponent<BoxCollider2D>().bounds.size.x + widthOffset)+genericPadding.x),
+                                                              gameObjectToOffsetFrom.transform.position.y, gameObjectToOffsetFrom.transform.position.z);
+
+
+
+    }
+
+
     private void initialzeStartingTerrain()
     {
 
@@ -270,10 +286,9 @@ public class TerrainManager : MonoBehaviour
         {
             Debug.Log("active terrain scale " + activeTerrain[i-1].transform.localScale.x);
 
-            float widthOffsetScaler = (1.0f - (activeTerrain[i].transform.localScale.x / activeTerrain[i - 1].transform.localScale.x)) * activeTerrain[i -1].transform.localScale.x;
+            float widthOffsetScaler = (activeTerrain[i-1].transform.localScale.x - activeTerrain[i].transform.localScale.x)/2.0f;
             Debug.Log("widht offset scalar " + widthOffsetScaler);
-            activeTerrain[i].transform.position = new Vector3(newPosition.x + (activeTerrain[i].transform.localScale.x + widthOffsetScaler/2.0f),
-                                                              newPosition.y, newPosition.z);
+            activeTerrain[i].transform.position = getNewPositionOnX(activeTerrain[i-1],activeTerrain[i]);
             
             
             newPosition = activeTerrain[i].transform.position;
