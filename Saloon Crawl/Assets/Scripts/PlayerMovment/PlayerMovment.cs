@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class playerController : MonoBehaviour
@@ -19,6 +20,13 @@ public class playerController : MonoBehaviour
     float jumpVelocity = 5.0f;
     private Animator CowboyAnim;
 
+    //Shooting variables
+    public bool shouldShoot = false;
+    public Transform bulletSpawnPoint;
+    public GameObject bulletPrefab;
+    public bool invoked = false;
+    GameObject bullet;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,6 +42,7 @@ public class playerController : MonoBehaviour
         grounded = isGrounded();
         addMomentum();
         jump();
+        shoot();
         CowboyAnim.SetBool("OnGround", grounded);
 
 
@@ -56,6 +65,23 @@ public class playerController : MonoBehaviour
 
 
 
+    }
+
+    private void shoot()
+    {
+        //Debug.Log("Bullet Destroyed: " + bullet.IsDestroyed());
+        if (shouldShoot && !invoked)
+        {
+            invoked = true;
+            shouldShoot = false;
+            Debug.Log("Should Shoot");
+            bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
+        }
+
+        else if(bullet.IsDestroyed())
+        {
+            invoked = false;
+        }
     }
 
 
