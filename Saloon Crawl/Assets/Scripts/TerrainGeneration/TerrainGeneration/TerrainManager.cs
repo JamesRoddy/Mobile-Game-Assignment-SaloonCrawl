@@ -14,7 +14,7 @@ public class TerrainManager : MonoBehaviour
     private TerrainClassifications nextTerrain;
     private GameObject nextActiveTerrain;
     private Vector3 initialPos = Vector3.zero;
-    Vector3 genericPadding = new Vector3(0.0005f, 0.0f, 0.0f);
+    Vector3 genericPadding = new Vector3(0.05f, 0.0f, 0.0f);
     /*    private bool terrainRequestFailed = false;
     */
     /*private int maxTerrainCycles = 4;*/
@@ -157,12 +157,15 @@ public class TerrainManager : MonoBehaviour
 
         }
 
-        GameObject previous = activeTerrain[activeTerrain.Count - 1];
-        previous.GetComponent<TerrainType>().NextTerrainOn = nextTerrain;
-        Debug.Log(" ENEMY SPAWNING set previous terrain  " + previous.GetComponent<TerrainType>().NextTerrainOn+"previous terrain was "+currentType);
-        requestTerrainFromPool(currentPool.PoolTerrain);
-        previous.GetComponent<TerrainType>().NextAdjacentTerrainTile = activeTerrain[activeTerrain.Count - 1];
+        GameObject previous = activeTerrain[activeTerrain.Count - 1]; 
+        TerrainType previousTerrain =  previous.GetComponent<TerrainType>();
+        previousTerrain.NextTerrainOn = nextTerrain;
+        Debug.Log(" ENEMY SPAWNING set previous terrain  " + previousTerrain.NextTerrainOn + "previous terrain was "+currentType);
 
+        requestTerrainFromPool(currentPool.PoolTerrain);
+        previousTerrain.NextAdjacentTerrainTile = activeTerrain[activeTerrain.Count - 1];
+        previousTerrain.NextTerrainType = activeTerrain[activeTerrain.Count - 1].GetComponent<TerrainType>();
+        Debug.Log(" ENEMY SPAWNING set previous terrain next terrain type  " + previousTerrain.NextTerrainType.GetClassification + "game object is null  = " + (previousTerrain.NextAdjacentTerrainTile == null));
 
         Debug.Log(activeTerrain.Count + " new active terrain count ");
         spawnCount = spawnCount + 1;
@@ -220,7 +223,8 @@ public class TerrainManager : MonoBehaviour
         if (activeTerrain.Count > 0)
         {
             playerController.CurrentTerrain = activeTerrain[0].GetComponent<TerrainType>();
-            Debug.Log(" ENEMY SPAWNING set player current terrrain " + playerController.CurrentTerrain);
+           
+            Debug.Log(" ENEMY SPAWNING set player current terrrain " + playerController.CurrentTerrain.GetClassification);
         }
 
     }
@@ -316,7 +320,7 @@ public class TerrainManager : MonoBehaviour
             terrainPools[classification].setValues(terrain, poolNum);
             enemyPools[classification] = gameObject.AddComponent<Enemypool>();
 
-            enemyPools[classification].setValues(enemies, minEnemyNum, maxEnemyNum);
+            enemyPools[classification].setValues(enemies, maxEnemyNum, minEnemyNum);
 
         }
         saloonPoolManager = terrainPools[TerrainClassifications.SALOON];

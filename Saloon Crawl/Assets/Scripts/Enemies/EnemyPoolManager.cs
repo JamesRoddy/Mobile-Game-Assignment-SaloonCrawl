@@ -56,9 +56,9 @@ public class Enemypool : MonoBehaviour
         {
             Debug.Log("SPAWNING ENEMY pool pointer reached max " + poolPointer + " reseting... ");
             poolPointer = 0;
-        } 
-
-        return pool[poolPointer].activeSelf;
+        }
+        Debug.Log(" SPAWNING ENEMY bool for object availablilty" + !pool[poolPointer].activeSelf );
+        return !pool[poolPointer].activeSelf;
 
     }
 

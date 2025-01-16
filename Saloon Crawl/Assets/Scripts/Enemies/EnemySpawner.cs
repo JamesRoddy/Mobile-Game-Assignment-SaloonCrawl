@@ -19,9 +19,9 @@ public class EnemySpawner : MonoBehaviour
     void Start()
     {
         terrainManager = GetComponent<TerrainManager>();
-        player = GetComponent<playerController>();
-        
-      
+        player = FindObjectOfType<playerController>();
+
+        Debug.Log("player is null for enemy spawner " + player == null);
         
 
 
@@ -30,7 +30,6 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
    public void UpdateSpawns()
     { 
-        
        if( !(player.CurrentTerrain.NextTerrainType.HasSpawnPositions) && player.isCloseToEndOfCurrentterrain())
        {
             Debug.LogWarning(" SPAWNING ENEMY  conditions hit to generate new enemies terrain had no spawn positions was  " + !(player.CurrentTerrain.NextTerrainType.HasSpawnPositions) + "player was too close to terrain was " + player.isCloseToEndOfCurrentterrain());
@@ -43,13 +42,13 @@ public class EnemySpawner : MonoBehaviour
             currentTerrainType.setSpawnPositions(); 
             
             currentObjectPool = terrainManager.getEnemPool(currentPool);
-            Debug.Log(" SPAWNING ENEMY  type of pool " + currentPool);
+            Debug.Log(" SPAWNING ENEMY  type of pool " + currentPool +" pool has available object "+currentObjectPool.hasAvailableObject());
 
 
        }
 
 
-        if (currentObjectPool.hasAvailableObject())
+        if (currentObjectPool != null &&  currentObjectPool.hasAvailableObject())
         {
             Debug.Log(" SPAWNING ENEMY requesting object object pool has object: "+currentObjectPool.hasAvailableObject());
             GameObject enemy = currentObjectPool.requestAvaialbeObject();
