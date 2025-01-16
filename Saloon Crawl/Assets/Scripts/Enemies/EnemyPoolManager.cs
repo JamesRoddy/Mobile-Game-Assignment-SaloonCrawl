@@ -54,8 +54,10 @@ public class Enemypool : MonoBehaviour
     {
         if(poolPointer == maxSpawnCount)
         {
+            Debug.Log("SPAWNING ENEMY pool pointer reached max " + poolPointer + " reseting... ");
             poolPointer = 0;
-        }
+        } 
+
         return pool[poolPointer].activeSelf;
 
     }

@@ -28,18 +28,20 @@ public class TerrainManager : MonoBehaviour
     private List<GameObject> previousActiveTerrain;
     private PoolTerrainManager saloonPoolManager;
     private PoolTerrainManager desertPoolManager;
+    private EnemySpawner enemySpawnHandler;
     private Camera cam;
     public void Start()
     {
         playerController = FindFirstObjectByType<playerController>();
         cam = Camera.main;
         initialzeStartingTerrain();
-        setPlayerCurrentTerrain();
+        setPlayerCurrentTerrain(); 
+        enemySpawnHandler = gameObject.AddComponent<EnemySpawner>(); 
+
 
     } 
     private void updateActiveObjects()
     {
-
 
         for (int i = 0; i < activeTerrain.Count; i++)
         {
@@ -91,6 +93,14 @@ public class TerrainManager : MonoBehaviour
 
 
 
+
+    }
+
+    public void Update()
+    {
+        updateActiveObjects();
+        getNewTerrainChunck(terrainCycleEnd());
+        enemySpawnHandler.UpdateSpawns();
 
     }
 
@@ -149,8 +159,11 @@ public class TerrainManager : MonoBehaviour
 
         GameObject previous = activeTerrain[activeTerrain.Count - 1];
         previous.GetComponent<TerrainType>().NextTerrainOn = nextTerrain;
+        Debug.Log(" ENEMY SPAWNING set previous terrain  " + previous.GetComponent<TerrainType>().NextTerrainOn+"previous terrain was "+currentType);
         requestTerrainFromPool(currentPool.PoolTerrain);
         previous.GetComponent<TerrainType>().NextAdjacentTerrainTile = activeTerrain[activeTerrain.Count - 1];
+
+
         Debug.Log(activeTerrain.Count + " new active terrain count ");
         spawnCount = spawnCount + 1;
         Vector3 newPosition = getNewPositionOnX(previous, activeTerrain[activeTerrain.Count - 1]);
@@ -207,6 +220,7 @@ public class TerrainManager : MonoBehaviour
         if (activeTerrain.Count > 0)
         {
             playerController.CurrentTerrain = activeTerrain[0].GetComponent<TerrainType>();
+            Debug.Log(" ENEMY SPAWNING set player current terrrain " + playerController.CurrentTerrain);
         }
 
     }
@@ -245,12 +259,7 @@ public class TerrainManager : MonoBehaviour
     }
 
 
-    public void Update()
-    {
-        updateActiveObjects();
-        getNewTerrainChunck(terrainCycleEnd());
 
-    }
 
     private void requestTerrainFromPool(TerrainClassifications type)
     {

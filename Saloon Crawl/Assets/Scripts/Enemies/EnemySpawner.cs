@@ -15,7 +15,6 @@ public class EnemySpawner : MonoBehaviour
     private Enemypool currentObjectPool;
     private TerrainClassifications currentPool;
     private TerrainType currentTerrainType;
-    private List<Vector3> spawnPositions = new List<Vector3>();
    
     void Start()
     {
@@ -29,16 +28,22 @@ public class EnemySpawner : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+   public void UpdateSpawns()
     { 
         
-       if(player.isCloseToEndOfCurrentterrain())
+       if( !(player.CurrentTerrain.NextTerrainType.HasSpawnPositions) && player.isCloseToEndOfCurrentterrain())
        {
+            Debug.LogWarning(" SPAWNING ENEMY  conditions hit to generate new enemies terrain had no spawn positions was  " + !(player.CurrentTerrain.NextTerrainType.HasSpawnPositions) + "player was too close to terrain was " + player.isCloseToEndOfCurrentterrain());
             currentPool = player.CurrentTerrain.NextTerrainOn;
+            Debug.LogWarning(" SPAWNING ENEMY  current pool for spawining is " + player.CurrentTerrain.NextTerrainOn);
             nextTileToSpawnEnemiesOn = player.CurrentTerrain.NextAdjacentTerrainTile;
+            Debug.LogWarning(" SPAWNING ENEMY type of current terrain tile to spawn on " + player.CurrentTerrain.NextAdjacentTerrainTile.GetComponent<TerrainType>().GetClassification);
             currentTerrainType = player.CurrentTerrain.NextAdjacentTerrainTile.GetComponent<TerrainType>();
-            currentTerrainType.setSpawnPositions();
+            Debug.Log(" SPAWNING ENEMY type of current terrain type " + player.CurrentTerrain.NextAdjacentTerrainTile.GetComponent<TerrainType>().GetClassification);
+            currentTerrainType.setSpawnPositions(); 
+            
             currentObjectPool = terrainManager.getEnemPool(currentPool);
+            Debug.Log(" SPAWNING ENEMY  type of pool " + currentPool);
 
 
        }
@@ -46,8 +51,9 @@ public class EnemySpawner : MonoBehaviour
 
         if (currentObjectPool.hasAvailableObject())
         {
+            Debug.Log(" SPAWNING ENEMY requesting object object pool has object: "+currentObjectPool.hasAvailableObject());
             GameObject enemy = currentObjectPool.requestAvaialbeObject();
-            Debug.Log("requesting object");
+
             currentTerrainType.spawnEnemy(ref enemy); 
 
 

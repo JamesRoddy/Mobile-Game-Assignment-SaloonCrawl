@@ -20,14 +20,19 @@ public class DesertTerrainType : TerrainType
 
     public override void setSpawnPositions()
     {
-        enemySpawnPosition = new Vector3(transform.position.x+transform.localScale.x/2.0f,transform.position.y,transform.position.z);   
+        enemySpawnPosition = new Vector3(transform.position.x+transform.localScale.x/2.0f,transform.position.y,transform.position.z);    
+        hasSpawnPositions = true;
+        Debug.Log(" SPAWNING ENEMY setting spawn position for  "+classification + " position "+ enemySpawnPosition);
     }
 
 
 
     public override void spawnEnemy(ref GameObject enemy)
     {
-        
+        Debug.Log(" SPAWNING ENEMY spawning enemy for " + classification + "current count " + currentSpawnCount + "current max " + currentEnemiesCount);
+        Debug.Log(" SPAWNING ENEMY spawn position " + enemySpawnPosition);
+
+
     }
 
     public override bool Validate()
@@ -41,7 +46,7 @@ public class DesertTerrainType : TerrainType
     {
        
 
-
+        hasSpawnPositions = false;
 
 
     }

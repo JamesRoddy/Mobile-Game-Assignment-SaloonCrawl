@@ -14,12 +14,15 @@ public abstract class TerrainType : MonoBehaviour
     [SerializeField] protected List<TerrainClassifications> validAdjacentTerrainTypes;
     [SerializeField] protected TerrainClassifications classification;
     [SerializeField] protected int minEnemies;
-    [SerializeField] protected int maxEnemies;
+    [SerializeField] protected int maxEnemies; 
+   
+    protected  bool hasSpawnPositions = false;
     protected int currentEnemiesCount;
     protected int currentSpawnCount = 0;
     
     private TerrainClassifications nextTerrainOn;
     private GameObject nextTerrainTyle;
+    private TerrainType nextTerrainType;
     public abstract void spawnInteractables(List<GameObject> interactables);
     public abstract void setSpawnPositions();
 
@@ -99,6 +102,18 @@ public abstract class TerrainType : MonoBehaviour
         set { nextTerrainTyle = value; }
         get { return nextTerrainTyle; }
     }
+    public bool HasSpawnPositions
+    {
+
+        get { return hasSpawnPositions; }
+        set { hasSpawnPositions = value; }
+    } 
+    public TerrainType NextTerrainType
+    {
+        get { return nextTerrainType; }
+        set { nextTerrainType = value; }
+    }
+
     public bool IsConnected{
 
         get {  return isConnected; }
