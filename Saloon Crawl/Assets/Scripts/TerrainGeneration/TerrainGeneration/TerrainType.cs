@@ -6,18 +6,29 @@ public abstract class TerrainType : MonoBehaviour
 {
     // Start is called before the first frame update
     private Vector2 groundSize;
-
+    private bool isConnected = false;
     [SerializeField] protected int adjacencyCount;
     protected Transform ground;
     [SerializeField] protected List<GameObject> interactables;
-    [SerializeField] protected List<TerrainClassifications> validAdjacentTerrainTypes; 
+    [SerializeField] protected List<GameObject> enemies;
+    [SerializeField] protected List<TerrainClassifications> validAdjacentTerrainTypes;
     [SerializeField] protected TerrainClassifications classification;
-    public abstract void randomizeInteractablePositions();
-
+    [SerializeField] protected int minEnemies;
+    [SerializeField] protected int maxEnemies;
+    protected int currentEnemiesCount;
+    protected int currentSpawnCount = 0;
     
+    private TerrainClassifications nextTerrainOn;
+    private GameObject nextTerrainTyle;
+    public abstract void spawnInteractables(List<GameObject> interactables);
+    public abstract void setSpawnPositions();
+
+
+    public abstract void spawnEnemy(ref GameObject enemy);
+
     public void setValues()
     {
-
+        currentEnemiesCount = minEnemies;
         ground = GetComponent<Transform>();
         groundSize.x = ground.localScale.x;
         groundSize.y = ground.localScale.y;
@@ -25,7 +36,12 @@ public abstract class TerrainType : MonoBehaviour
     }
     private void Start()
     {
-        TerrainStart();   
+        TerrainStart();
+    } 
+
+    public void genEnemyNum()
+    {
+        currentEnemiesCount = Random.Range(minEnemies, maxEnemies + 1);
     }
     public abstract bool Validate();
     public abstract void TerrainStart();
@@ -47,10 +63,50 @@ public abstract class TerrainType : MonoBehaviour
     {
         get { return validAdjacentTerrainTypes; }
     }
+    public List<GameObject> Enemies
+    {
+        get { return enemies; }
+        set { enemies = value; }
+    }
+
+    public int MinEnemies {
+
+        get { return minEnemies;}
+        set { minEnemies = value; }
+    
+    }
+    public int MaxEnemies
+    {
+
+        get { return maxEnemies; }
+        set { maxEnemies = value; }
+
+    }
+    public int CurrentEnemySpawnCount
+    {
+        get { return currentEnemiesCount; }
+    }
 
 
+    public TerrainClassifications NextTerrainOn
+    {
+        set { nextTerrainOn = value; } 
+        get { return nextTerrainOn; }
+    }
+
+    public GameObject NextAdjacentTerrainTile
+    {
+        set { nextTerrainTyle = value; }
+        get { return nextTerrainTyle; }
+    }
+    public bool IsConnected{
+
+        get {  return isConnected; }
+        set {  isConnected = value; }
+    }
     public int getAdjacencyCount
     {
         get { return adjacencyCount; }
     }
+
 }

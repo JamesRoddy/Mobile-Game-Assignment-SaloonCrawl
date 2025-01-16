@@ -7,20 +7,19 @@ using UnityEngine;
 
 public class PoolTerrainManager : MonoBehaviour
 {
-    public List<GameObject> pool = new List<GameObject>();
+    private List<GameObject> pool = new List<GameObject>();
+    private GameObject baseObject;
     private int poolPointer = 0;
     private int maxPoolNum = 0;
     private int objectsAvailableOnTerrainEnd = 0;
     private int requestsSuccessionCount = 0;
     private int maxSuccessionRequests = 0;
-    private delegate bool validate();
-    private validate validateSpawn;
     private TerrainClassifications poolTerrain;
 
     public void setValues(GameObject terrainType, int maxNum)
     {
 
-       
+        baseObject = terrainType;
         maxPoolNum = maxNum;
        
         objectsAvailableOnTerrainEnd = maxPoolNum - 1;
@@ -42,6 +41,9 @@ public class PoolTerrainManager : MonoBehaviour
 
 
     }
+
+
+   
 
    public  List<TerrainClassifications> getAdjacencyOptions()
     {

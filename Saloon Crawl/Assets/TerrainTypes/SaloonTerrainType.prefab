@@ -145,5 +145,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   adjacencyCount: 1
   interactables: []
+  enemies:
+  - {fileID: 2977210929262182875, guid: 1fc48a3eaeeb8e146903bcc1b59224fd, type: 3}
   validAdjacentTerrainTypes: 01000000
   classification: 0
+  minEnemies: 2
+  maxEnemies: 4

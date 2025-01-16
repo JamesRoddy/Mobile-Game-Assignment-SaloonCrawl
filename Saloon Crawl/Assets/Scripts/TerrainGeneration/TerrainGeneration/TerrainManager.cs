@@ -9,19 +9,21 @@ public class TerrainManager : MonoBehaviour
 
 
     [SerializeField] int terrainMinSpawnLimit = 3;
-    
+
     [SerializeField] List<GameObject> terrainTypeObjects = new List<GameObject>();
     private TerrainClassifications nextTerrain;
+    private GameObject nextActiveTerrain;
     private Vector3 initialPos = Vector3.zero;
-    Vector3 genericPadding = new Vector3(0.0005f,0.0f,0.0f);
-/*    private bool terrainRequestFailed = false;
-*/
+    Vector3 genericPadding = new Vector3(0.0005f, 0.0f, 0.0f);
+    /*    private bool terrainRequestFailed = false;
+    */
     /*private int maxTerrainCycles = 4;*/
     private int currentTerrainCycles = 0;
 
     private playerController playerController;
     private List<GameObject> activeTerrain;
     private Dictionary<TerrainClassifications, PoolTerrainManager> terrainPools = new Dictionary<TerrainClassifications, PoolTerrainManager>();
+    private Dictionary<TerrainClassifications, Enemypool> enemyPools = new Dictionary<TerrainClassifications, Enemypool>();
     private Dictionary<TerrainClassifications, TerrainType> terrainData = new Dictionary<TerrainClassifications, TerrainType>();
     private List<GameObject> previousActiveTerrain;
     private PoolTerrainManager saloonPoolManager;
@@ -32,10 +34,12 @@ public class TerrainManager : MonoBehaviour
         playerController = FindFirstObjectByType<playerController>();
         cam = Camera.main;
         initialzeStartingTerrain();
+        setPlayerCurrentTerrain();
 
-    }
+    } 
     private void updateActiveObjects()
     {
+
 
         for (int i = 0; i < activeTerrain.Count; i++)
         {
@@ -43,17 +47,20 @@ public class TerrainManager : MonoBehaviour
             Vector3 normalizeViewportPosition = cam.WorldToViewportPoint(activeTerrain[i].transform.position + activeTerrain[i].GetComponent<TerrainType>().getHalfScale);
             if (!(normalizeViewportPosition.x > 0.0f))
             {
+
                 activeTerrain[i].SetActive(false);
-                Debug.Log("object deactivated object bool set to " + terrainPools[activeTerrain[i].GetComponent<TerrainType>().GetClassification].Pool[0].activeSelf + " terrain type " + activeTerrain[i].GetComponent<TerrainType>().GetClassification);
                 activeTerrain.RemoveAt(i);
-                Debug.Log("new active terrain count " + activeTerrain.Count);
+                setPlayerCurrentTerrain();
 
             }
 
         }
 
 
+
     }
+
+
 
 
 
@@ -65,11 +72,17 @@ public class TerrainManager : MonoBehaviour
             Debug.Log("generating new chunk " + currentTerrainCycles);
             Vector3 positionToOffsetFrom = activeTerrain[activeTerrain.Count - 1].transform.position;
             GameObject currentTerrain = activeTerrain[activeTerrain.Count - 1];
-            PoolTerrainManager currentPool = terrainPools[ currentTerrain.GetComponent<TerrainType>().GetClassification];
+            PoolTerrainManager currentPool = terrainPools[currentTerrain.GetComponent<TerrainType>().GetClassification];
             TerrainClassifications currentType = currentPool.PoolTerrain;
             Debug.Log("current pool going into generation " + currentType);
-            generationStep(currentType,currentPool, 1, positionToOffsetFrom);
-               
+            TerrainGenerationPass(currentType, currentPool, 1);
+
+
+
+
+
+
+
         }
 
 
@@ -81,10 +94,15 @@ public class TerrainManager : MonoBehaviour
 
     }
 
-    void generationStep(TerrainClassifications currentType,PoolTerrainManager currentPool, int spawnCount,Vector3 positionToOffsetFrom) {
+    public Enemypool getEnemPool(TerrainClassifications type)
+    {
+        return enemyPools[type];
+    }
+
+    private void TerrainGenerationPass(TerrainClassifications currentType, PoolTerrainManager currentPool, int spawnCount) {
 
 
-        if(spawnCount == terrainMinSpawnLimit)
+        if (spawnCount == terrainMinSpawnLimit)
         {
             Debug.Log("terrain finished generating due to count");
             return;
@@ -93,8 +111,7 @@ public class TerrainManager : MonoBehaviour
         Debug.Log(
             "current terrain type in gen step " + currentType +
             "current pool " + currentPool.PoolTerrain +
-            " current spawn count " + spawnCount +
-            " current offset position " + positionToOffsetFrom);
+            " current spawn count " + spawnCount);
         if (currentPool.hasHitSuccessionCount())
         {
             Debug.Log("succession count  was hit on step " + spawnCount + "current terrain type " + currentType);
@@ -114,11 +131,11 @@ public class TerrainManager : MonoBehaviour
 
         }
 
-        if (currentPool.allTerrainActive() )
+        if (currentPool.allTerrainActive())
         {
             Debug.Log("all terrain was hit on setp " + spawnCount + "current terrain type " + currentType);
-            valdiateNextTerrainOption(currentPool.getAdjacencyOptions(),currentType);
-            if(nextTerrain == currentType )
+            valdiateNextTerrainOption(currentPool.getAdjacencyOptions(), currentType);
+            if (nextTerrain == currentType)
             {
                 Debug.Log("generation step interrutped no objects in pool  :" + currentType + ":  ");
                 return;
@@ -131,13 +148,15 @@ public class TerrainManager : MonoBehaviour
         }
 
         GameObject previous = activeTerrain[activeTerrain.Count - 1];
+        previous.GetComponent<TerrainType>().NextTerrainOn = nextTerrain;
         requestTerrainFromPool(currentPool.PoolTerrain);
+        previous.GetComponent<TerrainType>().NextAdjacentTerrainTile = activeTerrain[activeTerrain.Count - 1];
         Debug.Log(activeTerrain.Count + " new active terrain count ");
-        spawnCount = spawnCount+1;
+        spawnCount = spawnCount + 1;
         Vector3 newPosition = getNewPositionOnX(previous, activeTerrain[activeTerrain.Count - 1]);
         Debug.Log("next position for terrain " + newPosition);
         activeTerrain[activeTerrain.Count - 1].transform.position = newPosition;
-        generationStep(nextTerrain, currentPool, spawnCount, activeTerrain[activeTerrain.Count-1].transform.position);
+        TerrainGenerationPass(nextTerrain, currentPool, spawnCount);
 
 
 
@@ -146,10 +165,21 @@ public class TerrainManager : MonoBehaviour
     }
 
 
+
+    private void generateEnemyCounts()
+    {
+        for (int i = 1; i < activeTerrain.Count; i++)
+        {
+            activeTerrain[i].GetComponent<TerrainType>().genEnemyNum();
+        }
+
+
+
+    }
     private void valdiateNextTerrainOption(List<TerrainClassifications> adjacencyOptions)
     {
         List<TerrainClassifications> terrainOptions = new List<TerrainClassifications>();
-        if(adjacencyOptions.Count == 1)
+        if (adjacencyOptions.Count == 1)
         {
             nextTerrain = adjacencyOptions[0];
             return;
@@ -158,20 +188,28 @@ public class TerrainManager : MonoBehaviour
 
         foreach (TerrainClassifications terrainClassifications in adjacencyOptions) {
 
-            if (terrainPools[terrainClassifications].validateTerrainType()  )
+            if (terrainPools[terrainClassifications].validateTerrainType())
             {
                 terrainOptions.Add(terrainClassifications);
             }
-            
-            
-        } 
+
+
+        }
 
         nextTerrain = terrainOptions[Random.Range(0, terrainOptions.Count)];
         Debug.Log("next terrain on " + nextTerrain);
 
 
     }
+    private void setPlayerCurrentTerrain()
+    {
 
+        if (activeTerrain.Count > 0)
+        {
+            playerController.CurrentTerrain = activeTerrain[0].GetComponent<TerrainType>();
+        }
+
+    }
     private void valdiateNextTerrainOption(List<TerrainClassifications> adjacencyOptions, TerrainClassifications exluding)
     {
         List<TerrainClassifications> terrainOptions = new List<TerrainClassifications>();
@@ -194,7 +232,7 @@ public class TerrainManager : MonoBehaviour
 
         }
 
-        if(terrainOptions.Count == 0)
+        if (terrainOptions.Count == 0)
         {
             Debug.Log("next terrain exlusion failed terrain: " + exluding);
             nextTerrain = exluding;
@@ -213,15 +251,15 @@ public class TerrainManager : MonoBehaviour
         getNewTerrainChunck(terrainCycleEnd());
 
     }
-   
+
     private void requestTerrainFromPool(TerrainClassifications type)
     {
         GameObject terrain = terrainPools[type].Pool[terrainPools[type].getAvailableObjectIndex()];
-        if(activeTerrain.Count > 0)
+        if (activeTerrain.Count > 0)
         {
             TerrainClassifications previousTerrain = activeTerrain[activeTerrain.Count - 1].GetComponent<TerrainType>().GetClassification;
             bool wasEqualToPrevious = previousTerrain == type;
-            
+            terrain.GetComponent<TerrainType>().IsConnected = wasEqualToPrevious;
             if (wasEqualToPrevious || terrainPools[type].MaxPoolNum == 1)
             {
                 terrainPools[type].RequestsInSuccession++;
@@ -230,21 +268,21 @@ public class TerrainManager : MonoBehaviour
 
         }
         activeTerrain.Add(terrain);
-        
-        
-        
-            
+
+
+
+
 
     }
 
 
-    private Vector3 getNewPositionOnX(GameObject gameObjectToOffsetFrom,GameObject gamObjectToPlace)
+    private Vector3 getNewPositionOnX(GameObject gameObjectToOffsetFrom, GameObject gamObjectToPlace)
     {
 
         float widthOffset = (gameObjectToOffsetFrom.GetComponent<BoxCollider2D>().bounds.size.x - gamObjectToPlace.GetComponent<BoxCollider2D>().bounds.size.x) / 2.0f;
 
 
-        return new Vector3(gameObjectToOffsetFrom.transform.position.x + ((gamObjectToPlace.GetComponent<BoxCollider2D>().bounds.size.x + widthOffset)+genericPadding.x),
+        return new Vector3(gameObjectToOffsetFrom.transform.position.x + ((gamObjectToPlace.GetComponent<BoxCollider2D>().bounds.size.x + widthOffset) + genericPadding.x),
                                                               gameObjectToOffsetFrom.transform.position.y, gameObjectToOffsetFrom.transform.position.z);
 
 
@@ -261,47 +299,46 @@ public class TerrainManager : MonoBehaviour
             TerrainClassifications classification = terrain.GetComponent<TerrainType>().GetClassification;
 
             int poolNum = terrain.GetComponent<TerrainType>().getAdjacencyCount;
-
+            int minEnemyNum = terrain.GetComponent<TerrainType>().MinEnemies; // base pool num for enemies of terrain type 
+            int maxEnemyNum = terrain.GetComponent<TerrainType>().MaxEnemies;
+            List<GameObject> enemies = terrain.GetComponent<TerrainType>().Enemies;
             terrainPools[classification] = gameObject.AddComponent<PoolTerrainManager>();
+
             terrainPools[classification].setValues(terrain, poolNum);
+            enemyPools[classification] = gameObject.AddComponent<Enemypool>();
+
+            enemyPools[classification].setValues(enemies, minEnemyNum, maxEnemyNum);
 
         }
         saloonPoolManager = terrainPools[TerrainClassifications.SALOON];
         desertPoolManager = terrainPools[TerrainClassifications.DESERT];
 
 
-        activeTerrain = new List<GameObject>() {};
+        activeTerrain = new List<GameObject>() { };
         requestTerrainFromPool(TerrainClassifications.SALOON);
-        requestTerrainFromPool(TerrainClassifications.DESERT);
-        requestTerrainFromPool(TerrainClassifications.DESERT);
+
 
 
         initialPos = new Vector3(playerController.transform.position.x + activeTerrain[0].transform.localScale.x / 2.0f
-                                     , (playerController.transform.position.y - activeTerrain[0].transform.localScale.y)-1.0f,
+                                     , (playerController.transform.position.y - activeTerrain[0].transform.localScale.y) - 1.0f,
                                       playerController.transform.position.z);
         Vector3 newPosition = initialPos;
         activeTerrain[0].transform.position = initialPos;
 
         for (int i = 1; i < activeTerrain.Count; i++)
         {
-            Debug.Log("active terrain scale " + activeTerrain[i-1].transform.localScale.x);
-
-            float widthOffsetScaler = (activeTerrain[i-1].transform.localScale.x - activeTerrain[i].transform.localScale.x)/2.0f;
-            Debug.Log("widht offset scalar " + widthOffsetScaler);
-            activeTerrain[i].transform.position = getNewPositionOnX(activeTerrain[i-1],activeTerrain[i]);
-            
-            
+            activeTerrain[i].transform.position = getNewPositionOnX(activeTerrain[i - 1], activeTerrain[i]);
             newPosition = activeTerrain[i].transform.position;
         }
 
 
 
 
-    } 
+    }
 
     private bool terrainCycleEnd()
     {
-        if(activeTerrain.Count == 1)
+        if (activeTerrain.Count == 1)
         {
             currentTerrainCycles++;
             return true;
@@ -310,6 +347,7 @@ public class TerrainManager : MonoBehaviour
 
     }
 
+    
 
 
 

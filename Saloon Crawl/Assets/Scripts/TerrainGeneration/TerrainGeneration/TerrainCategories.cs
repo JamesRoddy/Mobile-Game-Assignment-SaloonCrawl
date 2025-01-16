@@ -6,5 +6,5 @@ public enum TerrainClassifications
 {
     SALOON,
     DESERT,
-
+    END,
 }
