@@ -15,7 +15,7 @@ public class EnemySpawner : MonoBehaviour
     private Enemypool currentObjectPool;
     private TerrainClassifications currentPool;
     private TerrainType currentTerrainType;
-   
+    private EnemyDescriptorInfo currentDescriptorInfo;
     void Start()
     {
         terrainManager = GetComponent<TerrainManager>();
@@ -29,14 +29,16 @@ public class EnemySpawner : MonoBehaviour
 
     // Update is called once per frame
    public void UpdateSpawns()
-    { 
-       if( !(player.CurrentTerrain.NextTerrainType.HasSpawnPositions) && player.isCloseToEndOfCurrentterrain())
+    {
+        Debug.Log(" SPAWNING ENEMY  conditions hit to generate new enemies terrain had no spawn positions was  " + !(player.CurrentTerrain.NextTerrainType.HasSpawnPositions) + "player was too close to terrain was " + player.isCloseToEndOfCurrentterrain());
+
+        if ( !(player.CurrentTerrain.NextTerrainType.HasSpawnPositions) && player.isCloseToEndOfCurrentterrain())
        {
-            Debug.LogWarning(" SPAWNING ENEMY  conditions hit to generate new enemies terrain had no spawn positions was  " + !(player.CurrentTerrain.NextTerrainType.HasSpawnPositions) + "player was too close to terrain was " + player.isCloseToEndOfCurrentterrain());
-            currentPool = player.CurrentTerrain.NextTerrainOn;
-            Debug.LogWarning(" SPAWNING ENEMY  current pool for spawining is " + player.CurrentTerrain.NextTerrainOn);
+/*            Debug.Log(" SPAWNING ENEMY  conditions hit to generate new enemies terrain had no spawn positions was  " + !(player.CurrentTerrain.NextTerrainType.HasSpawnPositions) + "player was too close to terrain was " + player.isCloseToEndOfCurrentterrain());
+*/            currentPool = player.CurrentTerrain.NextTerrainOn;
+            Debug.Log(" SPAWNING ENEMY  current pool for spawining is " + player.CurrentTerrain.NextTerrainOn);
             nextTileToSpawnEnemiesOn = player.CurrentTerrain.NextAdjacentTerrainTile;
-            Debug.LogWarning(" SPAWNING ENEMY type of current terrain tile to spawn on " + player.CurrentTerrain.NextAdjacentTerrainTile.GetComponent<TerrainType>().GetClassification);
+            Debug.Log(" SPAWNING ENEMY type of current terrain tile to spawn on " + player.CurrentTerrain.NextAdjacentTerrainTile.GetComponent<TerrainType>().GetClassification);
             currentTerrainType = player.CurrentTerrain.NextAdjacentTerrainTile.GetComponent<TerrainType>();
             Debug.Log(" SPAWNING ENEMY type of current terrain type " + player.CurrentTerrain.NextAdjacentTerrainTile.GetComponent<TerrainType>().GetClassification);
             currentTerrainType.setSpawnPositions(); 
@@ -52,8 +54,11 @@ public class EnemySpawner : MonoBehaviour
         {
             Debug.Log(" SPAWNING ENEMY requesting object object pool has object: "+currentObjectPool.hasAvailableObject());
             GameObject enemy = currentObjectPool.requestAvaialbeObject();
-
-            currentTerrainType.spawnEnemy(ref enemy); 
+            if(currentDescriptorInfo != enemy.GetComponent<EnemyDescriptorInfo>())
+            {
+                currentDescriptorInfo = enemy.GetComponent<EnemyDescriptorInfo>();
+            }
+            currentTerrainType.spawnEnemy(ref enemy,currentDescriptorInfo); 
 
 
 

@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8291156105358182690}
   - component: {fileID: 4028026103731891909}
-  - component: {fileID: 1281023874703094254}
   - component: {fileID: 4024160468722210708}
+  - component: {fileID: -4729857589590089912}
   m_Layer: 0
   m_Name: EnemyTest2
   m_TagString: Untagged
@@ -86,20 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1281023874703094254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8740768668527974216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f53ecdb40ea40f24e9f3e23add3f3cf7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  minSpawnCount: 1
-  maxSpawnCount: 2
 --- !u!65 &4024160468722210708
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -121,3 +107,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 0.2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-4729857589590089912
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8740768668527974216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceea3138a65122a4eb2468f14bd5a328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnInterval: 3

@@ -24,10 +24,6 @@ public class TerrainManager : MonoBehaviour
     private List<GameObject> activeTerrain;
     private Dictionary<TerrainClassifications, PoolTerrainManager> terrainPools = new Dictionary<TerrainClassifications, PoolTerrainManager>();
     private Dictionary<TerrainClassifications, Enemypool> enemyPools = new Dictionary<TerrainClassifications, Enemypool>();
-    private Dictionary<TerrainClassifications, TerrainType> terrainData = new Dictionary<TerrainClassifications, TerrainType>();
-    private List<GameObject> previousActiveTerrain;
-    private PoolTerrainManager saloonPoolManager;
-    private PoolTerrainManager desertPoolManager;
     private EnemySpawner enemySpawnHandler;
     private Camera cam;
     public void Start()
@@ -51,6 +47,7 @@ public class TerrainManager : MonoBehaviour
             {
 
                 activeTerrain[i].SetActive(false);
+                activeTerrain[i].GetComponent<TerrainType>().ResetTerrain();
                 activeTerrain.RemoveAt(i);
                 setPlayerCurrentTerrain();
 
@@ -162,16 +159,19 @@ public class TerrainManager : MonoBehaviour
         previousTerrain.NextTerrainOn = nextTerrain;
         Debug.Log(" ENEMY SPAWNING set previous terrain  " + previousTerrain.NextTerrainOn + "previous terrain was "+currentType);
 
-        requestTerrainFromPool(currentPool.PoolTerrain);
-        previousTerrain.NextAdjacentTerrainTile = activeTerrain[activeTerrain.Count - 1];
-        previousTerrain.NextTerrainType = activeTerrain[activeTerrain.Count - 1].GetComponent<TerrainType>();
+        requestTerrainFromPool(currentPool.PoolTerrain); 
+        GameObject current = activeTerrain[activeTerrain.Count - 1];
+        TerrainType currentTerrain = current.GetComponent<TerrainType>();  
+        previousTerrain.NextAdjacentTerrainTile = current;
+        previousTerrain.NextTerrainType = currentTerrain;
         Debug.Log(" ENEMY SPAWNING set previous terrain next terrain type  " + previousTerrain.NextTerrainType.GetClassification + "game object is null  = " + (previousTerrain.NextAdjacentTerrainTile == null));
 
         Debug.Log(activeTerrain.Count + " new active terrain count ");
         spawnCount = spawnCount + 1;
-        Vector3 newPosition = getNewPositionOnX(previous, activeTerrain[activeTerrain.Count - 1]);
+        Vector3 newPosition = getNewPositionOnX(previous, current);
         Debug.Log("next position for terrain " + newPosition);
-        activeTerrain[activeTerrain.Count - 1].transform.position = newPosition;
+        current.transform.position = newPosition;
+        currentTerrain.TerrainEnable();
         TerrainGenerationPass(nextTerrain, currentPool, spawnCount);
 
 
@@ -309,12 +309,14 @@ public class TerrainManager : MonoBehaviour
         foreach (GameObject terrain in terrainTypeObjects)
         {
 
-            TerrainClassifications classification = terrain.GetComponent<TerrainType>().GetClassification;
+            TerrainType terrainType = terrain.GetComponent<TerrainType>();
 
-            int poolNum = terrain.GetComponent<TerrainType>().getAdjacencyCount;
-            int minEnemyNum = terrain.GetComponent<TerrainType>().MinEnemies; // base pool num for enemies of terrain type 
-            int maxEnemyNum = terrain.GetComponent<TerrainType>().MaxEnemies;
-            List<GameObject> enemies = terrain.GetComponent<TerrainType>().Enemies;
+            TerrainClassifications classification = terrainType.GetClassification;
+
+            int poolNum = terrainType.getAdjacencyCount;
+            int minEnemyNum = terrainType.MinEnemies;
+            int maxEnemyNum = terrainType.MaxEnemies;
+            List<GameObject> enemies = terrainType.Enemies;
             terrainPools[classification] = gameObject.AddComponent<PoolTerrainManager>();
 
             terrainPools[classification].setValues(terrain, poolNum);
@@ -323,26 +325,21 @@ public class TerrainManager : MonoBehaviour
             enemyPools[classification].setValues(enemies, maxEnemyNum, minEnemyNum);
 
         }
-        saloonPoolManager = terrainPools[TerrainClassifications.SALOON];
-        desertPoolManager = terrainPools[TerrainClassifications.DESERT];
+      
 
 
         activeTerrain = new List<GameObject>() { };
         requestTerrainFromPool(TerrainClassifications.SALOON);
+        
 
 
-
-        initialPos = new Vector3(playerController.transform.position.x + activeTerrain[0].transform.localScale.x / 2.0f
-                                     , (playerController.transform.position.y - activeTerrain[0].transform.localScale.y) - 1.0f,
+        initialPos = new Vector3((playerController.transform.position.x-2.0f) + ((activeTerrain[0].transform.localScale.x / 2.0f))
+                                     , (playerController.transform.position.y - (activeTerrain[0].transform.localScale.y+1.0f)) ,
                                       playerController.transform.position.z);
         Vector3 newPosition = initialPos;
         activeTerrain[0].transform.position = initialPos;
 
-        for (int i = 1; i < activeTerrain.Count; i++)
-        {
-            activeTerrain[i].transform.position = getNewPositionOnX(activeTerrain[i - 1], activeTerrain[i]);
-            newPosition = activeTerrain[i].transform.position;
-        }
+        activeTerrain[0].GetComponent<TerrainType>().TerrainEnable();
 
 
 

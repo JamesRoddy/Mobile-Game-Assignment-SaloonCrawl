@@ -25,9 +25,14 @@ public abstract class TerrainType : MonoBehaviour
     private TerrainType nextTerrainType;
     public abstract void spawnInteractables(List<GameObject> interactables);
     public abstract void setSpawnPositions();
+    public void activateObject(ref GameObject obj, Vector3 position) { 
+    
+       obj.SetActive(true); 
+       obj.transform.position = position;
+    
+    }
 
-
-    public abstract void spawnEnemy(ref GameObject enemy);
+    public abstract void spawnEnemy(ref GameObject enemy, EnemyDescriptorInfo currentDescriptor);
 
     public void setValues()
     {
@@ -44,11 +49,14 @@ public abstract class TerrainType : MonoBehaviour
 
     public void genEnemyNum()
     {
-        currentEnemiesCount = Random.Range(minEnemies, maxEnemies + 1);
+        currentEnemiesCount = Random.Range(minEnemies, maxEnemies +1);
+        Debug.Log(" SPAWNING ENEMY random enemy number  generated for  " + classification+" number " + currentEnemiesCount);
     }
     public abstract bool Validate();
     public abstract void TerrainStart();
 
+    public abstract void ResetTerrain();
+    public abstract void TerrainEnable();
     public Vector2 getGroundSize
     {
         get { return groundSize; }
