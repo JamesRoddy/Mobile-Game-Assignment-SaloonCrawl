@@ -26,9 +26,8 @@ public class playerController : MonoBehaviour
     public GameObject bulletPrefab;
     public bool invoked = false;
     public float fBulletAngle;
-    public Vector2 touchPos;
-    public Vector2 Dir;
     GameObject bullet;
+    Bullet bull;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +35,7 @@ public class playerController : MonoBehaviour
         playerBoxCollider = GetComponent<BoxCollider2D>();
         playerRigidBody = GetComponent<Rigidbody2D>();
         CowboyAnim = GetComponent<Animator>();
+        bull = FindObjectOfType<Bullet>();
     }
 
     // Update is called once per frame
@@ -43,7 +43,7 @@ public class playerController : MonoBehaviour
     {
 
         grounded = isGrounded();
-       // addMomentum();
+        addMomentum();
         jump();
         shoot();
         CowboyAnim.SetBool("OnGround", grounded);
@@ -75,14 +75,10 @@ public class playerController : MonoBehaviour
         //Debug.Log("Bullet Destroyed: " + bullet.IsDestroyed());
         if (shouldShoot && !invoked)
         {
-            Debug.Log(touchPos);
             invoked = true;
             shouldShoot = false;
-            //bulletPrefab.transform.rotation = Quaternion.Euler(new Vector3(0f,0f, fBulletAngle));
-            bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
-
-            /* Dir = touchPos - (new Vector2(transform.position.x, transform.position.y));
-             Dir.Normalize();*/
+            bulletPrefab.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, fBulletAngle));
+            bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletPrefab.transform.rotation);
         }
 
         else if(bullet.IsDestroyed())

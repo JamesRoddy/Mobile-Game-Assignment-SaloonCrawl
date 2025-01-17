@@ -14,6 +14,7 @@ public class TouchControls : MonoBehaviour
     private Vector2 direction;
     private Vector2 touchInitialPos = Vector2.zero;
     bool bSwiping = false;
+    public Vector2 touchPos;
 
     void Start()
     {
@@ -33,7 +34,7 @@ public class TouchControls : MonoBehaviour
 
                 touchInitialPos = touch.position;
             }
-            Vector2 touchPos = touch.position;
+            touchPos = touch.position;
             checkSwipe(touch);
 
             if(!bSwiping)
@@ -52,11 +53,10 @@ public class TouchControls : MonoBehaviour
             Debug.Log("Tapping");
             player.shouldShoot = true;
 
-            player.touchPos = Camera.main.ScreenToWorldPoint(touch.position);
-            //Debug.Log("TouchPos" + player.touchPos);
-            /*player.fBulletAngle = Mathf.Atan2(touch.position.y - player.bulletSpawnPoint.position.y, touch.position.x - player.bulletSpawnPoint.position.x) * Mathf.Rad2Deg;
-            Debug.Log("Bullet Angle:" + player.fBulletAngle);*/
-            //player.fBulletAngle = player.fBulletAngle - 8f;
+            touchPos = Camera.main.ScreenToWorldPoint(touch.position);
+            Debug.Log("touchPos" + touchPos);
+            player.fBulletAngle = Mathf.Atan2(touch.position.y - player.bulletSpawnPoint.position.y, touch.position.x - player.bulletSpawnPoint.position.x) * Mathf.Rad2Deg;
+            Debug.Log("Bullet Angle:" + player.fBulletAngle);
         }
     }
 
@@ -87,5 +87,10 @@ public class TouchControls : MonoBehaviour
 
 
 
+    }
+
+    public Vector2 getTouchPos()
+    {
+        return touchPos;
     }
 }
