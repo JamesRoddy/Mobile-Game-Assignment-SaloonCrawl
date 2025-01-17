@@ -51,6 +51,12 @@ public class TouchControls : MonoBehaviour
         {
             Debug.Log("Tapping");
             player.shouldShoot = true;
+
+            player.touchPos = Camera.main.ScreenToWorldPoint(touch.position);
+            //Debug.Log("TouchPos" + player.touchPos);
+            /*player.fBulletAngle = Mathf.Atan2(touch.position.y - player.bulletSpawnPoint.position.y, touch.position.x - player.bulletSpawnPoint.position.x) * Mathf.Rad2Deg;
+            Debug.Log("Bullet Angle:" + player.fBulletAngle);*/
+            //player.fBulletAngle = player.fBulletAngle - 8f;
         }
     }
 
