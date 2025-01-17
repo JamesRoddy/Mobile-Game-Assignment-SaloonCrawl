@@ -43,7 +43,7 @@ public class playerController : MonoBehaviour
     {
 
         grounded = isGrounded();
-        //addMomentum();
+        addMomentum();
         jump();
         shoot();
         CowboyAnim.SetBool("OnGround", grounded);
