@@ -12,6 +12,7 @@ public class PoolTerrainManager : MonoBehaviour
     private int poolPointer = 0;
     private int maxPoolNum = 0;
     private int objectsAvailableOnTerrainEnd = 0;
+
     private int requestsSuccessionCount = 0;
     private int maxSuccessionRequests = 0;
     private TerrainClassifications poolTerrain;
@@ -125,7 +126,7 @@ public class PoolTerrainManager : MonoBehaviour
         }
         
         pool[poolPointer].SetActive(true);
-       
+        
         return poolPointer++;
 
     }

@@ -143,11 +143,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1444eca1c930814190737fd4c13e6eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  adjacencyCount: 3
-  interactables: []
+  interactables:
+  - {fileID: 338056231070623090, guid: 6b4bfaa0042c89b4aaf86043c2137cee, type: 3}
+  minInteractables: 3
+  maxInteractables: 4
   enemies:
   - {fileID: 8740768668527974216, guid: 1a37e153a456f5046acd26686b457dc9, type: 3}
-  validAdjacentTerrainTypes: 0000000001000000
-  classification: 1
   minEnemies: 2
   maxEnemies: 4
+  validAdjacentTerrainTypes: 0000000001000000
+  classification: 1
+  adjacencyCount: 3

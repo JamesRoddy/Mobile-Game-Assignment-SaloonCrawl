@@ -14,7 +14,7 @@ public class TerrainManager : MonoBehaviour
     private TerrainClassifications nextTerrain;
     private GameObject nextActiveTerrain;
     private Vector3 initialPos = Vector3.zero;
-    Vector3 genericPadding = new Vector3(0.05f, 0.0f, 0.0f);
+    Vector3 genericPadding = new Vector3(0.01f, 0.0f, 0.0f); // TO DO: ADD Y OFFSET PADDING 
     /*    private bool terrainRequestFailed = false;
     */
     /*private int maxTerrainCycles = 4;*/
@@ -24,7 +24,9 @@ public class TerrainManager : MonoBehaviour
     private List<GameObject> activeTerrain;
     private Dictionary<TerrainClassifications, PoolTerrainManager> terrainPools = new Dictionary<TerrainClassifications, PoolTerrainManager>();
     private Dictionary<TerrainClassifications, Enemypool> enemyPools = new Dictionary<TerrainClassifications, Enemypool>();
+    private Dictionary<TerrainClassifications, InteractablePool> interactableObjectPools = new Dictionary<TerrainClassifications, InteractablePool>();
     private EnemySpawner enemySpawnHandler;
+    private InteractableSpawnManager interactableSpawnManager;
     private Camera cam;
     public void Start()
     {
@@ -33,7 +35,7 @@ public class TerrainManager : MonoBehaviour
         initialzeStartingTerrain();
         setPlayerCurrentTerrain(); 
         enemySpawnHandler = gameObject.AddComponent<EnemySpawner>(); 
-
+        interactableSpawnManager = gameObject.AddComponent<InteractableSpawnManager>(); 
 
     } 
     private void updateActiveObjects()
@@ -76,8 +78,7 @@ public class TerrainManager : MonoBehaviour
             Debug.Log("current pool going into generation " + currentType);
             TerrainGenerationPass(currentType, currentPool, 1);
 
-
-
+             
 
 
 
@@ -98,12 +99,18 @@ public class TerrainManager : MonoBehaviour
         updateActiveObjects();
         getNewTerrainChunck(terrainCycleEnd());
         enemySpawnHandler.UpdateSpawns();
+        interactableSpawnManager.UpdateSpawns();
 
     }
 
     public Enemypool getEnemPool(TerrainClassifications type)
     {
         return enemyPools[type];
+    }
+
+    public InteractablePool getInteractablePool(TerrainClassifications type)
+    {
+        return interactableObjectPools[type];
     }
 
     private void TerrainGenerationPass(TerrainClassifications currentType, PoolTerrainManager currentPool, int spawnCount) {
@@ -172,6 +179,7 @@ public class TerrainManager : MonoBehaviour
         Debug.Log("next position for terrain " + newPosition);
         current.transform.position = newPosition;
         currentTerrain.TerrainEnable();
+        currentTerrain.generatePositionsInteractables();
         TerrainGenerationPass(nextTerrain, currentPool, spawnCount);
 
 
@@ -182,16 +190,7 @@ public class TerrainManager : MonoBehaviour
 
 
 
-    private void generateEnemyCounts()
-    {
-        for (int i = 1; i < activeTerrain.Count; i++)
-        {
-            activeTerrain[i].GetComponent<TerrainType>().genEnemyNum();
-        }
-
-
-
-    }
+    
     private void valdiateNextTerrainOption(List<TerrainClassifications> adjacencyOptions)
     {
         List<TerrainClassifications> terrainOptions = new List<TerrainClassifications>();
@@ -293,12 +292,8 @@ public class TerrainManager : MonoBehaviour
     {
 
         float widthOffset = (gameObjectToOffsetFrom.GetComponent<BoxCollider2D>().bounds.size.x - gamObjectToPlace.GetComponent<BoxCollider2D>().bounds.size.x) / 2.0f;
-
-
         return new Vector3(gameObjectToOffsetFrom.transform.position.x + ((gamObjectToPlace.GetComponent<BoxCollider2D>().bounds.size.x + widthOffset) + genericPadding.x),
                                                               gameObjectToOffsetFrom.transform.position.y, gameObjectToOffsetFrom.transform.position.z);
-
-
 
     }
 
@@ -317,18 +312,20 @@ public class TerrainManager : MonoBehaviour
             int minEnemyNum = terrainType.MinEnemies;
             int maxEnemyNum = terrainType.MaxEnemies;
             List<GameObject> enemies = terrainType.Enemies;
+            List<GameObject> interactables = terrainType.Interactables;
             terrainPools[classification] = gameObject.AddComponent<PoolTerrainManager>();
 
             terrainPools[classification].setValues(terrain, poolNum);
             enemyPools[classification] = gameObject.AddComponent<Enemypool>();
-
             enemyPools[classification].setValues(enemies, maxEnemyNum, minEnemyNum);
 
+            interactableObjectPools[classification] = gameObject.AddComponent<InteractablePool>();
+            interactableObjectPools[classification].setValues(interactables);
         }
       
 
 
-        activeTerrain = new List<GameObject>() { };
+        activeTerrain = new List<GameObject>();
         requestTerrainFromPool(TerrainClassifications.SALOON);
         
 

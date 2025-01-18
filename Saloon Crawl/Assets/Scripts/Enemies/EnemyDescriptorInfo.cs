@@ -5,8 +5,8 @@ using UnityEngine;
 public abstract class EnemyDescriptorInfo : MonoBehaviour
 {
 
-    [SerializeField] protected float spawnInterval;
-
+    [SerializeField] protected List<float> spawnIntervals ;
+    private float spawnInterval = 0.0f;
     public float SpawnInterval
     {
         get { return spawnInterval; }
@@ -14,7 +14,21 @@ public abstract class EnemyDescriptorInfo : MonoBehaviour
     }
 
 
+    public void assignSpawnValues() 
+    {
 
+        if (spawnIntervals.Count > 0) {
+
+            spawnInterval = spawnIntervals[Random.Range(0, spawnIntervals.Count)];
+            Debug.Log("SPAWNING ENEMY assigning new spawn interval " + spawnInterval);
+        }
+
+    
+
+        
+    
+    
+    }
 
 
 
