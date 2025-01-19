@@ -7,7 +7,6 @@ public class InteractablePool : MonoBehaviour
 
 
     private int maxSpawnCount = 0;
-
     private bool hasDeffered = false;
     private GameObject defferedInteractable;
 
@@ -59,6 +58,23 @@ public class InteractablePool : MonoBehaviour
     public GameObject getRandomAvailableObject()
     {
 
+        if(hasDeffered && active.Count>0)
+        {
+
+            if (active[0].activeSelf == false)
+            {
+                Debug.Log(" SPAWNINNG INTERACTABLES  pool if no longer deffered found inactive object in active");
+                hasDeffered = false;
+                pool.Add(active[0]);
+                active.Remove(active[0]);
+                
+
+                
+            }
+
+
+
+        }
 
         if (pool.Count > 0)
         {
@@ -67,7 +83,7 @@ public class InteractablePool : MonoBehaviour
             hasDeffered = false;
             Debug.Log("SPAWNING INTERACTABLES getting random interactable");
             interactable = pool[Random.Range(0, pool.Count)];
-            interactable.SetActive(true);
+  
             active.Add(interactable);
             pool.Remove(interactable);
             Debug.Log("SPAWNING INTERACTABLES new active count after request  " + active.Count + "new pool count " + pool.Count);
@@ -75,10 +91,10 @@ public class InteractablePool : MonoBehaviour
         }
 
 
-        if (!hasDeffered)
+        if (defferedInteractable == null)
         {
+            Debug.Log(" SPAWNING INTERACTABLES pool has deffered ");
 
-            hasDeffered = true;
 
             defferedInteractable = active[Random.Range(0, active.Count)];
             defferedInteractable.GetComponent<Interactable>().DefferedSpawn = true;
@@ -92,9 +108,13 @@ public class InteractablePool : MonoBehaviour
 
     }
 
-    public bool hasAvailableObject()
+    public bool hasAvailableObject(TerrainType currentTerrain)
     {
-
+        hasDeffered = pool.Count == 0 && !currentTerrain.hasMetInteractableRequest() ? true : false;
+        if(hasDeffered)
+        {
+            Debug.Log("SPAWNING INTERACTABLES pool has deffered for type " + currentTerrain.GetClassification +" has deffered is true: "+ hasDeffered);
+        }
 
         return pool.Count > 0 || hasDeffered;
 

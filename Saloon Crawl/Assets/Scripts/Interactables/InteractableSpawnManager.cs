@@ -27,19 +27,20 @@ public class InteractableSpawnManager : MonoBehaviour
         {
             
             initialsSet = true;
-            Debug.Log("condition to spawn interactables met terrain does not have interactables  " + !(player.CurrentTerrain.NextTerrainType.HasInteractables) + " player was close to end of current terrain is " + player.isCloseToEndOfCurrentterrain());
+            Debug.Log("condition to spawn interactables met terrain does not have interactables  " + !(player.CurrentTerrain.NextTerrainType.HasInteractables) + " player was close to end of current terrain is " + player.isCloseToEndOfCurrentterrain() +"pool has not deffered "+!currentPool.HasDeffered);
               currentTerrainType = player.CurrentTerrain.NextTerrainType;
             Debug.Log("current terrain type " + currentTerrainType.GetClassification);
             currentPoolType = player.CurrentTerrain.NextTerrainOn;
             Debug.Log("current pool type " + currentPoolType);
-            currentPool = terrainManager.getInteractablePool(currentPoolType);
             currentPool.updateActiveObjects();
+            currentPool = terrainManager.getInteractablePool(currentPoolType);
+         
              
         }
 
-        if(initialsSet && currentPool.hasAvailableObject( ))
+        if(initialsSet && currentPool.hasAvailableObject(currentTerrainType))
         {
-            Debug.Log("SPAWNING INTERACTABLES  spawning interactables for current pool " + currentPoolType + "has available object " + currentPool.hasAvailableObject() + "has deffered "+currentPool.HasDeffered);
+            Debug.Log("SPAWNING INTERACTABLES  spawning interactables for current pool " + currentPoolType + "has available object " + currentPool.hasAvailableObject(currentTerrainType) + "has deffered "+currentPool.HasDeffered);
 
             currentTerrainType.spawnInteractableObjects(currentPool);
 
