@@ -12,13 +12,12 @@ public class TouchControls : MonoBehaviour
     // Start is called before the first frame update
     private playerController player;
     private Vector2 direction;
-
     private Vector2 touchInitialPos = Vector2.zero;
+    bool bSwiping = false;
+    public Vector2 touchPos;
 
     void Start()
     {
-
-
         player = FindObjectOfType<playerController>();
         Debug.Log("start");
     }
@@ -35,13 +34,33 @@ public class TouchControls : MonoBehaviour
 
                 touchInitialPos = touch.position;
             }
-            Vector2 touchPos = touch.position;
+            touchPos = touch.position;
             checkSwipe(touch);
 
-
-
+            if(!bSwiping)
+            {
+                checkTap(touch, phase);
+            }
+            
         }
+        
+    }
 
+    void checkTap(Touch touch, TouchPhase phase)
+    {
+        if(phase == TouchPhase.Ended)
+        {
+            Debug.Log("Tapping");
+            player.shouldShoot = true;
+
+            touchPos = Camera.main.ScreenToWorldPoint(touch.position);
+            Debug.Log("touchPos" + touchPos);
+
+            Vector2 store = Camera.main.ScreenToWorldPoint(touch.position) - player.bulletSpawnPoint.position; 
+
+            player.fBulletAngle = Mathf.Atan2( store.y, store.x) * Mathf.Rad2Deg;
+            Debug.Log("Bullet Angle:" + player.fBulletAngle);
+        }
     }
 
 
@@ -60,10 +79,21 @@ public class TouchControls : MonoBehaviour
             Debug.Log("ended");
             player.ShouldJump = true;
             direction = Vector2.zero;
+            bSwiping = true ;
+        }
+
+        else
+        {
+            bSwiping= false ;
         }
 
 
 
 
+    }
+
+    public Vector2 getTouchPos()
+    {
+        return touchPos;
     }
 }
