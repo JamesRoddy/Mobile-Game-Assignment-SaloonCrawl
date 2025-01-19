@@ -83,6 +83,7 @@ public class playerController : MonoBehaviour
 
         else if(bullet.IsDestroyed())
         {
+            shouldShoot = false ;
             invoked = false;
         }
     }
