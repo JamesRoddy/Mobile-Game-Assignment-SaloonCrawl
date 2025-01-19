@@ -7,7 +7,6 @@ public class Bullet : MonoBehaviour
 {
     Rigidbody2D bullet;
     float fBulletSpeed = 30f;
-    Vector3 bulletVelocity;
     public Vector2 Dir;
     TouchControls control;
     playerController player;
@@ -21,14 +20,13 @@ public class Bullet : MonoBehaviour
         control = FindObjectOfType<TouchControls>();
         player = FindObjectOfType<playerController>();
         bullet = GetComponent<Rigidbody2D>();
-        bulletVelocity = this.transform.right * fBulletSpeed;
     }
 
     // Update is called once per frame
     void Update()
     {
         
-        Destroy(this.gameObject, 1f);
+        Destroy(this.gameObject, 0.5f);
 
         Dir = control.getTouchPos() - (new Vector2(player.bulletSpawnPoint.transform.position.x, player.bulletSpawnPoint.transform.position.y));
         Debug.Log("Dir" + Dir);
