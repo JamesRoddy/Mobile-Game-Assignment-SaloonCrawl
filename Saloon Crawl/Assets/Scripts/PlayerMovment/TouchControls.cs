@@ -16,12 +16,11 @@ public class TouchControls : MonoBehaviour
     private Vector2 touchInitialPos = Vector2.zero;
     bool bSwiping = false;
     public Vector2 touchPos;
+    public bool bSwipeRight = false;
 
     void Start()
     {
         player = FindObjectOfType<playerController>();
-
-        kick = FindAnyObjectByType<Kick>();
         Debug.Log("start");
 
     }
@@ -84,7 +83,7 @@ public class TouchControls : MonoBehaviour
         {
 
             //Debug.Log("ended");
-
+            Debug.Log("Swipe up");
             player.ShouldJump = true;
             direction = Vector2.zero;
             bSwiping = true ;
@@ -93,14 +92,15 @@ public class TouchControls : MonoBehaviour
         else if(touch.phase == TouchPhase.Ended && direction.x > 0.0f)
         {
             Debug.Log("Swiping Right");
-            kick.isKicking = true;
+            bSwipeRight = true;
             direction = Vector2.zero;
             bSwiping = true;
         }
 
         else
         {
-            bSwiping= false ;
+            bSwiping = false ;
+            bSwipeRight = false ;
         }
 
 
