@@ -89,12 +89,20 @@ public class TouchControls : MonoBehaviour
             bSwiping = true ;
         }
 
-        else if(touch.phase == TouchPhase.Ended && direction.x > 0.0f)
+        else if(touch.phase == TouchPhase.Ended && direction.x > 150.0f)
         {
             Debug.Log("Swiping Right");
             bSwipeRight = true;
             direction = Vector2.zero;
             bSwiping = true;
+        }
+
+        else if(touch.phase == TouchPhase.Ended && direction.y < 0.0f)
+        {
+            player.shouldSlide = true;
+            direction = Vector2.zero;
+            bSwiping = true;
+            
         }
 
         else
