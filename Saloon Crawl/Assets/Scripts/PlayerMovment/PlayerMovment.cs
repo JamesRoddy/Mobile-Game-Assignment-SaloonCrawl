@@ -34,7 +34,7 @@ public class playerController : MonoBehaviour
     {
         playerBoxCollider = GetComponent<BoxCollider2D>();
         playerRigidBody = GetComponent<Rigidbody2D>();
-        CowboyAnim = GetComponent<Animator>();
+     /*   CowboyAnim = GetComponent<Animator>();*/
         bull = FindObjectOfType<Bullet>();
     }
 
@@ -46,7 +46,7 @@ public class playerController : MonoBehaviour
         addMomentum();
         jump();
         shoot();
-        CowboyAnim.SetBool("OnGround", grounded);
+/*        CowboyAnim.SetBool("OnGround", grounded);*/
 
 
     }
@@ -89,7 +89,13 @@ public class playerController : MonoBehaviour
         }
     }
 
+    public bool isCloseToEndOfCurrentterrain()
+    {
 
+
+        return Vector3.SqrMagnitude((currentTerrain.transform.position + currentTerrain.GetComponent<TerrainType>().getHalfScale) - transform.position) <= minDistanceToEndOfCurrentTerrain;
+
+    }
     public Vector2 playerPosVec2
     {
         get { return new Vector2(transform.position.x, transform.position.y); }
