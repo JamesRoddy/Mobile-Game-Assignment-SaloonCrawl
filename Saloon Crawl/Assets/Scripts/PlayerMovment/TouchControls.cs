@@ -11,16 +11,19 @@ public class TouchControls : MonoBehaviour
 {
    
     private playerController player;
+    private Kick kick;
     private Vector2 direction;
-
     private Vector2 touchInitialPos = Vector2.zero;
+    bool bSwiping = false;
+    public Vector2 touchPos;
 
     void Start()
     {
-
-
         player = FindObjectOfType<playerController>();
-     
+
+        kick = FindAnyObjectByType<Kick>();
+        Debug.Log("start");
+
     }
 
     
@@ -35,13 +38,33 @@ public class TouchControls : MonoBehaviour
 
                 touchInitialPos = touch.position;
             }
-            Vector2 touchPos = touch.position;
+            touchPos = touch.position;
             checkSwipe(touch);
 
-
-
+            if(!bSwiping)
+            {
+                checkTap(touch, phase);
+            }
+            
         }
+        
+    }
 
+    void checkTap(Touch touch, TouchPhase phase)
+    {
+        if(phase == TouchPhase.Ended)
+        {
+            //Debug.Log("Tapping");
+            player.shouldShoot = true;
+
+            touchPos = Camera.main.ScreenToWorldPoint(touch.position);
+            //Debug.Log("touchPos" + touchPos);
+
+            Vector2 store = Camera.main.ScreenToWorldPoint(touch.position) - player.bulletSpawnPoint.position; 
+
+            player.fBulletAngle = Mathf.Atan2( store.y, store.x) * Mathf.Rad2Deg;
+           // Debug.Log("Bullet Angle:" + player.fBulletAngle);
+        }
     }
 
 
@@ -49,21 +72,44 @@ public class TouchControls : MonoBehaviour
     {
 
 
-   
+
+        //Debug.Log("touch moving");
+
         direction = touch.position - touchInitialPos;
 
 
 
 
-        if (touch.phase == TouchPhase.Ended && direction.y > 0.0f && player.CanJump)
+        if (touch.phase == TouchPhase.Ended && direction.y > 100.0f && player.CanJump)
         {
-            
+
+            //Debug.Log("ended");
+
             player.ShouldJump = true;
             direction = Vector2.zero;
+            bSwiping = true ;
+        }
+
+        else if(touch.phase == TouchPhase.Ended && direction.x > 0.0f)
+        {
+            Debug.Log("Swiping Right");
+            kick.isKicking = true;
+            direction = Vector2.zero;
+            bSwiping = true;
+        }
+
+        else
+        {
+            bSwiping= false ;
         }
 
 
 
 
+    }
+
+    public Vector2 getTouchPos()
+    {
+        return touchPos;
     }
 }

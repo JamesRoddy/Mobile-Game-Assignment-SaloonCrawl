@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class playerController : MonoBehaviour
@@ -17,11 +18,24 @@ public class playerController : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
     bool grounded = false;
     float jumpVelocity = 5.0f;
+    private Animator CowboyAnim;
+
+    //Shooting variables
+    public bool shouldShoot = false;
+    public Transform bulletSpawnPoint;
+    public GameObject bulletPrefab;
+    public bool invoked = false;
+    public float fBulletAngle;
+    GameObject bullet;
+    Bullet bull;
+
     // Start is called before the first frame update
     void Start()
     {
         playerBoxCollider = GetComponent<BoxCollider2D>();
         playerRigidBody = GetComponent<Rigidbody2D>();
+        CowboyAnim = GetComponent<Animator>();
+        bull = FindObjectOfType<Bullet>();
     }
 
     // Update is called once per frame
@@ -31,7 +45,8 @@ public class playerController : MonoBehaviour
         grounded = isGrounded();
         addMomentum();
         jump();
-
+        shoot();
+        CowboyAnim.SetBool("OnGround", grounded);
 
 
     }
@@ -55,13 +70,25 @@ public class playerController : MonoBehaviour
 
     }
 
-    public bool isCloseToEndOfCurrentterrain()
+
+    private void shoot()
     {
+        //Debug.Log("Bullet Destroyed: " + bullet.IsDestroyed());
+        if (shouldShoot && !invoked)
+        {
+            invoked = true;
+            shouldShoot = false;
+            bulletPrefab.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, fBulletAngle));
+            bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletPrefab.transform.rotation);
+        }
 
-
-        return Vector3.SqrMagnitude((currentTerrain.transform.position + currentTerrain.GetComponent<TerrainType>().getHalfScale) - transform.position)<=minDistanceToEndOfCurrentTerrain;
-
+        else if(bullet.IsDestroyed())
+        {
+            shouldShoot = false ;
+            invoked = false;
+        }
     }
+
 
     public Vector2 playerPosVec2
     {
@@ -102,7 +129,9 @@ public class playerController : MonoBehaviour
     bool isGrounded()
     {
 
+
         RaycastHit2D hit = Physics2D.BoxCast(playerBoxCollider.bounds.center, playerBoxCollider.bounds.size, 0, Vector2.down, 0.01f, groundLayer);
+
 
         return hit.collider != null;
     }
