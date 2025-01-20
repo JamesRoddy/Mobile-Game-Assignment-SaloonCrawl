@@ -28,6 +28,8 @@ public class playerController : MonoBehaviour
     public float fBulletAngle;
     GameObject bullet;
     Bullet bull;
+    public GameObject arm;
+
 
     // Start is called before the first frame update
     void Start()
@@ -79,6 +81,7 @@ public class playerController : MonoBehaviour
             invoked = true;
             shouldShoot = false;
             bulletPrefab.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, fBulletAngle));
+            arm.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, fBulletAngle));
             bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletPrefab.transform.rotation);
         }
 
