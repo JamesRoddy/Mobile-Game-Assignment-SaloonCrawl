@@ -21,8 +21,7 @@ public class InteractableSpawnManager : MonoBehaviour
 
    public void UpdateSpawns()
     {
-        Debug.Log("update spawns interactables");
-
+     
         if ( !(player.CurrentTerrain.NextTerrainType.HasInteractables) &&  player.isCloseToEndOfCurrentterrain()  && !currentPool.HasDeffered  )
         {
             

@@ -11,9 +11,9 @@ public class playerController : MonoBehaviour
     private BoxCollider2D playerBoxCollider;
     private Rigidbody2D playerRigidBody;
     private TerrainType currentTerrain;
-
+    private int currentTerrainCycles;
     private float playerSpeed = 3.0f;
-    private float minDistanceToEndOfCurrentTerrain = 25.0f;
+    private float minDistanceToEndOfCurrentTerrain = 400.0f;
     private bool shouldJump = false;
     [SerializeField] LayerMask groundLayer;
     bool grounded = false;
@@ -34,7 +34,7 @@ public class playerController : MonoBehaviour
     {
         playerBoxCollider = GetComponent<BoxCollider2D>();
         playerRigidBody = GetComponent<Rigidbody2D>();
-     /*   CowboyAnim = GetComponent<Animator>();*/
+        /*   CowboyAnim = GetComponent<Animator>();*/
         bull = FindObjectOfType<Bullet>();
     }
 
@@ -46,7 +46,7 @@ public class playerController : MonoBehaviour
         addMomentum();
         jump();
         shoot();
-/*        CowboyAnim.SetBool("OnGround", grounded);*/
+        /*        CowboyAnim.SetBool("OnGround", grounded);*/
 
 
     }
@@ -82,11 +82,21 @@ public class playerController : MonoBehaviour
             bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletPrefab.transform.rotation);
         }
 
-        else if(bullet.IsDestroyed())
+        else if (bullet.IsDestroyed())
         {
-            shouldShoot = false ;
+            shouldShoot = false;
             invoked = false;
         }
+    }
+
+    public bool CurrentTerrainCyclesIsMultiple(int numberToTest) {
+
+        if (numberToTest == 0)
+        {
+            return true;
+        }
+
+        return currentTerrainCycles % numberToTest == 0;
     }
 
     public bool isCloseToEndOfCurrentterrain()
@@ -127,11 +137,22 @@ public class playerController : MonoBehaviour
         get { return currentTerrain; }
     }
 
+    public GameObject getCurrentTerrainGameObject
+    {
+        get { return currentTerrain.gameObject; }
+    }
+
+    public int getTerrainCycles
+    {
+        get { return currentTerrainCycles; }
+        set { currentTerrainCycles = value; }
+    }
     public TerrainClassifications CurrentTerrainClassification
     {
 
         get { return currentTerrain.GetComponent<TerrainType>().GetClassification; }
-    }
+    } 
+
     bool isGrounded()
     {
 
