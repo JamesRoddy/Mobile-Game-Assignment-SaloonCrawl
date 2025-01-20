@@ -10,10 +10,10 @@ public class playerController : MonoBehaviour
 
     private BoxCollider2D playerBoxCollider;
     private Rigidbody2D playerRigidBody;
-
+    private TerrainType currentTerrain;
 
     private float playerSpeed = 3.0f;
-
+    private float minDistanceToEndOfCurrentTerrain = 25.0f;
     private bool shouldJump = false;
     [SerializeField] LayerMask groundLayer;
     bool grounded = false;
@@ -34,7 +34,7 @@ public class playerController : MonoBehaviour
     {
         playerBoxCollider = GetComponent<BoxCollider2D>();
         playerRigidBody = GetComponent<Rigidbody2D>();
-        CowboyAnim = GetComponent<Animator>();
+     /*   CowboyAnim = GetComponent<Animator>();*/
         bull = FindObjectOfType<Bullet>();
     }
 
@@ -46,7 +46,7 @@ public class playerController : MonoBehaviour
         addMomentum();
         jump();
         shoot();
-        CowboyAnim.SetBool("OnGround", grounded);
+/*        CowboyAnim.SetBool("OnGround", grounded);*/
 
 
     }
@@ -70,6 +70,7 @@ public class playerController : MonoBehaviour
 
     }
 
+
     private void shoot()
     {
         //Debug.Log("Bullet Destroyed: " + bullet.IsDestroyed());
@@ -83,11 +84,18 @@ public class playerController : MonoBehaviour
 
         else if(bullet.IsDestroyed())
         {
+            shouldShoot = false ;
             invoked = false;
         }
     }
 
+    public bool isCloseToEndOfCurrentterrain()
+    {
 
+
+        return Vector3.SqrMagnitude((currentTerrain.transform.position + currentTerrain.GetComponent<TerrainType>().getHalfScale) - transform.position) <= minDistanceToEndOfCurrentTerrain;
+
+    }
     public Vector2 playerPosVec2
     {
         get { return new Vector2(transform.position.x, transform.position.y); }
@@ -111,11 +119,26 @@ public class playerController : MonoBehaviour
     {
         get { return grounded; }
     }
+
+
+    public TerrainType CurrentTerrain
+    {
+        set { currentTerrain = value; }
+        get { return currentTerrain; }
+    }
+
+    public TerrainClassifications CurrentTerrainClassification
+    {
+
+        get { return currentTerrain.GetComponent<TerrainType>().GetClassification; }
+    }
     bool isGrounded()
     {
 
-        RaycastHit2D hit = Physics2D.BoxCast(playerBoxCollider.bounds.center, playerBoxCollider.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
-        
+
+        RaycastHit2D hit = Physics2D.BoxCast(playerBoxCollider.bounds.center, playerBoxCollider.bounds.size, 0, Vector2.down, 0.01f, groundLayer);
+
+
         return hit.collider != null;
     }
 
