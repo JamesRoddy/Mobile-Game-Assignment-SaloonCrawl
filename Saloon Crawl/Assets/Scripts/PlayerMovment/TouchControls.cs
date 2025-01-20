@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 public class TouchControls : MonoBehaviour
 {
-    // Start is called before the first frame update
+   
     private playerController player;
     private Kick kick;
     private Vector2 direction;
@@ -20,11 +20,13 @@ public class TouchControls : MonoBehaviour
     void Start()
     {
         player = FindObjectOfType<playerController>();
+
         kick = FindAnyObjectByType<Kick>();
         Debug.Log("start");
+
     }
 
-    // Update is called once per frame
+    
     void Update()
     {
         if (Input.touchCount > 0)
@@ -70,15 +72,19 @@ public class TouchControls : MonoBehaviour
     {
 
 
+
         //Debug.Log("touch moving");
+
         direction = touch.position - touchInitialPos;
-        Debug.Log(direction + " swipe dir : initial pos " + touchInitialPos + " touch position " + touch.position);
+
 
 
 
         if (touch.phase == TouchPhase.Ended && direction.y > 100.0f && player.CanJump)
         {
+
             //Debug.Log("ended");
+
             player.ShouldJump = true;
             direction = Vector2.zero;
             bSwiping = true ;

@@ -10,10 +10,10 @@ public class playerController : MonoBehaviour
 
     private BoxCollider2D playerBoxCollider;
     private Rigidbody2D playerRigidBody;
-
+    private TerrainType currentTerrain;
 
     private float playerSpeed = 3.0f;
-
+    private float minDistanceToEndOfCurrentTerrain = 25.0f;
     private bool shouldJump = false;
     [SerializeField] LayerMask groundLayer;
     bool grounded = false;
@@ -70,6 +70,7 @@ public class playerController : MonoBehaviour
 
     }
 
+
     private void shoot()
     {
         //Debug.Log("Bullet Destroyed: " + bullet.IsDestroyed());
@@ -112,11 +113,26 @@ public class playerController : MonoBehaviour
     {
         get { return grounded; }
     }
+
+
+    public TerrainType CurrentTerrain
+    {
+        set { currentTerrain = value; }
+        get { return currentTerrain; }
+    }
+
+    public TerrainClassifications CurrentTerrainClassification
+    {
+
+        get { return currentTerrain.GetComponent<TerrainType>().GetClassification; }
+    }
     bool isGrounded()
     {
 
-        RaycastHit2D hit = Physics2D.BoxCast(playerBoxCollider.bounds.center, playerBoxCollider.bounds.size, 0, Vector2.down, 0.1f, groundLayer);
-        
+
+        RaycastHit2D hit = Physics2D.BoxCast(playerBoxCollider.bounds.center, playerBoxCollider.bounds.size, 0, Vector2.down, 0.01f, groundLayer);
+
+
         return hit.collider != null;
     }
 
