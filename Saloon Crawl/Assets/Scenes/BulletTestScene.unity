@@ -140,7 +140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6754898561163644246, guid: 48ac21e689e8c524bbad3c8a85c4ec74, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.7
+      value: 4.9
       objectReference: {fileID: 0}
     - target: {fileID: 6754898561163644246, guid: 48ac21e689e8c524bbad3c8a85c4ec74, type: 3}
       propertyPath: m_LocalPosition.y
@@ -181,6 +181,10 @@ PrefabInstance:
     - target: {fileID: 7446649514056780627, guid: 48ac21e689e8c524bbad3c8a85c4ec74, type: 3}
       propertyPath: m_Name
       value: Stool-1.png (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7446649514056780627, guid: 48ac21e689e8c524bbad3c8a85c4ec74, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -600,6 +604,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cactus.png (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 5375781003310198972, guid: 7e72d0d47cf503442ba2ec7f992b3933, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -707,6 +715,11 @@ MonoBehaviour:
   fBulletAngle: 0
   arm: {fileID: 1768179338}
   shouldSlide: 0
+  bulletShot: {fileID: 8300000, guid: e872b28621f84dc468f705c1d44af5c4, type: 3}
+  jumpSound: {fileID: 8300000, guid: 8f736abdb14e62c46a6afc014291baba, type: 3}
+  slideSound: {fileID: 0}
+  kickSound: {fileID: 8300000, guid: 969e4e7db2da66046889e75a1f3d5a25, type: 3}
+  runSound: {fileID: 0}
 --- !u!50 &612045290
 Rigidbody2D:
   serializedVersion: 4
@@ -919,7 +932,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6754898561163644246, guid: 48ac21e689e8c524bbad3c8a85c4ec74, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.4600568
+      value: 1.77
       objectReference: {fileID: 0}
     - target: {fileID: 6754898561163644246, guid: 48ac21e689e8c524bbad3c8a85c4ec74, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1495,6 +1508,10 @@ PrefabInstance:
     - target: {fileID: 5375781003310198972, guid: 7e72d0d47cf503442ba2ec7f992b3933, type: 3}
       propertyPath: m_Name
       value: Cactus.png
+      objectReference: {fileID: 0}
+    - target: {fileID: 5375781003310198972, guid: 7e72d0d47cf503442ba2ec7f992b3933, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

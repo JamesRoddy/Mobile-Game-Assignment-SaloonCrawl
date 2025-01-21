@@ -49,7 +49,6 @@ public class Kick : MonoBehaviour
 
         if (bKicked)
         {
-            Debug.Log("After Kicked");
             if (Physics2D.OverlapCircle(transform.position, fCollisionRadius, Ground))
             {
                 Destroy(this.gameObject);
@@ -64,15 +63,13 @@ public class Kick : MonoBehaviour
         else
         {
             //Debug.Log("Reset Booleans");
-            bKicked = false;
+            bKicked = false; 
         }
-
 
     }
 
     void replaceSprites()
     {
-        Debug.Log("Replace sprites");
         var stoolBottom = Instantiate(brokenStoolBottom, kickable.transform.position, kickable.transform.rotation);
         var stoolTop = Instantiate(brokenStoolTop, kickable.transform.position, kickable.transform.rotation);
         Destroy(this.gameObject);
