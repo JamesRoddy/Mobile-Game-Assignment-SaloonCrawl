@@ -51,6 +51,10 @@ public class CollectiblesPool : MonoBehaviour
 
 
 
+    public int MaxPoolAmount
+    {
+        get { return maxPoolAmount; }
+    }
 
 
 
