@@ -35,7 +35,7 @@ public class Kick : MonoBehaviour
     {
         if (player.transform.position.x >= kickPosition.transform.position.x && player.transform.position.x < kickable.transform.position.x && control.bSwipeRight)
         {
-            Debug.Log("Kicked");
+            //Debug.Log("Kicked");
             kickable.velocity = kickableVelocity;
             control.bSwipeRight = false;
             bKicked = true;
@@ -43,7 +43,7 @@ public class Kick : MonoBehaviour
 
         if (kickable.transform.position.y > 0.0f)
         {
-            Debug.Log("Rotated");
+            //Debug.Log("Rotated");
             kickable.transform.Rotate(0f, 0f, Time.deltaTime * 1000f, Space.World);
         }
 

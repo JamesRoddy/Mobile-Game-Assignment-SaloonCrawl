@@ -11,12 +11,12 @@ public class TouchControls : MonoBehaviour
 {
    
     private playerController player;
-    private Kick kick;
     private Vector2 direction;
     private Vector2 touchInitialPos = Vector2.zero;
     bool bSwiping = false;
     public Vector2 touchPos;
     public bool bSwipeRight = false;
+    float t;
 
     private Animator CowboyAnim;
 
@@ -80,7 +80,7 @@ public class TouchControls : MonoBehaviour
         //Debug.Log("touch moving");
 
         direction = touch.position - touchInitialPos;
-
+        
 
 
 
@@ -96,12 +96,26 @@ public class TouchControls : MonoBehaviour
 
         else if(touch.phase == TouchPhase.Ended && direction.x > 150.0f)
         {
-            Debug.Log("Swiping Right");
-            bSwipeRight = true;
+            //Debug.Log("Swiping Right");
+            t += Time.deltaTime;
+
             direction = Vector2.zero;
+            Debug.Log(t);
+            
             bSwiping = true;
-            CowboyAnim.SetBool("Kick", true);
-            Debug.Log("Kick is" + CowboyAnim.GetBool("Kick"));
+            /* CowboyAnim.SetBool("Kick", true);
+             Debug.Log("Kick is" + CowboyAnim.GetBool("Kick"));*/
+
+            bSwipeRight = true;
+            if (bSwipeRight && t > 0.0011f)
+            {
+                Debug.Log("Stopping swipe");
+                bSwipeRight = false;
+                t = 0f;
+            }
+            Debug.Log("Swiping Right" + bSwipeRight);
+           
+
         }
 
         else if(touch.phase == TouchPhase.Ended && direction.y < 0.0f)
