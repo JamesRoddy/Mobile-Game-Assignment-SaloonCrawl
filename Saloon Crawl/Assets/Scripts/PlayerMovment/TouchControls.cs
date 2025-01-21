@@ -18,9 +18,14 @@ public class TouchControls : MonoBehaviour
     public Vector2 touchPos;
     public bool bSwipeRight = false;
 
+    private Animator CowboyAnim;
+
     void Start()
     {
         player = FindObjectOfType<playerController>();
+
+        CowboyAnim = GetComponent<Animator>();
+
         Debug.Log("start");
 
     }
@@ -95,6 +100,8 @@ public class TouchControls : MonoBehaviour
             bSwipeRight = true;
             direction = Vector2.zero;
             bSwiping = true;
+            CowboyAnim.SetBool("Kick", true);
+            Debug.Log("Kick is" + CowboyAnim.GetBool("Kick"));
         }
 
         else if(touch.phase == TouchPhase.Ended && direction.y < 0.0f)

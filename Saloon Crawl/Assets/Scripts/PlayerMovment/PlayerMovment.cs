@@ -40,7 +40,7 @@ public class playerController : MonoBehaviour
     {
         playerBoxCollider = GetComponent<BoxCollider2D>();
         playerRigidBody = GetComponent<Rigidbody2D>();
-        /*   CowboyAnim = GetComponent<Animator>();*/
+        CowboyAnim = GetComponent<Animator>();
         bull = FindObjectOfType<Bullet>();
     }
 
@@ -54,7 +54,7 @@ public class playerController : MonoBehaviour
         shoot();
 
         slide();
-/*        CowboyAnim.SetBool("OnGround", grounded);*/
+        CowboyAnim.SetBool("OnGround", grounded);
 
 
 
@@ -129,6 +129,7 @@ public class playerController : MonoBehaviour
         float fStoreY = playerBoxCollider.size.y;
         shouldSlide = false;
         isSliding = true;
+        CowboyAnim.SetBool("IsSliding", true);
 
         if (!CanJump)
         {
@@ -147,6 +148,8 @@ public class playerController : MonoBehaviour
         playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, 0f);
         playerBoxCollider.size = new Vector2(fStoreX, fStoreY);
         isSliding = false;
+
+        CowboyAnim.SetBool("IsSliding", false);
 
         
         Debug.Log("shouldSlide3: " + shouldSlide);
