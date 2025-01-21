@@ -33,21 +33,23 @@ public class Kick : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if ((player.transform.position.x >= kickPosition.transform.position.x && player.transform.position.x < kickable.transform.position.x) && isKicking)
+        if ((player.transform.position.x >= kickPosition.transform.position.x && player.transform.position.x < kickable.transform.position.x) && control.bSwipeRight)
         {
+            Debug.Log("Kicked");
             kickable.velocity = kickableVelocity;
-            isKicking = false;
+            control.bSwipeRight = false;
             bKicked = true;
         }
 
         if (kickable.transform.position.y > 0.0f)
         {
+            Debug.Log("Rotated");
             kickable.transform.Rotate(0f, 0f, Time.deltaTime * 1000f, Space.World);
         }
 
-        if(bKicked)
+        if (bKicked)
         {
+            Debug.Log("After Kicked");
             if (Physics2D.OverlapCircle(transform.position, fCollisionRadius, Ground))
             {
                 Destroy(this.gameObject);
@@ -61,6 +63,7 @@ public class Kick : MonoBehaviour
 
         else
         {
+            //Debug.Log("Reset Booleans");
             isKicking = false;
             bKicked = false;
         }
@@ -70,6 +73,7 @@ public class Kick : MonoBehaviour
 
     void replaceSprites()
     {
+        Debug.Log("Replace sprites");
         var stoolBottom = Instantiate(brokenStoolBottom, kickable.transform.position, kickable.transform.rotation);
         var stoolTop = Instantiate(brokenStoolTop, kickable.transform.position, kickable.transform.rotation);
         Destroy(this.gameObject);
