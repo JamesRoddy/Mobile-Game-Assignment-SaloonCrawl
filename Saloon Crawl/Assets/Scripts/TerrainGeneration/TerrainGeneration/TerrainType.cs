@@ -14,11 +14,12 @@ public abstract class TerrainType : MonoBehaviour
     [SerializeField] protected List<GameObject> interactableSpawnPositions;
     [SerializeField] protected int minInteractables;
     [SerializeField] protected int maxInteractables;
+    [SerializeField] protected GameObject backGroundContainer;
 
 /*    protected List<Vector3> interactableSpawnPositions = new List<Vector3>();
-*/    private float interactablesSpawnDivder = 2.0f;
+*/  private float interactablesSpawnDivder = 2.0f;
     private float interactablesSpawnPadding = 2.0f;
-
+    
     private int currentMaxInteractables = 0;
     private int interactablesCounter = 0;
     protected bool hasInteractables = false;
@@ -26,7 +27,11 @@ public abstract class TerrainType : MonoBehaviour
     Vector3 interactableSpawnLeft;
     Vector3 tempPositionForInteractable = Vector3.zero;
 
-  // enemies
+
+    Vector3 spawnRight;
+    Vector3 spawnLeft;
+
+    // enemies
     [SerializeField] protected List<GameObject> enemies;
     [SerializeField] protected int minEnemies;
     [SerializeField] protected int maxEnemies;
@@ -127,6 +132,26 @@ public abstract class TerrainType : MonoBehaviour
 
     }
   
+
+
+    public float generateRandomX()
+    {
+
+
+        return Random.Range(spawnLeft.x, spawnRight.x + 1.0f);
+    }
+
+
+    public void setEndSpawnPositions()
+    {
+
+
+   
+            spawnRight = new Vector3((transform.position.x + transform.localScale.x / interactablesSpawnDivder) - interactablesSpawnPadding, transform.position.y, transform.position.z);
+            spawnLeft = new Vector3((transform.position.x - transform.localScale.x / interactablesSpawnDivder) + interactablesSpawnPadding, interactableSpawnRight.y, interactableSpawnRight.z);
+
+
+     }
     public void generatePositionsInteractables()
     {
         hasInteractables = false;
@@ -177,11 +202,12 @@ public abstract class TerrainType : MonoBehaviour
         }*/
     }
   
-
+    
     private void Start()
     {
         TerrainStart();
-       
+        spawnRight = new Vector3((transform.position.x + transform.localScale.x / interactablesSpawnDivder) - interactablesSpawnPadding, transform.position.y, transform.position.z);
+        spawnLeft = new Vector3((transform.position.x - transform.localScale.x / interactablesSpawnDivder) + interactablesSpawnPadding, interactableSpawnRight.y, interactableSpawnRight.z);
         float test = interactableSpawnPositions[interactableSpawnPositions.Count-1].transform.position.x;
         Debug.Log("interactable spanw pos test "+ test ) ;
         
