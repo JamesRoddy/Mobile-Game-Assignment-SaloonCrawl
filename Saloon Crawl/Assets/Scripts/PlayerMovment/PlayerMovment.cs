@@ -11,9 +11,9 @@ public class playerController : MonoBehaviour
     private BoxCollider2D playerBoxCollider;
     private Rigidbody2D playerRigidBody;
     private TerrainType currentTerrain;
-
+    private int currentTerrainCycles;
     private float playerSpeed = 3.0f;
-    private float minDistanceToEndOfCurrentTerrain = 25.0f;
+    private float minDistanceToEndOfCurrentTerrain = 400.0f;
     private bool shouldJump = false;
     [SerializeField] LayerMask groundLayer;
     bool grounded = false;
@@ -28,13 +28,19 @@ public class playerController : MonoBehaviour
     public float fBulletAngle;
     GameObject bullet;
     Bullet bull;
+    public GameObject arm;
+
+    public bool shouldSlide = false;
+    bool isSliding = false;
+    float fSlidePowerY = -10f;
+
 
     // Start is called before the first frame update
     void Start()
     {
         playerBoxCollider = GetComponent<BoxCollider2D>();
         playerRigidBody = GetComponent<Rigidbody2D>();
-     /*   CowboyAnim = GetComponent<Animator>();*/
+        /*   CowboyAnim = GetComponent<Animator>();*/
         bull = FindObjectOfType<Bullet>();
     }
 
@@ -46,7 +52,10 @@ public class playerController : MonoBehaviour
         addMomentum();
         jump();
         shoot();
+
+        slide();
 /*        CowboyAnim.SetBool("OnGround", grounded);*/
+
 
 
     }
@@ -79,14 +88,69 @@ public class playerController : MonoBehaviour
             invoked = true;
             shouldShoot = false;
             bulletPrefab.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, fBulletAngle));
+            arm.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, fBulletAngle));
             bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletPrefab.transform.rotation);
         }
 
-        else if(bullet.IsDestroyed())
+        else if (bullet.IsDestroyed())
         {
-            shouldShoot = false ;
+            shouldShoot = false;
             invoked = false;
         }
+    }
+
+
+    public bool CurrentTerrainCyclesIsMultiple(int numberToTest) {
+
+        if (numberToTest == 0)
+        {
+            return true;
+        }
+
+        return currentTerrainCycles % numberToTest == 0;
+}
+    private void slide()
+    {
+        if(isSliding)
+        {
+            return;
+        }
+
+        else if (shouldSlide)
+        {
+            StartCoroutine(AdjustCollider());
+        }
+        
+    }
+
+    IEnumerator AdjustCollider()
+    {
+        float fStoreX = playerBoxCollider.size.x;
+        float fStoreY = playerBoxCollider.size.y;
+        shouldSlide = false;
+        isSliding = true;
+
+        if (!CanJump)
+        {
+            Debug.Log("Airborn");
+            playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, fSlidePowerY);
+            playerBoxCollider.size = new Vector2(fStoreY, fStoreX - 0.2f);
+        }
+
+        else
+        {
+            playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, playerRigidBody.velocity.y);
+            playerBoxCollider.size = new Vector2(fStoreY, fStoreX - 0.2f);
+        }
+
+        yield return new WaitForSeconds(0.5f);
+        playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, 0f);
+        playerBoxCollider.size = new Vector2(fStoreX, fStoreY);
+        isSliding = false;
+
+        
+        Debug.Log("shouldSlide3: " + shouldSlide);
+
     }
 
     public bool isCloseToEndOfCurrentterrain()
@@ -120,18 +184,28 @@ public class playerController : MonoBehaviour
         get { return grounded; }
     }
 
-
     public TerrainType CurrentTerrain
     {
         set { currentTerrain = value; }
         get { return currentTerrain; }
     }
 
+    public GameObject getCurrentTerrainGameObject
+    {
+        get { return currentTerrain.gameObject; }
+    }
+
+    public int getTerrainCycles
+    {
+        get { return currentTerrainCycles; }
+        set { currentTerrainCycles = value; }
+    }
     public TerrainClassifications CurrentTerrainClassification
     {
 
         get { return currentTerrain.GetComponent<TerrainType>().GetClassification; }
-    }
+    } 
+
     bool isGrounded()
     {
 

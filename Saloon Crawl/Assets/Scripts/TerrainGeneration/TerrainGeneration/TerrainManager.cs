@@ -14,7 +14,7 @@ public class TerrainManager : MonoBehaviour
     private TerrainClassifications nextTerrain;
     private GameObject nextActiveTerrain;
     private Vector3 initialPos = Vector3.zero;
-    Vector3 genericPadding = new Vector3(0.01f, 0.0f, 0.0f); // TO DO: ADD Y OFFSET PADDING 
+    Vector3 genericPadding = new Vector3(-0.01f, 0.0f, 0.0f); // TO DO: ADD Y OFFSET PADDING 
     /*    private bool terrainRequestFailed = false;
     */
     /*private int maxTerrainCycles = 4;*/
@@ -179,6 +179,7 @@ public class TerrainManager : MonoBehaviour
         Debug.Log("next position for terrain " + newPosition);
         current.transform.position = newPosition;
         currentTerrain.TerrainEnable();
+        currentTerrain.setEndSpawnPositions();
         currentTerrain.generatePositionsInteractables();
         TerrainGenerationPass(nextTerrain, currentPool, spawnCount);
 
@@ -348,6 +349,7 @@ public class TerrainManager : MonoBehaviour
         if (activeTerrain.Count == 1)
         {
             currentTerrainCycles++;
+            playerController.getTerrainCycles = currentTerrainCycles;
             return true;
         }
         return false;

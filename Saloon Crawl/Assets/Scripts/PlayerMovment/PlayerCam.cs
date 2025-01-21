@@ -8,7 +8,6 @@ public class CamMovement : MonoBehaviour
 {
 
     private float offsetX = 3.0f;
-    private float offsetY = 2.0f;
     private Camera cam;
     private playerController player;
     // Start is called before the first frame update
@@ -28,7 +27,7 @@ public class CamMovement : MonoBehaviour
 
     void updateCamPosition()
     {
-        Vector3 finalCamPos = new Vector3(player.transform.position.x + offsetX, player.transform.position.y + offsetY, cam.transform.position.z);
+        Vector3 finalCamPos = new Vector3(player.transform.position.x + offsetX, cam.transform.position.y, cam.transform.position.z);
 
         cam.transform.position = finalCamPos;
 
