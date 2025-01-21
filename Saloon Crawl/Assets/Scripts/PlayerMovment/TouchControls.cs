@@ -16,7 +16,7 @@ public class TouchControls : MonoBehaviour
     bool bSwiping = false;
     public Vector2 touchPos;
     public bool bSwipeRight = false;
-    float t;
+    public float t;
 
     private Animator CowboyAnim;
 
@@ -33,6 +33,7 @@ public class TouchControls : MonoBehaviour
     
     void Update()
     {
+        
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -44,14 +45,30 @@ public class TouchControls : MonoBehaviour
             }
             touchPos = touch.position;
             checkSwipe(touch);
-
-            if(!bSwiping)
+            if (!bSwiping)
             {
                 checkTap(touch, phase);
             }
             
         }
-        
+
+        if (bSwipeRight)
+        {
+            CowboyAnim.SetBool("Kick", true);
+            t += Time.deltaTime;
+            Debug.Log(t);
+            if (t > 0.5f)
+            {
+                Debug.Log("Stopping swipe");
+                bSwipeRight = false;
+
+                Debug.Log("Stopping Anim");
+                CowboyAnim.SetBool("Kick", false);
+                t = 0f;
+            }
+
+        }
+
     }
 
     void checkTap(Touch touch, TouchPhase phase)
@@ -97,25 +114,12 @@ public class TouchControls : MonoBehaviour
         else if(touch.phase == TouchPhase.Ended && direction.x > 150.0f)
         {
             //Debug.Log("Swiping Right");
-            t += Time.deltaTime;
-
             direction = Vector2.zero;
-            Debug.Log(t);
-            
             bSwiping = true;
-            /* CowboyAnim.SetBool("Kick", true);
-             Debug.Log("Kick is" + CowboyAnim.GetBool("Kick"));*/
-
+            Debug.Log("Kick is" + CowboyAnim.GetBool("Kick"));
             bSwipeRight = true;
-            if (bSwipeRight && t > 0.0011f)
-            {
-                Debug.Log("Stopping swipe");
-                bSwipeRight = false;
-                t = 0f;
-            }
             Debug.Log("Swiping Right" + bSwipeRight);
            
-
         }
 
         else if(touch.phase == TouchPhase.Ended && direction.y < 0.0f)

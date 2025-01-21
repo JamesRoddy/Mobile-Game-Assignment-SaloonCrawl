@@ -18,7 +18,7 @@ public class playerController : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
     bool grounded = false;
     float jumpVelocity = 5.0f;
-    private Animator CowboyAnim;
+    public Animator CowboyAnim;
 
     //Shooting variables
     public bool shouldShoot = false;
