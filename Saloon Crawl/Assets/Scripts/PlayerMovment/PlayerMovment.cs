@@ -29,11 +29,18 @@ public class playerController : MonoBehaviour
     GameObject bullet;
     Bullet bull;
     public GameObject arm;
+    
 
     public bool shouldSlide = false;
     bool isSliding = false;
     float fSlidePowerY = -10f;
 
+    //Jump Soundeffects
+    public AudioClip bulletShot;
+    public AudioClip jumpSound;
+    public AudioClip slideSound;
+    public AudioClip kickSound;
+    public AudioClip runSound;
 
     // Start is called before the first frame update
     void Start()
@@ -52,7 +59,6 @@ public class playerController : MonoBehaviour
         addMomentum();
         jump();
         shoot();
-
         slide();
 /*        CowboyAnim.SetBool("OnGround", grounded);*/
 
@@ -72,6 +78,7 @@ public class playerController : MonoBehaviour
         if (shouldJump && grounded)
         {
             playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpVelocity);
+            AudioSource.PlayClipAtPoint(jumpSound, transform.position);
             shouldJump = false;
         }
 
@@ -90,6 +97,7 @@ public class playerController : MonoBehaviour
             bulletPrefab.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, fBulletAngle));
             arm.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, fBulletAngle));
             bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletPrefab.transform.rotation);
+            AudioSource.PlayClipAtPoint(bulletShot, bulletSpawnPoint.position);
         }
 
         else if (bullet.IsDestroyed())

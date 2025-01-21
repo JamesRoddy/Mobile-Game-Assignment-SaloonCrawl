@@ -1,30 +1,34 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "G:\\Unity Projects\\Saloon-Crawl\\Saloon Crawl\\",
+  "WorkspaceRootPath": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\",
   "Documents": [
     {
-
-      "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|g:\\unity projects\\saloon-crawl\\saloon crawl\\assets\\scripts\\playermovment\\kick.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|c:\\users\\richa\\onedrive\\desktop\\salooncrawl\\saloon-crawl\\saloon crawl\\assets\\scripts\\collectibles\\collectiblesmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\collectibles\\collectiblesmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|c:\\users\\richa\\onedrive\\desktop\\salooncrawl\\saloon-crawl\\saloon crawl\\assets\\scripts\\collectibles\\collectiblesholder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\collectibles\\collectiblesholder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|c:\\users\\richa\\onedrive\\desktop\\salooncrawl\\saloon-crawl\\saloon crawl\\assets\\scripts\\playermovment\\kick.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playermovment\\kick.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|G:\\Unity Projects\\Saloon-Crawl\\Saloon Crawl\\assets\\scripts\\playermovment\\bullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\assets\\scripts\\playermovment\\bullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playermovment\\bullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|G:\\Unity Projects\\Saloon-Crawl\\Saloon Crawl\\assets\\scripts\\playermovment\\playermovment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playermovment\\playermovment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-
-      "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|G:\\Unity Projects\\Saloon-Crawl\\Saloon Crawl\\assets\\scripts\\enemies\\enemybottle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\assets\\scripts\\enemies\\enemybottle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemies\\enemybottle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|g:\\unity projects\\saloon-crawl\\saloon crawl\\assets\\scripts\\playermovment\\touchcontrols.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playermovment\\touchcontrols.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-
+      "AbsoluteMoniker": "D:1:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|c:\\users\\richa\\onedrive\\desktop\\salooncrawl\\saloon-crawl\\saloon crawl\\assets\\scripts\\playermovment\\touchcontrols.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:1:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playermovment\\touchcontrols.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:2:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|c:\\users\\richa\\onedrive\\desktop\\salooncrawl\\saloon-crawl\\saloon crawl\\assets\\scripts\\playermovment\\touchcontrols.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:2:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playermovment\\touchcontrols.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,84 +38,98 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
-
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CollectiblesHolder.cs",
+              "DocumentMoniker": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\Collectibles\\CollectiblesHolder.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Collectibles\\CollectiblesHolder.cs",
+              "ToolTip": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\Collectibles\\CollectiblesHolder.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Collectibles\\CollectiblesHolder.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAYwDQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-21T10:20:39.186Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "CollectiblesManager.cs",
+              "DocumentMoniker": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\Collectibles\\CollectiblesManager.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Collectibles\\CollectiblesManager.cs",
+              "ToolTip": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\Collectibles\\CollectiblesManager.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Collectibles\\CollectiblesManager.cs",
+              "ViewState": "AgIAACcAAADAZWZmZuYwwEEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-21T10:01:13.917Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Kick.cs",
-              "DocumentMoniker": "G:\\Unity Projects\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\Kick.cs",
+              "DocumentMoniker": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\Kick.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerMovment\\Kick.cs",
-              "ToolTip": "G:\\Unity Projects\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\Kick.cs",
+              "ToolTip": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\Kick.cs",
               "RelativeToolTip": "Assets\\Scripts\\PlayerMovment\\Kick.cs",
-              "ViewState": "AQIAACIAAAAAAAAAAAAgwDEAAAAIAAAA",
-
+              "ViewState": "AgIAACIAAAAAAAAAAAAgwDEAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-19T15:18:31.167Z",
               "EditorCaption": ""
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{116d2292-e37d-41cd-a077-ebacac4c8cc4}"
-            },
-            {
               "$type": "Document",
-
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "Bullet.cs",
-              "DocumentMoniker": "G:\\Unity Projects\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\Bullet.cs",
+              "DocumentMoniker": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\Bullet.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerMovment\\Bullet.cs",
-              "ToolTip": "G:\\Unity Projects\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\Bullet.cs",
+              "ToolTip": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\Bullet.cs",
               "RelativeToolTip": "Assets\\Scripts\\PlayerMovment\\Bullet.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAB8AAAAfAAAA",
-
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-16T15:43:48.831Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-16T15:43:48.831Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "PlayerMovment.cs",
-              "DocumentMoniker": "G:\\Unity Projects\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\PlayerMovment.cs",
+              "DocumentMoniker": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\PlayerMovment.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerMovment\\PlayerMovment.cs",
-              "ToolTip": "G:\\Unity Projects\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\PlayerMovment.cs",
+              "ToolTip": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\PlayerMovment.cs",
               "RelativeToolTip": "Assets\\Scripts\\PlayerMovment\\PlayerMovment.cs",
-
               "ViewState": "AQIAABcAAAAAAAAAAAAQwFUAAAAhAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-17T13:14:51.972Z",
-
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-17T13:14:51.972Z"
             },
             {
               "$type": "Document",
-
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "TouchControls.cs",
-              "DocumentMoniker": "G:\\Unity Projects\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\TouchControls.cs",
+              "DocumentMoniker": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\TouchControls.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerMovment\\TouchControls.cs",
-              "ToolTip": "G:\\Unity Projects\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\TouchControls.cs",
+              "ToolTip": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\TouchControls.cs",
               "RelativeToolTip": "Assets\\Scripts\\PlayerMovment\\TouchControls.cs",
               "ViewState": "AQIAACoAAAAAAAAAAAAowFoAAAAlAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-17T13:14:33.362Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-17T13:14:33.362Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "EnemyBottle.cs",
-              "DocumentMoniker": "G:\\Unity Projects\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\Enemies\\EnemyBottle.cs",
+              "DocumentMoniker": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\Enemies\\EnemyBottle.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Enemies\\EnemyBottle.cs",
-              "ToolTip": "G:\\Unity Projects\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\Enemies\\EnemyBottle.cs",
+              "ToolTip": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\Enemies\\EnemyBottle.cs",
               "RelativeToolTip": "Assets\\Scripts\\Enemies\\EnemyBottle.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-16T15:43:40.707Z",
-
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-16T15:43:40.707Z"
             }
           ]
         }
