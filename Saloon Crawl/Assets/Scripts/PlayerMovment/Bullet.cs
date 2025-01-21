@@ -13,6 +13,7 @@ public class Bullet : MonoBehaviour
     private float fCollisionRadius = 0.1f;
 
     public LayerMask Ground;
+    [SerializeField] private TrailRenderer tr;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +34,7 @@ public class Bullet : MonoBehaviour
         Dir.Normalize();
         Debug.Log("Normalised Dir" + Dir);
         bullet.velocity = Dir * fBulletSpeed;
+        tr.emitting = true;
 
         if(Physics2D.OverlapCircle(transform.position, fCollisionRadius, Ground))
         {

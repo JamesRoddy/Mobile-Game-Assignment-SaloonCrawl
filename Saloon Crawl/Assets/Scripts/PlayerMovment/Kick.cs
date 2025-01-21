@@ -33,7 +33,7 @@ public class Kick : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((player.transform.position.x >= kickPosition.transform.position.x && player.transform.position.x < kickable.transform.position.x) && control.bSwipeRight)
+        if (player.transform.position.x >= kickPosition.transform.position.x && player.transform.position.x < kickable.transform.position.x && control.bSwipeRight)
         {
             Debug.Log("Kicked");
             kickable.velocity = kickableVelocity;
@@ -64,7 +64,6 @@ public class Kick : MonoBehaviour
         else
         {
             //Debug.Log("Reset Booleans");
-            isKicking = false;
             bKicked = false;
         }
 
