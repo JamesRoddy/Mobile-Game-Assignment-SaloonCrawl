@@ -101,7 +101,7 @@ public class TouchControls : MonoBehaviour
 
 
 
-        if (touch.phase == TouchPhase.Ended && direction.y > 100.0f && player.CanJump)
+        if (touch.phase == TouchPhase.Ended && direction.y > 100.0f && player.Grounded)
         {
 
             //Debug.Log("ended");
@@ -125,6 +125,7 @@ public class TouchControls : MonoBehaviour
         else if(touch.phase == TouchPhase.Ended && direction.y < 0.0f)
         {
             player.shouldSlide = true;
+
             direction = Vector2.zero;
             bSwiping = true;
             

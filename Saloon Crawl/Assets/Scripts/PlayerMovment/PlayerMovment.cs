@@ -76,7 +76,9 @@ public class playerController : MonoBehaviour
         if (shouldJump && grounded)
         {
             playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpVelocity);
-            //AudioSource.PlayClipAtPoint(jumpSound, transform.position);
+
+/*            AudioSource.PlayClipAtPoint(jumpSound, transform.position);*/
+
             shouldJump = false;
         }
 
@@ -94,7 +96,9 @@ public class playerController : MonoBehaviour
             bulletPrefab.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, fBulletAngle));
             arm.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, fBulletAngle));
             bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletPrefab.transform.rotation);
-            //AudioSource.PlayClipAtPoint(bulletShot, bulletSpawnPoint.position);
+
+/*            AudioSource.PlayClipAtPoint(bulletShot, bulletSpawnPoint.position);*/
+
         }
 
         else if (bullet.IsDestroyed())
@@ -136,7 +140,7 @@ public class playerController : MonoBehaviour
         isSliding = true;
         CowboyAnim.SetBool("IsSliding", true);
 
-        if (!CanJump)
+        if (!Grounded)
         {
             Debug.Log("Airborn");
             playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, fSlidePowerY);
@@ -187,7 +191,7 @@ public class playerController : MonoBehaviour
 
     }
 
-    public bool CanJump
+    public bool Grounded
     {
         get { return grounded; }
     }
