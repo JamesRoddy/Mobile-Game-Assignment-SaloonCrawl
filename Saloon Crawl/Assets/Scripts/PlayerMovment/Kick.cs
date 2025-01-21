@@ -33,17 +33,21 @@ public class Kick : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (player.transform.position.x >= kickPosition.transform.position.x && player.transform.position.x < kickable.transform.position.x && control.bSwipeRight)
         {
-            Debug.Log("Kicked");
+            //Debug.Log("Kicked");
+            StartCoroutine(playAnim());
+
             kickable.velocity = kickableVelocity;
             control.bSwipeRight = false;
+            control.t = 0f;
             bKicked = true;
         }
 
         if (kickable.transform.position.y > 0.0f)
         {
-            Debug.Log("Rotated");
+            //Debug.Log("Rotated");
             kickable.transform.Rotate(0f, 0f, Time.deltaTime * 1000f, Space.World);
         }
 
@@ -63,7 +67,7 @@ public class Kick : MonoBehaviour
         else
         {
             //Debug.Log("Reset Booleans");
-            bKicked = false; 
+            bKicked = false;
         }
 
     }
@@ -75,6 +79,14 @@ public class Kick : MonoBehaviour
         Destroy(this.gameObject);
         Destroy(stoolTop, 2f);
         Destroy(stoolBottom, 2f);
+    }
+
+    IEnumerator playAnim()
+    {
+        player.CowboyAnim.SetBool("Kick", true);
+        yield return new WaitForSeconds(0.5f);
+
+        player.CowboyAnim.SetBool("Kick", false);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
