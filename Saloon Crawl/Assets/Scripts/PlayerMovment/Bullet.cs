@@ -13,6 +13,7 @@ public class Bullet : MonoBehaviour
     private float fCollisionRadius = 0.1f;
 
     public LayerMask Ground;
+    public LayerMask Enemy;
     [SerializeField] private TrailRenderer tr;
 
     // Start is called before the first frame update
@@ -37,6 +38,11 @@ public class Bullet : MonoBehaviour
         tr.emitting = true;
 
         if(Physics2D.OverlapCircle(transform.position, fCollisionRadius, Ground))
+        {
+            Destroy(this.gameObject);
+        }
+
+        if (Physics2D.OverlapCircle(transform.position, fCollisionRadius, Enemy))
         {
             Destroy(this.gameObject);
         }

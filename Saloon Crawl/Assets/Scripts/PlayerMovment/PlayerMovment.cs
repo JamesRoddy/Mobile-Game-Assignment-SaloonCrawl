@@ -67,6 +67,7 @@ public class playerController : MonoBehaviour
     {
 
         playerRigidBody.velocity = new Vector2(playerSpeed, playerRigidBody.velocity.y);
+        /*AudioSource.PlayClipAtPoint(runSound, transform.position);*/
 
 
     }

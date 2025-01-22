@@ -18,14 +18,9 @@ public class TouchControls : MonoBehaviour
     public bool bSwipeRight = false;
     public float t;
 
-    private Animator CowboyAnim;
-
     void Start()
     {
         player = FindObjectOfType<playerController>();
-
-        CowboyAnim = GetComponent<Animator>();
-
         Debug.Log("start");
 
     }
@@ -54,7 +49,7 @@ public class TouchControls : MonoBehaviour
 
         if (bSwipeRight)
         {
-            CowboyAnim.SetBool("Kick", true);
+            player.CowboyAnim.SetBool("Kick", true);
             t += Time.deltaTime;
             Debug.Log(t);
             if (t > 0.5f)
@@ -63,7 +58,7 @@ public class TouchControls : MonoBehaviour
                 bSwipeRight = false;
 
                 Debug.Log("Stopping Anim");
-                CowboyAnim.SetBool("Kick", false);
+                player.CowboyAnim.SetBool("Kick", false);
                 t = 0f;
             }
 
@@ -116,7 +111,7 @@ public class TouchControls : MonoBehaviour
             //Debug.Log("Swiping Right");
             direction = Vector2.zero;
             bSwiping = true;
-            Debug.Log("Kick is" + CowboyAnim.GetBool("Kick"));
+            //Debug.Log("Kick is" + CowboyAnim.GetBool("Kick"));
             bSwipeRight = true;
             Debug.Log("Swiping Right" + bSwipeRight);
            

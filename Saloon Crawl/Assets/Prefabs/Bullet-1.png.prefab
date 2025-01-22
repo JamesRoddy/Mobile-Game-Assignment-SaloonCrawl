@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5598169117680035071}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.54972845, w: 0.8353434}
+  m_LocalRotation: {x: 0, y: 0, z: -0.66188234, w: 0.74960774}
   m_LocalPosition: {x: -8.785088, y: -3.291548, z: 0}
   m_LocalScale: {x: 0.44560272, y: 0.44560272, z: 0.44560272}
   m_ConstrainProportionsScale: 0
@@ -104,6 +104,9 @@ MonoBehaviour:
   Ground:
     serializedVersion: 2
     m_Bits: 64
+  Enemy:
+    serializedVersion: 2
+    m_Bits: 1024
   tr: {fileID: 4234451457790296969}
 --- !u!50 &3646942507937307803
 Rigidbody2D:
