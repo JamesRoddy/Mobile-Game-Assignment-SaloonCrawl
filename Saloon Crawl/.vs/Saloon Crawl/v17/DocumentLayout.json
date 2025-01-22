@@ -3,24 +3,24 @@
   "WorkspaceRootPath": "H:\\Documents\\GitHub\\Saloon-Crawl\\Saloon Crawl\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|h:\\documents\\github\\saloon-crawl\\saloon crawl\\assets\\scripts\\playermovment\\playermovment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playermovment\\playermovment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|H:\\Documents\\GitHub\\Saloon-Crawl\\Saloon Crawl\\assets\\scripts\\playermovment\\kick.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playermovment\\kick.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|h:\\documents\\github\\saloon-crawl\\saloon crawl\\assets\\scripts\\playermovment\\touchcontrols.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|H:\\Documents\\GitHub\\Saloon-Crawl\\Saloon Crawl\\assets\\scripts\\playermovment\\touchcontrols.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playermovment\\touchcontrols.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|H:\\Documents\\GitHub\\Saloon-Crawl\\Saloon Crawl\\assets\\scripts\\playermovment\\kick.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playermovment\\kick.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|H:\\Documents\\GitHub\\Saloon-Crawl\\Saloon Crawl\\assets\\scripts\\enemies\\enemybottle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemies\\enemybottle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|H:\\Documents\\GitHub\\Saloon-Crawl\\Saloon Crawl\\assets\\scripts\\playermovment\\bullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playermovment\\bullet.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|H:\\Documents\\GitHub\\Saloon-Crawl\\Saloon Crawl\\assets\\scripts\\enemies\\enemybottle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemies\\enemybottle.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|h:\\documents\\github\\saloon-crawl\\saloon crawl\\assets\\scripts\\playermovment\\playermovment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playermovment\\playermovment.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -30,30 +30,30 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "PlayerMovment.cs",
               "DocumentMoniker": "H:\\Documents\\GitHub\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\PlayerMovment.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerMovment\\PlayerMovment.cs",
               "ToolTip": "H:\\Documents\\GitHub\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\PlayerMovment.cs",
               "RelativeToolTip": "Assets\\Scripts\\PlayerMovment\\PlayerMovment.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAQwFcAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-21T10:53:03.81Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "Kick.cs",
               "DocumentMoniker": "H:\\Documents\\GitHub\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\Kick.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerMovment\\Kick.cs",
               "ToolTip": "H:\\Documents\\GitHub\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\Kick.cs",
               "RelativeToolTip": "Assets\\Scripts\\PlayerMovment\\Kick.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAQwDIAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAFgAAAAAAAAAAAAcwHQAAAAkAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-19T15:18:31.167Z",
               "EditorCaption": ""
@@ -66,9 +66,10 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerMovment\\Bullet.cs",
               "ToolTip": "H:\\Documents\\GitHub\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\Bullet.cs",
               "RelativeToolTip": "Assets\\Scripts\\PlayerMovment\\Bullet.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAB8AAAAfAAAA",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-16T15:43:48.831Z"
+              "WhenOpened": "2025-01-16T15:43:48.831Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -78,22 +79,23 @@
               "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerMovment\\TouchControls.cs",
               "ToolTip": "H:\\Documents\\GitHub\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\TouchControls.cs",
               "RelativeToolTip": "Assets\\Scripts\\PlayerMovment\\TouchControls.cs",
-              "ViewState": "AgIAAFAAAAAAAAAAAAAowGAAAAAcAAAAAAAAAA==",
+              "ViewState": "AgIAABoAAAAAAAAAAAApwBIAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-17T13:14:33.362Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 2,
               "Title": "EnemyBottle.cs",
               "DocumentMoniker": "H:\\Documents\\GitHub\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\Enemies\\EnemyBottle.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Enemies\\EnemyBottle.cs",
               "ToolTip": "H:\\Documents\\GitHub\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\Enemies\\EnemyBottle.cs",
               "RelativeToolTip": "Assets\\Scripts\\Enemies\\EnemyBottle.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-16T15:43:40.707Z"
+              "WhenOpened": "2025-01-16T15:43:40.707Z",
+              "EditorCaption": ""
             }
           ]
         }

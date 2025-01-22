@@ -14,9 +14,9 @@ public class Kick : MonoBehaviour
     public Transform kickPosition;
     public bool isKicking = false;
     bool bKicked = false;
-    private float fCollisionRadius = 0.1f;
     public GameObject brokenStoolTop;
     public GameObject brokenStoolBottom;
+    int iNum = 0;
 
     public LayerMask Ground;
     public LayerMask Enemy;
@@ -36,7 +36,6 @@ public class Kick : MonoBehaviour
         
         if (player.transform.position.x >= kickPosition.transform.position.x && player.transform.position.x < kickable.transform.position.x && control.bSwipeRight)
         {
-            //Debug.Log("Kicked");
             StartCoroutine(playAnim());
 
             kickable.velocity = kickableVelocity;
@@ -47,61 +46,74 @@ public class Kick : MonoBehaviour
 
         if (kickable.transform.position.y > 0.0f)
         {
-            //Debug.Log("Rotated");
             kickable.transform.Rotate(0f, 0f, Time.deltaTime * 1000f, Space.World);
-        }
-
-        if (bKicked)
-        {
-            if (Physics2D.OverlapCircle(transform.position, fCollisionRadius, Ground))
-            {
-                Destroy(this.gameObject);
-            }
-
-            if(Physics2D.OverlapCircle(transform.position, fCollisionRadius, Enemy))
-            {
-                Destroy(this.gameObject);
-            }
-        }
-
-        else
-        {
-            //Debug.Log("Reset Booleans");
-            bKicked = false;
         }
 
     }
 
     void replaceSprites()
     {
-        var stoolBottom = Instantiate(brokenStoolBottom, kickable.transform.position, kickable.transform.rotation);
-        var stoolTop = Instantiate(brokenStoolTop, kickable.transform.position, kickable.transform.rotation);
-        Destroy(this.gameObject);
-        Destroy(stoolTop, 2f);
-        Destroy(stoolBottom, 2f);
+        if(iNum <= 1)
+        {
+            var stoolBottom = Instantiate(brokenStoolBottom, kickable.transform.position, kickable.transform.rotation);
+            var stoolTop = Instantiate(brokenStoolTop, kickable.transform.position, kickable.transform.rotation);
+            Destroy(stoolTop, 2f);
+            Destroy(stoolBottom, 2f);
+        }
+
+        else
+        {
+            iNum = 0;
+        }
+       
     }
 
     IEnumerator playAnim()
     {
         player.CowboyAnim.SetBool("Kick", true);
         yield return new WaitForSeconds(0.5f);
-
         player.CowboyAnim.SetBool("Kick", false);
+
     }
+
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if(bKicked)
         {
+            replaceSprites();
             if (collision.gameObject.CompareTag("Ground"))
             {
-                replaceSprites();
+                ResetVariables();
+                player.CowboyAnim.SetBool("Kick", false);
+                iNum += 1;
+                this.gameObject.SetActive(false);
             }
 
             if (collision.gameObject.CompareTag("Enemy"))
             {
-                replaceSprites();
+                ResetVariables();
+                player.CowboyAnim.SetBool("Kick", false);
+                iNum += 1;
+                this.gameObject.SetActive(false);
             }
         }
+
+        else
+        {
+            bKicked = false;
+        }
+    }
+
+    void ResetVariables()
+    {
+        Debug.Log("Reset Variables");
+        fTravelSpeedRight = 10f;
+        fTravelSpeedUp = 5f;
+        kickableVelocity = Vector3.zero;
+        isKicking = false;
+        bKicked = false;
+        iNum = 0;
+        Debug.Log(kickableVelocity);
     }
 }
