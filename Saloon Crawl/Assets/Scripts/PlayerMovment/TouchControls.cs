@@ -49,7 +49,7 @@ public class TouchControls : MonoBehaviour
 
         if (bSwipeRight)
         {
-            player.CowboyAnim.SetBool("Kick", true);
+            
             t += Time.deltaTime;
             if (t > 0.5f)
             {
@@ -69,6 +69,7 @@ public class TouchControls : MonoBehaviour
     {
         if(phase == TouchPhase.Ended)
         {
+            player.CowboyAnim.SetBool("Kick", false);
             player.shouldShoot = true;
 
             touchPos = Camera.main.ScreenToWorldPoint(touch.position);
@@ -106,7 +107,8 @@ public class TouchControls : MonoBehaviour
 
         else if(touch.phase == TouchPhase.Ended && direction.x > 150.0f)
         {
-            //AudioSource.PlayClipAtPoint(player.kickSound ,player.transform.position);
+            player.CowboyAnim.SetBool("Kick", true);
+            //player.kickSound.Play();
             direction = Vector2.zero;
             bSwiping = true;
             bSwipeRight = true;

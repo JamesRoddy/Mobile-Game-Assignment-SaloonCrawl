@@ -41,7 +41,7 @@ public class Kick : MonoBehaviour
         if (player.transform.position.x >= kickPosition.transform.position.x && player.transform.position.x < kickable.transform.position.x && control.bSwipeRight)
         {
             StartCoroutine(playAnim());
-
+            
             kickable.velocity = kickableVelocity;
             control.bSwipeRight = false;
             bKicked = true;
@@ -61,8 +61,8 @@ public class Kick : MonoBehaviour
 
     void replaceSprites()
     {
-        if(iNum <= 1)
-        {
+        if (iNum <= 1)
+        { 
             var stoolBottom = Instantiate(brokenStoolBottom, kickable.transform.position, kickable.transform.rotation);
             var stoolTop = Instantiate(brokenStoolTop, kickable.transform.position, kickable.transform.rotation);
             Destroy(stoolTop, 2f);
@@ -89,7 +89,8 @@ public class Kick : MonoBehaviour
     {
         if(bKicked)
         {
-            replaceSprites();
+            
+            replaceSprites();  
             if (collision.gameObject.CompareTag("Ground"))
             {
                 ResetVariables();
