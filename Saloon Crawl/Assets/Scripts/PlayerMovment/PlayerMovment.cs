@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -29,7 +30,7 @@ public class playerController : MonoBehaviour
     GameObject bullet;
     Bullet bull;
     public GameObject arm;
-    
+    private DeathChecker deathChecker;
 
     public bool shouldSlide = false;
     bool isSliding = false;
@@ -49,6 +50,8 @@ public class playerController : MonoBehaviour
         playerRigidBody = GetComponent<Rigidbody2D>();
         CowboyAnim = GetComponent<Animator>();
         bull = FindObjectOfType<Bullet>();
+        deathChecker = GetComponent<DeathChecker>();
+
     }
 
     // Update is called once per frame
@@ -61,6 +64,8 @@ public class playerController : MonoBehaviour
         shoot();
         slide();
         CowboyAnim.SetBool("OnGround", grounded);
+        CowboyAnim.SetBool("IsAlive", deathChecker.IsAlive);
+        IsDead();
 
     }
     private void addMomentum()
@@ -76,7 +81,7 @@ public class playerController : MonoBehaviour
     {
         if (shouldJump && grounded)
         {
-            playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpVelocity);
+            playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpVelocity) * Convert.ToInt32(!false);
 
 /*            AudioSource.PlayClipAtPoint(jumpSound, transform.position);*/
 
@@ -184,7 +189,10 @@ public class playerController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
+        if (collision.collider.gameObject.CompareTag("Enemy"))
+        {
+            collision.collider.enabled = false;
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -229,6 +237,15 @@ public class playerController : MonoBehaviour
         return hit.collider != null;
     }
 
-
+    private void IsDead()
+    {
+        if ( deathChecker.IsAlive == false)
+        {
+            if(grounded == true)
+            {
+                Time.timeScale = 0;
+            }
+        }
+    }
 }
 
