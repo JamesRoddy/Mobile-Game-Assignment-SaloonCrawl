@@ -16,7 +16,8 @@ public class TouchControls : MonoBehaviour
     bool bSwiping = false;
     public Vector2 touchPos;
     public bool bSwipeRight = false;
-    public float t;
+    float t;
+
 
     void Start()
     {
@@ -28,7 +29,6 @@ public class TouchControls : MonoBehaviour
     
     void Update()
     {
-        
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -51,7 +51,6 @@ public class TouchControls : MonoBehaviour
         {
             player.CowboyAnim.SetBool("Kick", true);
             t += Time.deltaTime;
-            Debug.Log(t);
             if (t > 0.5f)
             {
                 Debug.Log("Stopping swipe");
@@ -70,7 +69,6 @@ public class TouchControls : MonoBehaviour
     {
         if(phase == TouchPhase.Ended)
         {
-            //Debug.Log("Tapping");
             player.shouldShoot = true;
 
             touchPos = Camera.main.ScreenToWorldPoint(touch.position);
@@ -108,16 +106,15 @@ public class TouchControls : MonoBehaviour
 
         else if(touch.phase == TouchPhase.Ended && direction.x > 150.0f)
         {
-            //Debug.Log("Swiping Right");
+            //AudioSource.PlayClipAtPoint(player.kickSound ,player.transform.position);
             direction = Vector2.zero;
             bSwiping = true;
-            //Debug.Log("Kick is" + CowboyAnim.GetBool("Kick"));
             bSwipeRight = true;
             Debug.Log("Swiping Right" + bSwipeRight);
            
         }
 
-        else if(touch.phase == TouchPhase.Ended && direction.y < 0.0f)
+        else if(touch.phase == TouchPhase.Ended && direction.y < -100.0f)
         {
             player.shouldSlide = true;
 

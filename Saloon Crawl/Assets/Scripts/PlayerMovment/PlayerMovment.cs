@@ -78,7 +78,7 @@ public class playerController : MonoBehaviour
         {
             playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpVelocity);
 
-/*            AudioSource.PlayClipAtPoint(jumpSound, transform.position);*/
+            /*            AudioSource.PlayClipAtPoint(jumpSound, transform.position);*/
 
             shouldJump = false;
         }

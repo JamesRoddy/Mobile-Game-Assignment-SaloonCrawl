@@ -44,7 +44,6 @@ public class Kick : MonoBehaviour
 
             kickable.velocity = kickableVelocity;
             control.bSwipeRight = false;
-            control.t = 0f;
             bKicked = true;
         }
 
@@ -122,13 +121,11 @@ public class Kick : MonoBehaviour
 
     void ResetVariables()
     {
-        Debug.Log("Reset Variables");
         fTravelSpeedRight = 10f;
         fTravelSpeedUp = 5f;
         kickableVelocity = Vector3.zero;
         isKicking = false;
         bKicked = false;
         iNum = 0;
-        Debug.Log(kickableVelocity);
     }
 }

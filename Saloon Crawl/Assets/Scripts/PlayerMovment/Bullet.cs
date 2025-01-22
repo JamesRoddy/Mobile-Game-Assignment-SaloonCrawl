@@ -31,9 +31,7 @@ public class Bullet : MonoBehaviour
         Destroy(this.gameObject, 0.5f);
 
         Dir = control.getTouchPos() - (new Vector2(player.bulletSpawnPoint.transform.position.x, player.bulletSpawnPoint.transform.position.y));
-        Debug.Log("Dir" + Dir);
         Dir.Normalize();
-        Debug.Log("Normalised Dir" + Dir);
         bullet.velocity = Dir * fBulletSpeed;
         tr.emitting = true;
 
