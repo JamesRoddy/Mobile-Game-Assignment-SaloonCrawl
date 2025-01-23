@@ -11,12 +11,12 @@ public class TouchControls : MonoBehaviour
 {
    
     private playerController player;
-    private Kick kick;
     private Vector2 direction;
     private Vector2 touchInitialPos = Vector2.zero;
     bool bSwiping = false;
     public Vector2 touchPos;
     public bool bSwipeRight = false;
+    public float t;
 
     void Start()
     {
@@ -28,6 +28,7 @@ public class TouchControls : MonoBehaviour
     
     void Update()
     {
+        
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -39,14 +40,30 @@ public class TouchControls : MonoBehaviour
             }
             touchPos = touch.position;
             checkSwipe(touch);
-
-            if(!bSwiping)
+            if (!bSwiping)
             {
                 checkTap(touch, phase);
             }
             
         }
-        
+
+        if (bSwipeRight)
+        {
+            player.CowboyAnim.SetBool("Kick", true);
+            t += Time.deltaTime;
+            Debug.Log(t);
+            if (t > 0.5f)
+            {
+                Debug.Log("Stopping swipe");
+                bSwipeRight = false;
+
+                Debug.Log("Stopping Anim");
+                player.CowboyAnim.SetBool("Kick", false);
+                t = 0f;
+            }
+
+        }
+
     }
 
     void checkTap(Touch touch, TouchPhase phase)
@@ -75,11 +92,11 @@ public class TouchControls : MonoBehaviour
         //Debug.Log("touch moving");
 
         direction = touch.position - touchInitialPos;
+        
 
 
 
-
-        if (touch.phase == TouchPhase.Ended && direction.y > 100.0f && player.CanJump)
+        if (touch.phase == TouchPhase.Ended && direction.y > 100.0f && player.Grounded)
         {
 
             //Debug.Log("ended");
@@ -91,15 +108,19 @@ public class TouchControls : MonoBehaviour
 
         else if(touch.phase == TouchPhase.Ended && direction.x > 150.0f)
         {
-            Debug.Log("Swiping Right");
-            bSwipeRight = true;
+            //Debug.Log("Swiping Right");
             direction = Vector2.zero;
             bSwiping = true;
+            //Debug.Log("Kick is" + CowboyAnim.GetBool("Kick"));
+            bSwipeRight = true;
+            Debug.Log("Swiping Right" + bSwipeRight);
+           
         }
 
         else if(touch.phase == TouchPhase.Ended && direction.y < 0.0f)
         {
             player.shouldSlide = true;
+
             direction = Vector2.zero;
             bSwiping = true;
             

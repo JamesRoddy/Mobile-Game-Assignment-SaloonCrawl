@@ -12,6 +12,7 @@ public class CamMovement : MonoBehaviour
     private float offsetSmooth = 1.5f;
     private bool followPLayer = true;
     private playerController player;
+
  
     private TerrainManager terrainManager;
 
@@ -22,6 +23,10 @@ public class CamMovement : MonoBehaviour
     
 
 
+
+    private DeathChecker deathChecker;
+    private float deathZoom = 2;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,7 +36,10 @@ public class CamMovement : MonoBehaviour
         cam.orthographicSize = 3.0f; 
 
         player = FindObjectOfType<playerController>();
-        
+
+        deathChecker = player.GetComponent<DeathChecker>();
+
+
     }
 
     // Update is called once per frame
@@ -58,6 +66,7 @@ public class CamMovement : MonoBehaviour
     public bool playerCanSeeEndWithoutNextTerrain()
     {
 
+
         float end = cam.WorldToViewportPoint(player.CurrentTerrain.SpawnRight).x;
 
         return player.CurrentTerrain.NextTerrainType == null && end > 0.0f && end <= 1.0f;
@@ -67,6 +76,20 @@ public class CamMovement : MonoBehaviour
 
     public bool playerCanSeeEnd()
     {
+
+        Vector3 finalCamPos = new Vector3(player.transform.position.x + offsetX, cam.transform.position.y, cam.transform.position.z);
+        if(deathChecker.IsAlive == false)
+        {
+/*         finalCamPos = new Vector2(player.transform.position.x, player.transform.position.y);*/
+
+            if(cam.orthographicSize > 2)
+            {
+                Debug.Log("cam size is  " + cam.orthographicSize);
+                cam.orthographicSize -= 0.01f;
+            }
+        }
+        cam.transform.position = finalCamPos;
+
 
         float end = cam.WorldToViewportPoint(player.CurrentTerrain.SpawnRight).x;
 

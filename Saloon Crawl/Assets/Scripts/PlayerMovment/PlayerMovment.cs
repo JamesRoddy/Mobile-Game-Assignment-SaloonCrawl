@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -18,7 +19,7 @@ public class playerController : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
     bool grounded = false;
     float jumpVelocity = 5.0f;
-    private Animator CowboyAnim;
+    public Animator CowboyAnim;
 
     //Shooting variables
     public bool shouldShoot = false;
@@ -29,20 +30,32 @@ public class playerController : MonoBehaviour
     GameObject bullet;
     Bullet bull;
     public GameObject arm;
+
     private int currentCoinCount = 0;
+
+    private DeathChecker deathChecker;
+
     public bool shouldSlide = false;
     bool isSliding = false;
     float fSlidePowerY = -10f;
 
+    //Jump Soundeffects
+    public AudioClip bulletShot;
+    public AudioClip jumpSound;
+    public AudioClip slideSound;
+    public AudioClip kickSound;
+    public AudioClip runSound;
 
     // Start is called before the first frame update
     void Start()
     {
         playerBoxCollider = GetComponent<BoxCollider2D>();
         playerRigidBody = GetComponent<Rigidbody2D>();
-        /*   CowboyAnim = GetComponent<Animator>();*/
+        CowboyAnim = GetComponent<Animator>();
         bull = FindObjectOfType<Bullet>();
-        
+
+        deathChecker = GetComponent<DeathChecker>();
+
     }
 
     // Update is called once per frame
@@ -53,17 +66,17 @@ public class playerController : MonoBehaviour
         addMomentum();
         jump();
         shoot();
-
         slide();
-/*        CowboyAnim.SetBool("OnGround", grounded);*/
-
-
+        CowboyAnim.SetBool("OnGround", grounded);
+        CowboyAnim.SetBool("IsAlive", deathChecker.IsAlive);
+        IsDead();
 
     }
     private void addMomentum()
     {
 
         playerRigidBody.velocity = new Vector2(playerSpeed, playerRigidBody.velocity.y);
+        /*AudioSource.PlayClipAtPoint(runSound, transform.position);*/
 
 
     }
@@ -81,14 +94,16 @@ public class playerController : MonoBehaviour
     {
         if (shouldJump && grounded)
         {
-            playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpVelocity);
+            playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpVelocity) * Convert.ToInt32(!false);
+
+/*            AudioSource.PlayClipAtPoint(jumpSound, transform.position);*/
+
             shouldJump = false;
         }
 
 
 
     }
-
 
     private void shoot()
     {
@@ -100,6 +115,9 @@ public class playerController : MonoBehaviour
             bulletPrefab.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, fBulletAngle));
             arm.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, fBulletAngle));
             bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletPrefab.transform.rotation);
+
+/*            AudioSource.PlayClipAtPoint(bulletShot, bulletSpawnPoint.position);*/
+
         }
 
         else if (bullet.IsDestroyed())
@@ -139,8 +157,9 @@ public class playerController : MonoBehaviour
         float fStoreY = playerBoxCollider.size.y;
         shouldSlide = false;
         isSliding = true;
+        CowboyAnim.SetBool("IsSliding", true);
 
-        if (!CanJump)
+        if (!Grounded)
         {
             Debug.Log("Airborn");
             playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, fSlidePowerY);
@@ -157,6 +176,8 @@ public class playerController : MonoBehaviour
         playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, 0f);
         playerBoxCollider.size = new Vector2(fStoreX, fStoreY);
         isSliding = false;
+
+        CowboyAnim.SetBool("IsSliding", false);
 
         
         Debug.Log("shouldSlide3: " + shouldSlide);
@@ -188,7 +209,10 @@ public class playerController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
+        if (collision.collider.gameObject.CompareTag("Enemy"))
+        {
+            collision.collider.enabled = false;
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -196,12 +220,16 @@ public class playerController : MonoBehaviour
 
     }
 
+
     public int CurrentCoinCount { 
         get { return currentCoinCount; }
         set { currentCoinCount = value; }
     }
 
     public bool CanJump
+
+    public bool Grounded
+
     {
         get { return grounded; }
     }
@@ -238,6 +266,15 @@ public class playerController : MonoBehaviour
         return hit.collider != null;
     }
 
-
+    private void IsDead()
+    {
+        if ( deathChecker.IsAlive == false)
+        {
+            if(grounded == true)
+            {
+                Time.timeScale = 0;
+            }
+        }
+    }
 }
 
