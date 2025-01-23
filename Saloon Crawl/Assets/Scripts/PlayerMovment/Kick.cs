@@ -17,6 +17,8 @@ public class Kick : MonoBehaviour
     public GameObject brokenStoolTop;
     public GameObject brokenStoolBottom;
     int iNum = 0;
+    private Camera playerCam;
+    private BoxCollider2D collision;
 
     public LayerMask Ground;
     public LayerMask Enemy;
@@ -27,6 +29,8 @@ public class Kick : MonoBehaviour
         control = FindObjectOfType<TouchControls>();
         player = FindObjectOfType<playerController>();
         kickable = GetComponent<Rigidbody2D>();
+        playerCam = Camera.main;
+        collision = GetComponent<BoxCollider2D>();
         kickableVelocity = (this.transform.up * fTravelSpeedUp) + (this.transform.right * fTravelSpeedRight);
     }
 
@@ -37,11 +41,15 @@ public class Kick : MonoBehaviour
         if (player.transform.position.x >= kickPosition.transform.position.x && player.transform.position.x < kickable.transform.position.x && control.bSwipeRight)
         {
             StartCoroutine(playAnim());
-
+            
             kickable.velocity = kickableVelocity;
             control.bSwipeRight = false;
-            control.t = 0f;
             bKicked = true;
+        }
+
+        else if(isNotInCameraView())
+        {
+            this.gameObject.SetActive(false);
         }
 
         if (kickable.transform.position.y > 0.0f)
@@ -53,8 +61,8 @@ public class Kick : MonoBehaviour
 
     void replaceSprites()
     {
-        if(iNum <= 1)
-        {
+        if (iNum <= 1)
+        { 
             var stoolBottom = Instantiate(brokenStoolBottom, kickable.transform.position, kickable.transform.rotation);
             var stoolTop = Instantiate(brokenStoolTop, kickable.transform.position, kickable.transform.rotation);
             Destroy(stoolTop, 2f);
@@ -81,7 +89,8 @@ public class Kick : MonoBehaviour
     {
         if(bKicked)
         {
-            replaceSprites();
+            
+            replaceSprites();  
             if (collision.gameObject.CompareTag("Ground"))
             {
                 ResetVariables();
@@ -105,15 +114,19 @@ public class Kick : MonoBehaviour
         }
     }
 
+    private bool isNotInCameraView()
+    {
+        Vector3 camViewPortPos = playerCam.WorldToViewportPoint(new Vector3(transform.position.x + collision.bounds.size.x / 2.0f, transform.position.y, transform.position.z));
+        return camViewPortPos.x < 0.0f;
+    }
+
     void ResetVariables()
     {
-        Debug.Log("Reset Variables");
         fTravelSpeedRight = 10f;
         fTravelSpeedUp = 5f;
         kickableVelocity = Vector3.zero;
         isKicking = false;
         bKicked = false;
         iNum = 0;
-        Debug.Log(kickableVelocity);
     }
 }

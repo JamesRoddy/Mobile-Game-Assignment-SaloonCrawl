@@ -40,11 +40,11 @@ public class playerController : MonoBehaviour
     float fSlidePowerY = -10f;
 
     //Jump Soundeffects
-    public AudioClip bulletShot;
-    public AudioClip jumpSound;
-    public AudioClip slideSound;
-    public AudioClip kickSound;
-    public AudioClip runSound;
+    public AudioSource runSound;
+    public AudioSource bulletShot;
+    public AudioSource jumpSound;
+    public AudioSource slideSound;
+    public AudioSource kickSound;
 
     // Start is called before the first frame update
     void Start()
@@ -53,6 +53,8 @@ public class playerController : MonoBehaviour
         playerRigidBody = GetComponent<Rigidbody2D>();
         CowboyAnim = GetComponent<Animator>();
         bull = FindObjectOfType<Bullet>();
+        runSound.Play();
+
 
        deathChecker = GetComponent<DeathChecker>();
 
@@ -76,9 +78,6 @@ public class playerController : MonoBehaviour
     {
 
         playerRigidBody.velocity = new Vector2(playerSpeed, playerRigidBody.velocity.y);
-        /*AudioSource.PlayClipAtPoint(runSound, transform.position);*/
-
-
     }
 
 
@@ -94,11 +93,11 @@ public class playerController : MonoBehaviour
     {
         if (shouldJump && grounded)
         {
-            playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpVelocity) * Convert.ToInt32(!false);
 
-/*            AudioSource.PlayClipAtPoint(jumpSound, transform.position);*/
+            playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpVelocity);
 
             shouldJump = false;
+            //jumpSound.Play();  
         }
 
 
@@ -116,7 +115,7 @@ public class playerController : MonoBehaviour
             arm.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, fBulletAngle));
             bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletPrefab.transform.rotation);
 
-/*            AudioSource.PlayClipAtPoint(bulletShot, bulletSpawnPoint.position);*/
+            //bulletShot.Play();
 
         }
 
@@ -146,6 +145,7 @@ public class playerController : MonoBehaviour
 
         else if (shouldSlide)
         {
+            //slideSound.Play();
             StartCoroutine(AdjustCollider());
         }
         
