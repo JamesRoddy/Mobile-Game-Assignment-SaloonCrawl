@@ -74,21 +74,19 @@ public class CamMovement : MonoBehaviour
 
     }
 
+
+    private void deathCheck()
+    {
+       
+
+
+    }
+
+
     public bool playerCanSeeEnd()
     {
 
-        Vector3 finalCamPos = new Vector3(player.transform.position.x + offsetX, cam.transform.position.y, cam.transform.position.z);
-        if(deathChecker.IsAlive == false)
-        {
-/*         finalCamPos = new Vector2(player.transform.position.x, player.transform.position.y);*/
-
-            if(cam.orthographicSize > 2)
-            {
-                Debug.Log("cam size is  " + cam.orthographicSize);
-                cam.orthographicSize -= 0.01f;
-            }
-        }
-        cam.transform.position = finalCamPos;
+      
 
 
         float end = cam.WorldToViewportPoint(player.CurrentTerrain.SpawnRight).x;
@@ -99,14 +97,29 @@ public class CamMovement : MonoBehaviour
     }
     private void followPLayerPosition()
     {
+
+        Vector3 finalCamPos = Vector3.Lerp(cam.transform.position, new Vector3(player.transform.position.x + offsetX, cam.transform.position.y, cam.transform.position.z),offsetSmooth *Time.deltaTime);
         if (followPLayer)
         {
-            Vector3 finalCamPos = Vector3.Lerp(cam.transform.position, new Vector3(player.transform.position.x + (offsetX * offsetScalar), cam.transform.position.y, cam.transform.position.z), offsetSmooth * Time.deltaTime);
-
 
             cam.transform.position = finalCamPos;
+
+
+
+
         }
-        
+          if (deathChecker.IsAlive == false)
+           {
+
+               if (cam.orthographicSize > 2)
+               {
+                   Debug.Log("cam size is  " + cam.orthographicSize);
+                   cam.orthographicSize -= 0.01f;
+               }
+           }
+           cam.transform.position = finalCamPos;
+
+
 
 
 
