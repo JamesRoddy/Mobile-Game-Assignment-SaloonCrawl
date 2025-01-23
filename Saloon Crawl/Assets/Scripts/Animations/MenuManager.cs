@@ -7,6 +7,12 @@ public class MenuManagerScript : MonoBehaviour
 {
     public void ChangeScene(string sceneName)
     {
+        StartCoroutine(waitForAnim(sceneName));
+    }
+
+    IEnumerator waitForAnim(string sceneName)
+    {
+        yield return new WaitForSeconds(1.5f);
         SceneManager.LoadScene(sceneName);
     }
 }
