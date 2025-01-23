@@ -13,12 +13,12 @@ public class playerController : MonoBehaviour
     private Rigidbody2D playerRigidBody;
     private TerrainType currentTerrain;
     private int currentTerrainCycles;
-    private float playerSpeed = 3.0f;
+    private float playerSpeed = 4.0f;
     private float minDistanceToEndOfCurrentTerrain = 144.0f;
     private bool shouldJump = false;
     [SerializeField] LayerMask groundLayer;
     bool grounded = false;
-    float jumpVelocity = 5.0f;
+    float jumpVelocity = 6.0f;
     public Animator CowboyAnim;
 
     //Shooting variables
@@ -63,7 +63,6 @@ public class playerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         grounded = isGrounded();
         addMomentum();
         jump();

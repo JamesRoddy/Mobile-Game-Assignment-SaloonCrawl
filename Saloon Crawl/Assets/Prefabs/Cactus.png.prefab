@@ -33,7 +33,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -10.9, y: -2.9232635}
+  m_AnchoredPosition: {x: -12.73, y: -2.9232635}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4426370400041976908
@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 1589106752766302966}
   m_Layer: 9
   m_Name: Cactus.png
-  m_TagString: Untagged
+  m_TagString: Kickable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -147,7 +147,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 896
+    m_Bits: 640
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -164,7 +164,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.3197403, y: -0.02906704}
+  m_Offset: {x: -0.31208622, y: -0.02906704}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -175,7 +175,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 8.728519, y: 10.181866}
+  m_Size: {x: 7.4347076, y: 10.181866}
   m_EdgeRadius: 0
 --- !u!50 &5057374447127039827
 Rigidbody2D:
@@ -216,7 +216,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d542cd1209534541bd722220a2ef8a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  kickable: {fileID: 5057374447127039827}
   kickPosition: {fileID: 4863324951157467701}
   isKicking: 0
   brokenStoolTop: {fileID: 6960176964059324321, guid: ccc19ac136a0c7949b7f02c847ca642b, type: 3}

@@ -841,4 +841,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collsionTags:
   - Enemy
+  - Kickable
   isAlive: 1
