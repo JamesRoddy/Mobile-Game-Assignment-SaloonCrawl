@@ -20,7 +20,7 @@ public abstract class EnemyDescriptorInfo : MonoBehaviour
         if (spawnIntervals.Count > 0) {
 
             spawnInterval = spawnIntervals[Random.Range(0, spawnIntervals.Count)];
-            Debug.Log("SPAWNING ENEMY assigning new spawn interval " + spawnInterval);
+            /*Debug.Log("SPAWNING ENEMY assigning new spawn interval " + spawnInterval);*/
         }
 
     

@@ -19,8 +19,8 @@ public class Enemypool : MonoBehaviour
         {
             for (int j = 0; j < maxEnemyNum; j++)
             {
-
-                Debug.Log("enemy added to pool at enemy list index " + i);
+/*
+                Debug.Log("enemy added to pool at enemy list index " + i);*/
                 GameObject enemyInstance = Instantiate(terrainEnemies[i], Vector3.zero, Quaternion.identity);
                 enemyInstance.SetActive(false);
                 pool.Add(enemyInstance);
@@ -57,10 +57,10 @@ public class Enemypool : MonoBehaviour
             if(poolPointer == maxSpawnCount)
             {
                 poolPointer = 0;
-                Debug.Log("SPAWNING ENEMY pool pointer reached max " + poolPointer + " reseting... ");
+              /*  Debug.Log("SPAWNING ENEMY pool pointer reached max " + poolPointer + " reseting... ");*/
             }
 
-            Debug.Log(" SPAWNING ENEMY bool for object availablilty " + !pool[poolPointer].activeSelf);
+         /*   Debug.Log(" SPAWNING ENEMY bool for object availablilty " + !pool[poolPointer].activeSelf);*/
 
             
         }
