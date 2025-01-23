@@ -54,7 +54,7 @@ public class playerController : MonoBehaviour
         CowboyAnim = GetComponent<Animator>();
         bull = FindObjectOfType<Bullet>();
 
-        deathChecker = GetComponent<DeathChecker>();
+       deathChecker = GetComponent<DeathChecker>();
 
     }
 
@@ -226,7 +226,6 @@ public class playerController : MonoBehaviour
         set { currentCoinCount = value; }
     }
 
-    public bool CanJump
 
     public bool Grounded
 
