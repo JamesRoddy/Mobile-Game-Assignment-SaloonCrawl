@@ -10,7 +10,7 @@ public class CamMovement : MonoBehaviour
     private float offsetX = 5.0f;
     private Camera cam;
     private float offsetSmooth = 1.5f;
-   
+    private bool followPLayer = true;
     private playerController player;
  
     private TerrainManager terrainManager;
@@ -31,7 +31,7 @@ public class CamMovement : MonoBehaviour
         cam.orthographicSize = 3.0f; 
 
         player = FindObjectOfType<playerController>();
-        adjustCamOnStart();
+        
     }
 
     // Update is called once per frame
@@ -49,20 +49,11 @@ public class CamMovement : MonoBehaviour
 
     void Update()
     {
-        updateCamPosition();
+        followPLayerPosition();
     }
 
 
-    private void adjustCamOnStart()
-    {
 
-         
-
-
-
-
-
-    }
 
     public bool playerCanSeeEndWithoutNextTerrain()
     {
@@ -83,13 +74,16 @@ public class CamMovement : MonoBehaviour
 
 
     }
-    void updateCamPosition()
+    private void followPLayerPosition()
     {
+        if (followPLayer)
+        {
+            Vector3 finalCamPos = Vector3.Lerp(cam.transform.position, new Vector3(player.transform.position.x + (offsetX * offsetScalar), cam.transform.position.y, cam.transform.position.z), offsetSmooth * Time.deltaTime);
 
-        Vector3 finalCamPos = Vector3.Lerp(cam.transform.position, new Vector3(player.transform.position.x + (offsetX*offsetScalar), cam.transform.position.y, cam.transform.position.z), offsetSmooth * Time.deltaTime);
 
- 
-        cam.transform.position = finalCamPos;
+            cam.transform.position = finalCamPos;
+        }
+        
 
 
 
@@ -97,8 +91,27 @@ public class CamMovement : MonoBehaviour
     }
 
 
+    public bool shiftToPosition(Vector3 position, float smoothing )
+    {
+
+        if(!(transform.position == position))
+        {
+
+            transform.position =  Vector3.Lerp(transform.position,position, smoothing);
+            return false;
+
+        }
+
+        return true;
+    }
 
 
+
+
+    public bool FollowPlayer
+    {
+        set { followPLayer = value; }
+    }
 
 
 }
