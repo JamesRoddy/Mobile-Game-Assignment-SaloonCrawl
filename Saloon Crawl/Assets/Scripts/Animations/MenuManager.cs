@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SceneManagerScript : MonoBehaviour
+public class MenuManagerScript : MonoBehaviour
 {
     public void ChangeScene(string sceneName)
     {
