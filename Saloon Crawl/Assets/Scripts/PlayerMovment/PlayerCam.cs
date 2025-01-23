@@ -7,29 +7,119 @@ using UnityEngine;
 public class CamMovement : MonoBehaviour
 {
 
-    private float offsetX = 3.0f;
+    private float offsetX = 5.0f;
     private Camera cam;
+    private float offsetSmooth = 1.5f;
+    private bool followPLayer = true;
     private playerController player;
+
+ 
+    private TerrainManager terrainManager;
+
+    private float targetAspect = 16.0f/9.0f;
+    private float offsetScalar = 1.0f;
+    float defaultZoom = 3.0f;
+    
+    
+
+
+
+    private DeathChecker deathChecker;
+    private float deathZoom = 2;
+
     // Start is called before the first frame update
     void Start()
     {
         cam = Camera.main;
+        
+        terrainManager = FindFirstObjectByType<TerrainManager>();
+        cam.orthographicSize = 3.0f; 
+
         player = FindObjectOfType<playerController>();
+
+        deathChecker = player.GetComponent<DeathChecker>();
+
+
     }
 
     // Update is called once per frame
+
+
+    public bool canSeePosition(Vector3 position)
+    {
+        float x = cam.WorldToViewportPoint(position).x;
+
+        return x >= 0.0f && x <= 1.0f;
+
+
+
+    }
+
     void Update()
     {
-        updateCamPosition();
+        followPLayerPosition();
     }
 
 
 
-    void updateCamPosition()
+
+    public bool playerCanSeeEndWithoutNextTerrain()
     {
-        Vector3 finalCamPos = new Vector3(player.transform.position.x + offsetX, cam.transform.position.y, cam.transform.position.z);
 
-        cam.transform.position = finalCamPos;
+
+        float end = cam.WorldToViewportPoint(player.CurrentTerrain.SpawnRight).x;
+
+        return player.CurrentTerrain.NextTerrainType == null && end > 0.0f && end <= 1.0f;
+        
+
+    }
+
+
+    private void deathCheck()
+    {
+       
+
+
+    }
+
+
+    public bool playerCanSeeEnd()
+    {
+
+      
+
+
+        float end = cam.WorldToViewportPoint(player.CurrentTerrain.SpawnRight).x;
+
+        return  end > 0.0f && end < 1.0f;
+
+
+    }
+    private void followPLayerPosition()
+    {
+
+        Vector3 finalCamPos = Vector3.Lerp(cam.transform.position, new Vector3(player.transform.position.x + offsetX, cam.transform.position.y, cam.transform.position.z),offsetSmooth *Time.deltaTime);
+        if (followPLayer)
+        {
+
+            cam.transform.position = finalCamPos;
+
+
+
+
+        }
+          if (deathChecker.IsAlive == false)
+           {
+
+               if (cam.orthographicSize > 2)
+               {
+                   Debug.Log("cam size is  " + cam.orthographicSize);
+                   cam.orthographicSize -= 0.01f;
+               }
+           }
+           cam.transform.position = finalCamPos;
+
+
 
 
 
@@ -37,8 +127,27 @@ public class CamMovement : MonoBehaviour
     }
 
 
+    public bool shiftToPosition(Vector3 position, float smoothing )
+    {
+
+        if(!(transform.position == position))
+        {
+
+            transform.position =  Vector3.Lerp(transform.position,position, smoothing);
+            return false;
+
+        }
+
+        return true;
+    }
 
 
+
+
+    public bool FollowPlayer
+    {
+        set { followPLayer = value; }
+    }
 
 
 }

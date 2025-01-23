@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Enemy
+  - Collectible
   layers:
   - Default
   - TransparentFX
@@ -18,8 +19,8 @@ TagManager:
   - Player
   - Kickable
   - Enemy
-  - 
-  - 
+  - Collectible
+  - Interactable
   - 
   - 
   - 
@@ -40,6 +41,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 2911522105
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

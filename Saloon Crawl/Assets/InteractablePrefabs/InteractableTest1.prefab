@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7848008013662607580}
   - component: {fileID: 6842111323144433988}
   - component: {fileID: 8121836029707893156}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: InteractableTest1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f401a5cc0bb1c340a89c5fdc21ae641, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numberThatCanSpawn: 2
+  numberThatCanSpawn: 3
 --- !u!61 &8121836029707893156
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -106,7 +106,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3033480318616700514}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:

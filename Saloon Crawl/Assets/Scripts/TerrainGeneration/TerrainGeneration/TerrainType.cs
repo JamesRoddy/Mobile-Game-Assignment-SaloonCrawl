@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -15,7 +16,7 @@ public abstract class TerrainType : MonoBehaviour
     [SerializeField] protected int minInteractables;
     [SerializeField] protected int maxInteractables;
     [SerializeField] protected GameObject backGroundContainer;
-
+    private List<Vector3> currentSpawnPositions = new List<Vector3>();
 /*    protected List<Vector3> interactableSpawnPositions = new List<Vector3>();
 */  private float interactablesSpawnDivder = 2.0f;
     private float interactablesSpawnPadding = 2.0f;
@@ -27,7 +28,7 @@ public abstract class TerrainType : MonoBehaviour
     Vector3 interactableSpawnLeft;
     Vector3 tempPositionForInteractable = Vector3.zero;
 
-
+    private bool hasDefferedInteactableSpawn = false;
     Vector3 spawnRight;
     Vector3 spawnLeft;
 
@@ -51,7 +52,9 @@ public abstract class TerrainType : MonoBehaviour
     private GameObject nextTerrainTyle;
     private TerrainType nextTerrainType;
 
-    
+    // collectibles 
+    private bool hasCollectibles = false;
+
     public abstract void setSpawnPositions();
     public void activateObject(ref GameObject obj, Vector3 position) {
 
@@ -65,37 +68,53 @@ public abstract class TerrainType : MonoBehaviour
 
     public void spawnInteractableObjects(InteractablePool pool)
     {
-        Debug.Log("SPAWNING INTERACTABLES  spawning at generated  positions  current max interactables " + currentMaxInteractables);
+      /*  Debug.Log("SPAWNING INTERACTABLES  spawning at generated  positions  current max interactables " + currentMaxInteractables);*/
 
        
         if (interactablesCounter < currentMaxInteractables )
-        {
-            Debug.Log("SPAWNING INTERACTABLES requesting object for " + classification + "current interactables count " + interactablesCounter +" current max "+currentMaxInteractables);
+        {/*
+            Debug.Log("SPAWNING INTERACTABLES requesting object for " + classification + "current interactables count " + interactablesCounter +" current max "+currentMaxInteractables);*/
             GameObject interactable = pool.getRandomAvailableObject();
             if (pool.HasDeffered)
             {
-                if (interactableSpawnPositions[interactablesCounter].transform.position.x < transform.position.x && tempPositionForInteractable == Vector3.zero)
-                {
-                    Debug.Log(" SPAWNING INTERACTABLES had to shift interactable spawn position to the right due to it being defferred");
-                    tempPositionForInteractable = new Vector3(Random.Range(transform.position.x + transform.localScale.x / 4, interactableSpawnRight.x + 1.0f), interactableSpawnPositions[interactablesCounter].transform.position.y, interactableSpawnPositions[interactablesCounter].transform.position.z);
+                if (currentSpawnPositions
+                    [interactablesCounter].x < transform.position.x && tempPositionForInteractable == Vector3.zero)
+                { 
+                    hasDefferedInteactableSpawn = true;
+                    /*Debug.Log(" SPAWNING INTERACTABLES had to shift interactable spawn position to the right due to it being defferred");*/
 
                 }
-                Debug.Log(" SPAWNING INTERACTABLES pool has deffered object waiting ... ");
+              /*  Debug.Log(" SPAWNING INTERACTABLES pool has deffered object waiting ... ");*/
 
                 return;
             }
+/*       
+            Vector3 finalPos = currentSpawnPositions[interactablesCounter].Position;
+            float overlap = currentSpawnPositions [interactablesCounter].Overlap.x;*/
           
+          /*  if (overlap != 0.0f )
+            {
+                Collider2D interactbleCollider = interactable.GetComponent<Collider2D>(); 
+                
+                if(Mathf.Abs(overlap)<= interactbleCollider.bounds.size.x)
+                {
+                    float trueOverlap = 1.0f - Mathf.Abs( overlap)/interactbleCollider.bounds.size.x ; 
+
+
+                }
+
+
+
+               
+
+            }*/
+
+            hasDefferedInteactableSpawn = false;
             interactable.SetActive(true);
-            interactable.transform.position = interactableSpawnPositions[interactablesCounter].transform.position;
+            interactable.transform.position = currentSpawnPositions[interactablesCounter];
             interactablesCounter++;
            
-            if (tempPositionForInteractable != Vector3.zero)
-            {
-                Debug.Log("SPAWNING INTERACTABLES temp pos for deffered pool object " + tempPositionForInteractable);
-                interactable.transform.position = tempPositionForInteractable;
-                tempPositionForInteractable = Vector3.zero;
-            }
-
+          
       
 
             
@@ -103,13 +122,23 @@ public abstract class TerrainType : MonoBehaviour
 
         if(interactablesCounter == currentMaxInteractables || interactablesCounter == interactableSpawnPositions.Count )
         {
-            Debug.LogWarning("if max interactables is great than number of spawnPositions " + interactablesCounter == interactableSpawnPositions.Count +" max interactables will never be hit if 1 is displayed ");
-            Debug.Log(" SPAWNING INTERACTABLES interactable spanw count max hit for terrain " + classification);
+         /*   Debug.LogWarning("if max interactables is great than number of spawnPositions " + interactablesCounter == interactableSpawnPositions.Count +" max interactables will never be hit if 1 is displayed ");
+            Debug.Log(" SPAWNING INTERACTABLES interactable spanw count max hit for terrain " + classification);*/
             hasInteractables = true;
 
         }
 
 
+
+    }
+
+
+
+    public bool containsPoint(Vector3 point)
+    {
+
+
+        return point.x <= spawnRight.x && point.x >= spawnLeft.x;
 
     }
     public bool hasMetInteractableRequest()
@@ -128,7 +157,7 @@ public abstract class TerrainType : MonoBehaviour
     {
 
         currentEnemiesCount = Random.Range(MinEnemies, MaxEnemies + 1);
-        Debug.Log("assiging new spanw count " + currentEnemiesCount);
+       /* Debug.Log("assiging new spanw count " + currentEnemiesCount);*/
 
     }
   
@@ -142,74 +171,62 @@ public abstract class TerrainType : MonoBehaviour
     }
 
 
-    public void setEndSpawnPositions()
+    public void setGenericValues()
     {
-
-
    
-            spawnRight = new Vector3((transform.position.x + transform.localScale.x / interactablesSpawnDivder) - interactablesSpawnPadding, transform.position.y, transform.position.z);
-            spawnLeft = new Vector3((transform.position.x - transform.localScale.x / interactablesSpawnDivder) + interactablesSpawnPadding, interactableSpawnRight.y, interactableSpawnRight.z);
-
-
-     }
+        spawnRight = new Vector3((transform.position.x + transform.localScale.x / interactablesSpawnDivder), transform.position.y, transform.position.z);
+        spawnLeft = new Vector3((transform.position.x - transform.localScale.x / interactablesSpawnDivder), transform.position.y, transform.position.z);
+        hasCollectibles = false;
+    }
     public void generatePositionsInteractables()
     {
         hasInteractables = false;
         interactableSpawnRight = new Vector3((transform.position.x + transform.localScale.x / interactablesSpawnDivder)  - interactablesSpawnPadding, transform.position.y, transform.position.z);
         interactableSpawnLeft = new Vector3((transform.position.x - transform.localScale.x / interactablesSpawnDivder) + interactablesSpawnPadding, interactableSpawnRight.y, interactableSpawnRight.z);
         interactablesCounter = 0;
+        currentSpawnPositions.Clear();
         currentMaxInteractables = Random.Range(minInteractables, maxInteractables+1);
-        
-        Debug.Log("SPAWNING INTERACTABLES generating spawn positions  max spawn loc left "+interactableSpawnLeft+"max spawn loc right "+interactableSpawnRight+" has interactables "+hasInteractables + "current max " + currentMaxInteractables);
+        currentSpawnPositions.Capacity = currentMaxInteractables;
+         float areaToAllocate = transform.localScale.x/currentMaxInteractables;
 
-        for(int i = 0; i< interactableSpawnPositions.Count; i++)
+        /*        Debug.Log("SPAWNING INTERACTABLES generating spawn positions  max spawn loc left "+interactableSpawnLeft+"max spawn loc right "+interactableSpawnRight+" has interactables "+hasInteractables + "current max " + currentMaxInteractables);
+        */
+
+
+
+        /*float rangeLeftX = 0.0f;
+        float rangeRightX = 0.0f;
+        float prevXLeft = 0.0f; 
+        float prevXRight = 0.0f;
+        float prevX = 0.0f;
+        float randomX = 0.0f;
+        Vector3 previousPos = Vector3.zero;*/
+        Debug.Log("count for interactable objects " + interactables.Count);
+        int random = Random.Range(0, interactableSpawnPositions.Count);
+        GameObject randomSpawnPositions = interactableSpawnPositions[random];
+        Debug.Log("SPAWNING INTERACTABLES new random " + random +" for class " + classification);
+        int count = randomSpawnPositions.transform.childCount;
+        Debug.Log("number of spawn positions " + count);
+        Transform[] childrenTransforms = randomSpawnPositions.GetComponentsInChildren<Transform>(); ;
+
+        for(int i = 0; i<count;i++)
         {
-            int randomShuffle = Random.Range(0, interactableSpawnPositions.Count);
-            Debug.Log("SPAWNING INTERACTABLES random shuffle base " + randomShuffle +"interactable spawn positions count "+interactableSpawnPositions.Count);
-            randomShuffle =  randomShuffle == i && i < interactableSpawnPositions.Count / 2 ?   Random.Range(0, i): Random.Range(interactableSpawnPositions.Count / 2, interactableSpawnPositions.Count);
-            Debug.Log("SPAWNING INTERACTABLES random after adjustement  " + randomShuffle +"was equal to current pos "+(randomShuffle==i));
 
-            GameObject temp = interactableSpawnPositions[i];
-            Debug.Log(" SPAWNING INTERACTABLES temp transform position  before swap" + temp.transform.position);
-            Debug.Log(" SPAWNING INTERACTABLES random chose before swap " + interactableSpawnPositions[randomShuffle].transform.position);
-            interactableSpawnPositions[i] = interactableSpawnPositions[randomShuffle]; 
-            
-            interactableSpawnPositions[randomShuffle] = temp;
-            Debug.Log("SPAWNING INTERACTABLES temp transform position  after swap" + interactableSpawnPositions[i].transform.position);
-            Debug.Log(" SPAWNING INTERACTABLES random chose after swap " + interactableSpawnPositions[randomShuffle].transform.position);
-
+            Debug.Log(" SPAWNING INTERACTABLES adding new postion " + randomSpawnPositions.transform.GetChild(i).position);
+            currentSpawnPositions.Add(randomSpawnPositions.transform.GetChild(i).position);
+           
 
 
         }
-/*        float previous = transform.position.x;*/
-       /* for (int i = 0; i < currentMaxInteractables; i++)
-        {
-
-            float randomX = UnityEngine.Random.Range(interactableSpawnLeft.x, interactableSpawnRight.x + 1.0f);
-
-            if ((previous < transform.position.x && randomX < transform.position.x) || (previous > transform.position.x && randomX > transform.position.x))
-            {
-                float side = previous < 0.0f ? interactableSpawnLeft.x : interactableSpawnRight.x;
-                randomX = UnityEngine.Random.Range(transform.position.x, side);
-
-            }
-            previous = randomX;
-            Vector3 spawnPositions = new Vector3(randomX, transform.position.y, transform.position.z);
-
-            interactableSpawnPositions.Add(spawnPositions);
-
-
-        }*/
+       
     }
   
     
     private void Start()
     {
         TerrainStart();
-        spawnRight = new Vector3((transform.position.x + transform.localScale.x / interactablesSpawnDivder) - interactablesSpawnPadding, transform.position.y, transform.position.z);
-        spawnLeft = new Vector3((transform.position.x - transform.localScale.x / interactablesSpawnDivder) + interactablesSpawnPadding, interactableSpawnRight.y, interactableSpawnRight.z);
-        float test = interactableSpawnPositions[interactableSpawnPositions.Count-1].transform.position.x;
-        Debug.Log("interactable spanw pos test "+ test ) ;
+        spawnRight = new Vector3((transform.position.x + transform.localScale.x / interactablesSpawnDivder) , transform.position.y, transform.position.z);
+        spawnLeft = new Vector3((transform.position.x - transform.localScale.x / interactablesSpawnDivder) , interactableSpawnRight.y, interactableSpawnRight.z);
         
     }
 
@@ -231,6 +248,31 @@ public abstract class TerrainType : MonoBehaviour
     
     
     
+    } 
+
+    public bool HasCollectibles
+    {
+        get { return hasCollectibles; }
+        set { hasCollectibles = value; }    
+
+
+    }
+
+    public Vector3 SpawnLeft
+    {
+        get { return spawnLeft; } 
+    
+    }
+    public Vector3 SpawnRight
+    {
+        get { return spawnRight; }
+
+    }
+
+    public bool HasDefferedInteractableSpawn
+    {
+
+        get { return hasDefferedInteactableSpawn; }
     }
 
     public TerrainClassifications GetClassification

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
@@ -13,7 +14,7 @@ public class playerController : MonoBehaviour
     private TerrainType currentTerrain;
     private int currentTerrainCycles;
     private float playerSpeed = 3.0f;
-    private float minDistanceToEndOfCurrentTerrain = 400.0f;
+    private float minDistanceToEndOfCurrentTerrain = 144.0f;
     private bool shouldJump = false;
     [SerializeField] LayerMask groundLayer;
     bool grounded = false;
@@ -29,7 +30,10 @@ public class playerController : MonoBehaviour
     GameObject bullet;
     Bullet bull;
     public GameObject arm;
-    
+
+    private int currentCoinCount = 0;
+
+    private DeathChecker deathChecker;
 
     public bool shouldSlide = false;
     bool isSliding = false;
@@ -50,6 +54,10 @@ public class playerController : MonoBehaviour
         CowboyAnim = GetComponent<Animator>();
         bull = FindObjectOfType<Bullet>();
         runSound.Play();
+
+
+       deathChecker = GetComponent<DeathChecker>();
+
     }
 
     // Update is called once per frame
@@ -62,6 +70,8 @@ public class playerController : MonoBehaviour
         shoot();
         slide();
         CowboyAnim.SetBool("OnGround", grounded);
+        CowboyAnim.SetBool("IsAlive", deathChecker.IsAlive);
+        IsDead();
 
     }
     private void addMomentum()
@@ -70,11 +80,22 @@ public class playerController : MonoBehaviour
         playerRigidBody.velocity = new Vector2(playerSpeed, playerRigidBody.velocity.y);
     }
 
+
+    public bool isOnRightSideByCertainFractionOfScale(float divider)
+    {
+
+        return transform.position.x >= (currentTerrain.transform.position.x + currentTerrain.transform.localScale.x / divider);
+
+
+    }
+
     private void jump()
     {
         if (shouldJump && grounded)
         {
+
             playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpVelocity);
+
             shouldJump = false;
             //jumpSound.Play();  
         }
@@ -162,14 +183,21 @@ public class playerController : MonoBehaviour
         Debug.Log("shouldSlide3: " + shouldSlide);
 
     }
-
-    public bool isCloseToEndOfCurrentterrain()
+    public bool isInCurrentTerrian()
     {
 
-
-        return Vector3.SqrMagnitude((currentTerrain.transform.position + currentTerrain.GetComponent<TerrainType>().getHalfScale) - transform.position) <= minDistanceToEndOfCurrentTerrain;
+/*        Debug.Log("is on current terrain " + currentTerrain.GetClassification + " is in bounds " + (transform.position.x <= currentTerrain.SpawnRight.x && transform.position.x >= currentTerrain.SpawnLeft.x));
+*/        return (transform.position.x <= currentTerrain.SpawnRight.x && transform.position.x >= currentTerrain.SpawnLeft.x);
+    }
+    public bool isCloseToEndOfCurrentterrain()
+    {
+/*        Debug.Log("current terrain was null " + (currentTerrain == null));
+*/
+        return Vector3.SqrMagnitude((currentTerrain.transform.position + currentTerrain.getHalfScale) - transform.position) <= minDistanceToEndOfCurrentTerrain;
 
     }
+
+   
     public Vector2 playerPosVec2
     {
         get { return new Vector2(transform.position.x, transform.position.y); }
@@ -181,7 +209,10 @@ public class playerController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-
+        if (collision.collider.gameObject.CompareTag("Enemy"))
+        {
+            collision.collider.enabled = false;
+        }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -189,7 +220,15 @@ public class playerController : MonoBehaviour
 
     }
 
+
+    public int CurrentCoinCount { 
+        get { return currentCoinCount; }
+        set { currentCoinCount = value; }
+    }
+
+
     public bool Grounded
+
     {
         get { return grounded; }
     }
@@ -226,6 +265,15 @@ public class playerController : MonoBehaviour
         return hit.collider != null;
     }
 
-
+    private void IsDead()
+    {
+        if ( deathChecker.IsAlive == false)
+        {
+            if(grounded == true)
+            {
+                Time.timeScale = 0;
+            }
+        }
+    }
 }
 

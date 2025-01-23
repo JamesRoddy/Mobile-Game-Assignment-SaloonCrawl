@@ -19,17 +19,17 @@ public class EnemyScriptTest1 : EnemyDescriptorInfo// all enemies inherit from t
         // zombies will be spawned in intervals rather than immideatley where as cowboys wont have an interval at all  
         // terrain types have there own methods of spawing that do or dont take into account this interval so ultimatley the spawn method is set by the terrain type
         // for example the saloon has no interval as the enemies are just static turrets 
-        Debug.Log("started enemy script 1 ");
+/*        Debug.Log("started enemy script 1 ");*/
     }
 
     void Update()
     {
         t += Time.deltaTime;
-        Debug.Log("enemy timer saloon " + t);
-        if (t >= maxTimer)
+/*        Debug.Log("enemy timer saloon " + t);
+*/        if (t >= maxTimer)
         {
-            Debug.Log("enemy timer reached max " + t);
-            t = 0.0f;
+/*            Debug.Log("enemy timer reached max " + t);
+*/            t = 0.0f;
             gameObject.SetActive(false);
         }
 

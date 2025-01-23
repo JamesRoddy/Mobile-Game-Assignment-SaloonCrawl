@@ -30,6 +30,7 @@ public class Aiming : MonoBehaviour
     private playerController playerController; // use this 
     private float flipX;
     private bool canFlip = true;
+    private DeathChecker deathChecker;
 
     // Start is called before the first frame update
     void Start()
@@ -52,6 +53,7 @@ public class Aiming : MonoBehaviour
         parentLineRenderer.endColor = Color.red;
         parentLineRenderer.startWidth = 0.01f;
         parentLineRenderer.endWidth = 0.01f;
+        deathChecker = player.GetComponent<DeathChecker>();
         bulletTrail.enabled = false;
 
         
@@ -208,7 +210,6 @@ public class Aiming : MonoBehaviour
     {
         bulletTrail.transform.position = gunTransform.position;
         bulletTrail.enabled = true;
-        
         float time = 0.0f;
       /*  bulletTrail.enabled = true;*/
         Vector3 hitPos = hit.point;
@@ -223,7 +224,12 @@ public class Aiming : MonoBehaviour
             time += Time.deltaTime / bulletTrail.time;
             yield return null;
         }
-
+        if (hit.collider.gameObject.CompareTag("Player"))
+        {
+            deathChecker.isAlive = false;
+            bulletTrail.transform.position = gunTransform.position;
+            bulletTrail.enabled = false;
+        }
         Debug.Log("SPANWING TRAIL DUE TO HIT FINISHED  ");
 
         bulletTrail.transform.position = gunTransform.position;
