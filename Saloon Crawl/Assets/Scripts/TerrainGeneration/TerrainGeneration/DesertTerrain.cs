@@ -9,7 +9,6 @@ public class DesertTerrainType : TerrainType
     private float spawnInterval = 0.0f;
     private float maxSpawnInterval = 0.0f;
     private bool firstSpawn = true;
-    GameObject previousEnemy = null;
     
 
 
@@ -30,16 +29,15 @@ public class DesertTerrainType : TerrainType
         if (firstSpawn)
         {
 
-            Debug.Log("SPAWNING enemy first spawn " + classification);
+           /* Debug.Log("SPAWNING enemy first spawn " + classification);*/
             activateObject(ref enemy,spawnPos);
             maxSpawnInterval = currentDescriptor.SpawnInterval;
-            previousEnemy = enemy;
             firstSpawn = false;
             return;
         }
         if(maxSpawnInterval != currentDescriptor.SpawnInterval)
         {
-            Debug.Log("SPAWNING ENEMY " + classification + " new spawn interval "+currentDescriptor.SpawnInterval);
+/*            Debug.Log("SPAWNING ENEMY " + classification + " new spawn interval "+currentDescriptor.SpawnInterval);*/
             spawnInterval = 0.0f;
             maxSpawnInterval = currentDescriptor.SpawnInterval;
         }
@@ -51,11 +49,9 @@ public class DesertTerrainType : TerrainType
             return;
         }
 
-        Debug.Log("time until next spawn reached " + classification + " spawn interval " + spawnInterval);
-        Debug.Log(" SPAWNING ENEMY spawning enemy for " + classification );
-        Debug.Log(" SPAWNING ENEMY spawn position " + spawnPos); 
+       /* Debug.Log("time until next spawn reached " + classification + " spawn interval " + spawnInterval);*/
+  
         activateObject(ref enemy,spawnPos);
-        previousEnemy = enemy;
         spawnInterval = 0.0f;
 
     }
@@ -63,18 +59,17 @@ public class DesertTerrainType : TerrainType
     {
         hasSpawnPositions = false;
         currentEnemySpawnCount = 0;
-        previousEnemy  = null;
-
-        Debug.Log("reset terrain called for " + classification + " has spawn positions is now false " + hasSpawnPositions +"previous enemy  is null "+ (previousEnemy == null));
+        NextTerrainType = null;
+    /*    Debug.Log("reset terrain called for " + classification + " has spawn positions is now false " + hasSpawnPositions );*/
     }
     public override void TerrainEnable()
     {
-        Debug.Log("terrain enable called for " + classification );
+   /*     Debug.Log("terrain enable called for " + classification );*/
         assignSpawnVlaue();
     }
     public override bool Validate()
     {
-        Debug.Log("desert trigger condition hit " + true);
+      /*  Debug.Log("desert trigger condition hit " + true);*/
 
 
         return true;
@@ -84,7 +79,7 @@ public class DesertTerrainType : TerrainType
 
         firstSpawn = true;
         hasSpawnPositions = false;
-        Debug.Log(" ENEMY SPAWN terrain start " + classification + "first spawn " + firstSpawn + " has spawn positions " + hasSpawnPositions);
+       /* Debug.Log(" ENEMY SPAWN terrain start " + classification + "first spawn " + firstSpawn + " has spawn positions " + hasSpawnPositions);*/
 
 
     }

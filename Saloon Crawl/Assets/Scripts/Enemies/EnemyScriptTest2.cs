@@ -18,16 +18,16 @@ public class EnemyScriptTest2 : EnemyDescriptorInfo // all enemies inherit from 
                               // terrain types have there own methods of spawing that do or dont take into account this interval so ultimatley the spawn method is set by the terrain type
                               // for example the saloon has no interval as the enemies are just static turrets
 
-           Debug.Log("started enemy script 2");
-        }
+/*           Debug.Log("started enemy script 2");
+*/        }
 
         void Update()
         {
           t += Time.deltaTime;
          if ( t>= maxTimer)
           {
-            Debug.Log("enemy timer reached max "+t);
-            t = 0.0f; 
+/*            Debug.Log("enemy timer reached max "+t);
+*/            t = 0.0f; 
             gameObject.SetActive(false);
          }
 

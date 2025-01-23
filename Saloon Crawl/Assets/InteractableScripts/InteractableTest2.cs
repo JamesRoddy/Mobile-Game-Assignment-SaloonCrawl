@@ -6,23 +6,23 @@ public class InteractableTest2 : Interactable
 {
     // Start is called before the first frame update
     BoxCollider2D boxcolllider;
-    float maxTimer = 1.5f;
-    float t = 0.0f;
+   
+    Camera cam;
     public override void interactableStart()
     {
         Debug.Log("interactable 2 start");
         boxcolllider = GetComponent<BoxCollider2D>();
+        cam = Camera.main;
     }
 
 
     public override void interactableUpdate()
     {
 
-        t += Time.deltaTime;
-        if (t >= maxTimer)
-        {
+        float screenX = cam.WorldToViewportPoint(transform.position).x;
 
-            t = 0.0f;
+        if (screenX < 0.0f)
+        {
             gameObject.SetActive(false);
         }
 

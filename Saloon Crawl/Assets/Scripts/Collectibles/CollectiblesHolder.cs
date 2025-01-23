@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CollectiblesPool : MonoBehaviour
 {
-    
-    private List<GameObject> pool;
+
+    private List<GameObject> pool = new List<GameObject>();
     private int maxPoolAmount = 0;
     private int minPoolAmount = 0;
     private int poolPointer = 0;
@@ -13,15 +13,15 @@ public class CollectiblesPool : MonoBehaviour
     {
         maxPoolAmount = maxAmount;
         minPoolAmount = minAmount;
-        for(int i = 0; i < maxPoolAmount; i++)
+        for (int i = 0; i < maxPoolAmount; i++)
         {
-            GameObject collectibleInstance  = Instantiate(collectiblesPrefab,Vector3.zero,Quaternion.identity);
+            GameObject collectibleInstance = Instantiate(collectiblesPrefab, Vector3.zero, Quaternion.identity);
             collectibleInstance.SetActive(false);
-            pool.Add(collectibleInstance);  
+            pool.Add(collectibleInstance);
 
 
         }
-        
+
 
 
 
@@ -45,9 +45,19 @@ public class CollectiblesPool : MonoBehaviour
     public GameObject getAvaialbleObject()
     {
 
-        return pool[ poolPointer++];
+        return pool[poolPointer++];
 
     }
+
+
+    public Vector3 getCollectibleScale()
+    {
+        return pool[0].transform.localScale;
+    }
+
+    
+
+  
 
 
 
