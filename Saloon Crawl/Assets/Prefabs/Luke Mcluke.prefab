@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 6210507346713649589}
   - component: {fileID: 9222631840785171376}
   - component: {fileID: 8894061327594767606}
+  - component: {fileID: 704868410054754756}
   m_Layer: 8
   m_Name: Luke Mcluke
   m_TagString: Player
@@ -826,3 +827,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &704868410054754756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9021466747334748636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ff27ae442a9fae45a614bf8bb0ed1e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collsionTags:
+  - Enemy
+  isAlive: 1

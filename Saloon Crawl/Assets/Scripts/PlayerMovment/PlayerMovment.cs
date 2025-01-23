@@ -97,7 +97,7 @@ public class playerController : MonoBehaviour
             playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpVelocity);
 
             shouldJump = false;
-            //jumpSound.Play();  
+            jumpSound.Play();  
         }
 
 
@@ -115,7 +115,7 @@ public class playerController : MonoBehaviour
             arm.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, fBulletAngle));
             bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletPrefab.transform.rotation);
 
-            //bulletShot.Play();
+            bulletShot.Play();
 
         }
 
@@ -145,7 +145,7 @@ public class playerController : MonoBehaviour
 
         else if (shouldSlide)
         {
-            //slideSound.Play();
+            slideSound.Play();
             StartCoroutine(AdjustCollider());
         }
         

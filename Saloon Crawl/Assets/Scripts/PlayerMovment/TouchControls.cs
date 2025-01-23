@@ -108,7 +108,7 @@ public class TouchControls : MonoBehaviour
         else if(touch.phase == TouchPhase.Ended && direction.x > 150.0f)
         {
             player.CowboyAnim.SetBool("Kick", true);
-            //player.kickSound.Play();
+            player.kickSound.Play();
             direction = Vector2.zero;
             bSwiping = true;
             bSwipeRight = true;
