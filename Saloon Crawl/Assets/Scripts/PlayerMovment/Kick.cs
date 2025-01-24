@@ -19,6 +19,8 @@ public class Kick : Interactable
     int iNum = 0;
     private Camera playerCam;
     private BoxCollider2D collision;
+    private float t = 0;
+    private DeathChecker deathChecker;
 
     public LayerMask Ground;
     public LayerMask Enemy;
@@ -43,6 +45,7 @@ public class Kick : Interactable
             kickable.velocity = kickableVelocity;
             control.bSwipeRight = false;
             bKicked = true;
+            deathChecker = player.GetComponent<DeathChecker>();
         }
 
         else if (isNotInCameraView())
@@ -75,6 +78,22 @@ public class Kick : Interactable
 
     IEnumerator playAnim()
     {
+/*        DeathChecker playerDeath = player.GetComponent<DeathChecker>();
+        if (playerDeath.IsAlive == true)
+        {
+            player.CowboyAnim.SetBool("Kick", true);
+            t += Time.deltaTime;
+            if (t < 0.5)
+            {
+                player.CowboyAnim.SetBool("Kick", false);
+                yield return null;
+            }
+        }
+        else
+        {
+            player.CowboyAnim.SetBool("Kick", false );
+                            yield return null;
+        }*/
         player.CowboyAnim.SetBool("Kick", true);
         yield return new WaitForSeconds(0.5f);
         player.CowboyAnim.SetBool("Kick", false);

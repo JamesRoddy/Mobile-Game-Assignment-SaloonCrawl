@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 9828a37296eecaa40944a67bcdd80333, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -276,7 +276,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aee95438e9bda84b9a4272dafcebd12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnIntervals: []
   range: 15
   aimingSprite: {fileID: 21300000, guid: 9828a37296eecaa40944a67bcdd80333, type: 3}
   shootSprite: {fileID: 21300000, guid: a9dbf5ad35067ac4681a5318663413cb, type: 3}
@@ -528,6 +527,8 @@ GameObject:
   - component: {fileID: 963395713428297035}
   - component: {fileID: 3734535144092733331}
   - component: {fileID: 7453179041923465471}
+  - component: {fileID: 239709707458224751}
+  - component: {fileID: 3012005820178565207}
   m_Layer: 10
   m_Name: Bandit
   m_TagString: Enemy
@@ -593,7 +594,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 7fcba1e18fd83314fb2ce864be22f6d6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -612,7 +613,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6954496311966897436}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -621,7 +622,7 @@ BoxCollider2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 0
+  m_LayerOverridePriority: 1
   m_ForceSendLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -782,3 +783,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f330b58f84f851a4db185698433c892f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &239709707458224751
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6954496311966897436}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 6
+--- !u!114 &3012005820178565207
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6954496311966897436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 525f744966b8c444a9843df420f5e190, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnIntervals: []

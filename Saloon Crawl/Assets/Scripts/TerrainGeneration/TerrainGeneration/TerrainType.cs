@@ -46,7 +46,7 @@ public abstract class TerrainType : MonoBehaviour
     protected int currentEnemiesCount = 0;
     protected int currentEnemySpawnCount = 0;
 
-
+   
     // terrain 
     [SerializeField] protected List<TerrainClassifications> validAdjacentTerrainTypes;
     [SerializeField] protected TerrainClassifications classification;
@@ -56,7 +56,7 @@ public abstract class TerrainType : MonoBehaviour
     private TerrainClassifications nextTerrainOn;
     private GameObject nextTerrainTyle;
     private TerrainType nextTerrainType;
-
+    protected bool isSpawningEnemy = false;
     // collectibles 
     private bool hasCollectibles = false;
 
@@ -69,7 +69,7 @@ public abstract class TerrainType : MonoBehaviour
         
     }
 
-    public abstract void spawnEnemy(ref GameObject enemy, EnemyDescriptorInfo currentDescriptor);
+    public abstract void spawnEnemy(ref GameObject enemy,EnemyDescriptorInfo enemyDesc);
 
 
     public void spawnInteractableObjects(InteractablePool pool)
@@ -268,7 +268,10 @@ public abstract class TerrainType : MonoBehaviour
 
         get { return hasDefferedInteactableSpawn; }
     }
-
+    public bool IsSpawningEnemy {
+        get {  return isSpawningEnemy; }
+    
+    }
     public TerrainClassifications GetClassification
     {
         get { return classification; }
