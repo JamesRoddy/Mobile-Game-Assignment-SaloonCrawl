@@ -928,6 +928,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6915674912826126957, guid: 55cb467b6f9fee940883e6db68bfe86d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6954496311966897436, guid: 55cb467b6f9fee940883e6db68bfe86d, type: 3}
       propertyPath: m_Name
       value: Bandit

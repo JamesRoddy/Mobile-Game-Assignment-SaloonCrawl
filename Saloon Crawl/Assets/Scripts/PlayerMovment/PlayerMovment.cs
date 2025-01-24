@@ -76,7 +76,7 @@ public class playerController : MonoBehaviour
     void Update()
     {
 
-            //shouldViewNextTerrain();
+            shouldViewNextTerrain();
             grounded = isGrounded();
             addMomentum();
             jump();
@@ -269,6 +269,8 @@ public class playerController : MonoBehaviour
         if (collision.collider.gameObject.CompareTag("Enemy"))
         {
             collision.collider.enabled = false;
+            Rigidbody2D enemyBody = collision.collider.GetComponent<Rigidbody2D>();
+            enemyBody.simulated = false;
         }
     }
 
@@ -345,8 +347,11 @@ public class playerController : MonoBehaviour
     {
         if ( deathChecker.IsAlive == false)
         {
-            if(grounded == true)
+            transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
+
+            if (grounded == true)
             { 
+
 
                 Time.timeScale = 0;
             }
