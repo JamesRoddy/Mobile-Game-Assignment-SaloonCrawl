@@ -12,8 +12,8 @@ public class CamMovement : MonoBehaviour
     private float offsetSmooth = 1.5f;
     private bool followPLayer = true;
     private playerController player;
-
-
+    private float  shiftingBackSmooth = 0.85f;
+    private PlayerCameraShift playerCamShift;
     private TerrainManager terrainManager;
 
     Vector3 offsetPos = Vector3.zero;
@@ -32,12 +32,12 @@ public class CamMovement : MonoBehaviour
         cam = Camera.main;
         cam.orthographicSize = orthoSizeDefault;
         terrainManager = FindFirstObjectByType<TerrainManager>();
-
+        playerCamShift = FindFirstObjectByType<PlayerCameraShift>();
 
         player = FindObjectOfType<playerController>();
 
         deathChecker = player.GetComponent<DeathChecker>();
-
+        
 
     }
 
@@ -118,9 +118,10 @@ public class CamMovement : MonoBehaviour
     private void followPLayerPosition()
     {
 
-         offsetPos = Vector3.Lerp(cam.transform.position, new Vector3(player.transform.position.x + offsetX, cam.transform.position.y, cam.transform.position.z), offsetSmooth * Time.deltaTime);
+
         if (followPLayer)
         {
+            offsetPos = Vector3.Lerp(cam.transform.position, new Vector3(player.transform.position.x + offsetX, cam.transform.position.y, cam.transform.position.z), offsetSmooth * Time.deltaTime);
 
             cam.transform.position = offsetPos;
 
@@ -129,7 +130,7 @@ public class CamMovement : MonoBehaviour
 
         }
 
-
+      
 
 
 
@@ -167,9 +168,27 @@ public class CamMovement : MonoBehaviour
 
         return true;
     }
+
+
+    public bool shiftToPlayerPosition()
+    {
+
+        if (transform.position != offsetPos)
+        {
+
+            transform.position = Vector3.Lerp(transform.position, offsetPos, shiftingBackSmooth);
+            return false;
+
+        }
+
+        return true;
+    }
+
+
     public bool playerCamHasReachedPlayerPos()
     {
-        return transform.position == offsetPos;
+        Debug.Log("player cam reached position for offset " + (transform.position == new Vector3(player.transform.position.x + offsetX, cam.transform.position.y, cam.transform.position.z)));
+        return transform.position == new Vector3(player.transform.position.x +offsetX, cam.transform.position.y , cam.transform.position.z);
     }
 
     public Vector2 HalfRect

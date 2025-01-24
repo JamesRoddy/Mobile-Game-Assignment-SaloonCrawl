@@ -29,14 +29,14 @@ public class TouchControls : MonoBehaviour
     private float accelSense = 1.0f;
     private float inputAccelClampMin = -1.0f;
     private float inputAccelClampMax = 1.0f;
-    private float accelMoveNegativeThresh = -0.2f;
-    private float accelMovePositveThresh = 0.2f; 
-   
+    private float accelthresh = 0.5f;
+    private float zoomSpeed = 0.1f;
     void Start()
     {
         player = FindObjectOfType<playerController>();
         Debug.Log("start");
-        playerCam = Camera.main;
+        playerCam = Camera.main; 
+       
       
         swipeHorizontalPercent *= playerCam.scaledPixelWidth;
         swipeVerticalPercent *= playerCam.scaledPixelHeight;
@@ -46,7 +46,8 @@ public class TouchControls : MonoBehaviour
     void Update()
     {
 
-        accelMoveX = Mathf.Clamp(Input.acceleration.x * accelSense, inputAccelClampMin, inputAccelClampMax);
+        accelMoveX = Input.acceleration.x ;
+        Debug.Log( "accelreation x " + accelMoveX);
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -99,6 +100,36 @@ public class TouchControls : MonoBehaviour
             player.fBulletAngle = Mathf.Atan2( store.y, store.x) * Mathf.Rad2Deg;
            // Debug.Log("Bullet Angle:" + player.fBulletAngle);
         }
+    }
+
+
+    public  void zoomPLayerCamera ()
+    {
+
+        if(Input.touchCount == 2)
+        {
+            Touch touch0 = Input.GetTouch(0);
+            Touch touch1 = Input.GetTouch(1);
+
+            Vector2 deltaDifference0 = touch0.position - touch0.deltaPosition;
+            Vector2 deltaDifference1 = touch1.position - touch1.deltaPosition;
+            float prevPositionDifference = (deltaDifference0 - deltaDifference1).magnitude;
+
+            float currentPosition = (touch0.position - touch1.position).magnitude;
+
+            float magDiff = prevPositionDifference - currentPosition;
+
+            if (playerCam.orthographic)
+            {
+
+                playerCam.orthographicSize += magDiff * zoomSpeed;
+                PlayerCameraShift cameraShift= playerCam.GetComponent<PlayerCameraShift>();
+                playerCam.orthographicSize = Mathf.Clamp(playerCam.orthographicSize, cameraShift.CamShiftOrthoMin, cameraShift.CamShiftOrthoMax);
+            }
+
+        }
+
+
     }
 
     public Vector2 getDragPos()
@@ -182,11 +213,11 @@ public class TouchControls : MonoBehaviour
 
     public bool accelerationHasHitNegative()
     {
-        return accelMoveX < accelMoveNegativeThresh;
+        return accelMoveX < -accelthresh;
     }
     public bool accelerationHasHitPositve()
     {
-        return accelMoveX > accelMovePositveThresh;
+        return accelMoveX > accelthresh;
     }
         public Vector2 getTouchPos()
     {

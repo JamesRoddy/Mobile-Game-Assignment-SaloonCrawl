@@ -45,7 +45,7 @@ public class playerController : MonoBehaviour
     public bool shouldSlide = false;
     bool isSliding = false;
     float fSlidePowerY = -10f;
-
+    private PlayerCameraShift PlayerCameraShift;
     private string scoreString = "";
     //Jump Soundeffects
     public AudioSource runSound;
@@ -60,6 +60,7 @@ public class playerController : MonoBehaviour
         playerBoxCollider = GetComponent<BoxCollider2D>();
         playerRigidBody = GetComponent<Rigidbody2D>();
         currentCam = FindFirstObjectByType<Camera>();
+        PlayerCameraShift = currentCam.GetComponent<PlayerCameraShift>();
         CowboyAnim = GetComponent<Animator>();
         bull = FindObjectOfType<Bullet>();
         followCam = FindFirstObjectByType<CamMovement>();
@@ -84,13 +85,13 @@ public class playerController : MonoBehaviour
             CowboyAnim.SetBool("OnGround", grounded);
             CowboyAnim.SetBool("IsAlive", deathChecker.IsAlive);
             IsDead();
-        
+            
       
 
     }
     private void shouldViewNextTerrain()
     {
-        if(currentTerrain.NextTerrainType != null && (touchControls.accelerationHasHitPositve() || touchControls.SwipeLeft) && !IsViewingNextTerrain)
+        if(currentTerrain.NextTerrainType != null && (touchControls.accelerationHasHitPositve() || touchControls.SwipeLeft) && !IsViewingNextTerrain &&! PlayerCameraShift.IsShiftingBack)
         {
             Debug.Log("CAM SHIFTING conditions hit to view next terrain current");
             IsViewingNextTerrain = true;
@@ -99,7 +100,7 @@ public class playerController : MonoBehaviour
             Debug.Log("CAM SHIFTING next terrain pos " + nextTerrainPos);
         }
 
-        if (!IsViewingNextTerrain)
+        if (!IsViewingNextTerrain )
         {
 
             playerRigidBody.simulated = true;
