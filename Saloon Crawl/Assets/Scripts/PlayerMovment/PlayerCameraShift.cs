@@ -35,11 +35,6 @@ public class PlayerCameraShift : MonoBehaviour
 
         checkShouldShiftBack();
         hasReachedCentreOfTerrain();
-
-
-     
-
-       
         resolveOverlap();
 
 
@@ -59,6 +54,7 @@ public class PlayerCameraShift : MonoBehaviour
 
         if(isShiftingBack && playerCamMover.shiftToPlayerPosition())
         {
+            
             playerController.IsViewingNextTerrain = false;
             playerCamMover.FollowPlayer = true;
             Debug.Log((playerController.IsViewingNextTerrain) + "player cam shifted back ");
@@ -102,6 +98,8 @@ public class PlayerCameraShift : MonoBehaviour
 
 
             transform.position = Vector3.Lerp(transform.position, (transform.position + (Vector3)deltaPos * Time.deltaTime) + -overlap, lerpDragSmoothing);
+
+            touchControls.zoomPLayerCamera();
         }
 
     }

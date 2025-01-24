@@ -123,7 +123,6 @@ public class TouchControls : MonoBehaviour
 
             if (playerCam.orthographic)
             {
-
                 playerCam.orthographicSize += magDiff * zoomSpeed;
                 PlayerCameraShift cameraShift= playerCam.GetComponent<PlayerCameraShift>();
                 playerCam.orthographicSize = Mathf.Clamp(playerCam.orthographicSize, cameraShift.CamShiftOrthoMin, cameraShift.CamShiftOrthoMax);
