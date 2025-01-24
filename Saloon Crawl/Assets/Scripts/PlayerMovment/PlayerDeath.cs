@@ -5,6 +5,7 @@ using UnityEngine;
 public class DeathChecker : MonoBehaviour
 {
     [SerializeField] private List<string> collsionTags;
+
     public bool isAlive = true;
 
 
