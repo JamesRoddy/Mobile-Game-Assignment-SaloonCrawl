@@ -25,12 +25,19 @@ public class TouchControls : MonoBehaviour
     private float swipeHorizontalPercent = 0.4f;
     private float swipeVerticalPercent = 0.5f;
     private Camera playerCam;
+    private float accelMoveX;
+    private float accelSense = 1.0f;
+    private float inputAccelClampMin = -1.0f;
+    private float inputAccelClampMax = 1.0f;
+    private float accelMoveNegativeThresh = -0.2f;
+    private float accelMovePositveThresh = 0.2f; 
+   
     void Start()
     {
         player = FindObjectOfType<playerController>();
         Debug.Log("start");
         playerCam = Camera.main;
-
+      
         swipeHorizontalPercent *= playerCam.scaledPixelWidth;
         swipeVerticalPercent *= playerCam.scaledPixelHeight;
     }
@@ -38,6 +45,8 @@ public class TouchControls : MonoBehaviour
     
     void Update()
     {
+
+        accelMoveX = Mathf.Clamp(Input.acceleration.x * accelSense, inputAccelClampMin, inputAccelClampMax);
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -74,6 +83,7 @@ public class TouchControls : MonoBehaviour
 
     }
 
+    
     void checkTap(Touch touch, TouchPhase phase)
     {
         if(phase == TouchPhase.Ended)
@@ -96,6 +106,7 @@ public class TouchControls : MonoBehaviour
         if( Input.touchCount == 1 &&  Input.GetTouch(0).phase == TouchPhase.Moved)
         {
 
+           
             return Input.GetTouch(0).deltaPosition;
 
 
@@ -168,30 +179,26 @@ public class TouchControls : MonoBehaviour
 
     }
 
-    
-    public  void assignDrag(Touch touch)
+
+    public bool accelerationHasHitNegative()
     {
-        if(  Input.touchCount == 1 && touch.phase == TouchPhase.Moved)
-        {
-             dragDistance  = Vector3.Distance( touch.position , touchInitialPos); 
-           
-
-
-        }
-        dragDistance = 0;
-      
-
-
+        return accelMoveX < accelMoveNegativeThresh;
     }
-
-
-    public Vector2 getTouchPos()
+    public bool accelerationHasHitPositve()
+    {
+        return accelMoveX > accelMovePositveThresh;
+    }
+        public Vector2 getTouchPos()
     {
         return touchPos;
     }
 
 
+    public float AccelMoveX
+    {
 
+        get { return accelMoveX; } 
+    }
     public bool SwipeLeft
     {
         get { return bSwipeLeft; } 

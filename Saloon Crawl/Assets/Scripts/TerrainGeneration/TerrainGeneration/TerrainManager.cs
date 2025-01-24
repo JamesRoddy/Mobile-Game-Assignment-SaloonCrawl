@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.PlasticSCM.Editor.WebApi;
-using UnityEditor.PackageManager;
+
 using UnityEngine;
 
 public class TerrainManager : MonoBehaviour

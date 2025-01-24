@@ -90,7 +90,7 @@ public class playerController : MonoBehaviour
     }
     private void shouldViewNextTerrain()
     {
-        if(currentTerrain.NextTerrainType != null && touchControls.SwipeLeft && !IsViewingNextTerrain)
+        if(currentTerrain.NextTerrainType != null && (touchControls.accelerationHasHitPositve() || touchControls.SwipeLeft) && !IsViewingNextTerrain)
         {
             Debug.Log("CAM SHIFTING conditions hit to view next terrain current");
             IsViewingNextTerrain = true;
@@ -118,7 +118,7 @@ public class playerController : MonoBehaviour
         playerRigidBody.velocity = new Vector2(playerSpeed, playerRigidBody.velocity.y);
     }
 
-
+    
     public bool isOnRightSideByCertainFractionOfScale(float divider)
     {
 

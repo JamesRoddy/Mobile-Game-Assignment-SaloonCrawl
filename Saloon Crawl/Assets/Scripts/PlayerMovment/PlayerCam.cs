@@ -16,7 +16,7 @@ public class CamMovement : MonoBehaviour
 
     private TerrainManager terrainManager;
 
-
+    Vector3 offsetPos = Vector3.zero;
     private float orthoSizeDefault = 5.0f;
     private float camSizeDecrease = 0.01f;
 
@@ -118,11 +118,11 @@ public class CamMovement : MonoBehaviour
     private void followPLayerPosition()
     {
 
-        Vector3 finalCamPos = Vector3.Lerp(cam.transform.position, new Vector3(player.transform.position.x + offsetX, cam.transform.position.y, cam.transform.position.z), offsetSmooth * Time.deltaTime);
+         offsetPos = Vector3.Lerp(cam.transform.position, new Vector3(player.transform.position.x + offsetX, cam.transform.position.y, cam.transform.position.z), offsetSmooth * Time.deltaTime);
         if (followPLayer)
         {
 
-            cam.transform.position = finalCamPos;
+            cam.transform.position = offsetPos;
 
 
 
@@ -167,7 +167,10 @@ public class CamMovement : MonoBehaviour
 
         return true;
     }
-
+    public bool playerCamHasReachedPlayerPos()
+    {
+        return transform.position == offsetPos;
+    }
 
     public Vector2 HalfRect
     {
