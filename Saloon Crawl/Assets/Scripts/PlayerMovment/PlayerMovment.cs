@@ -117,8 +117,8 @@ public class playerController : MonoBehaviour
     private void addMomentum()
     {
 
-/*        playerRigidBody.velocity = new Vector2(playerSpeed, playerRigidBody.velocity.y);
-*/    }
+       playerRigidBody.velocity = new Vector2(playerSpeed, playerRigidBody.velocity.y);
+   }
 
     
     public bool isOnRightSideByCertainFractionOfScale(float divider)
