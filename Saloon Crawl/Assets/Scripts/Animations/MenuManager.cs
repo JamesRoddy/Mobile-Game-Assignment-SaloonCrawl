@@ -7,6 +7,12 @@ public class MenuManagerScript : MonoBehaviour
 {
     public void ChangeScene(string sceneName)
     {
+        Debug.Log("Changing Scene");
+        SceneManager.LoadScene(sceneName);
+    }
+
+    public void WaitChangeScene(string sceneName)
+    {
         StartCoroutine(waitForAnim(sceneName));
     }
 
