@@ -13,6 +13,8 @@ public  abstract class  Collectible : MonoBehaviour
     protected playerController playerController;
     protected Camera playerCam;
     private Collider2D collectibleCollider;
+    public  AudioSource collectibleSound;
+    protected bool startInteraction = false;
     public int MaxAmount
     {
         get
@@ -32,16 +34,14 @@ public  abstract class  Collectible : MonoBehaviour
     private void Start()
     {
         playerController = FindFirstObjectByType<playerController>();
+        
         playerCam = Camera.main;
-     
-       
+               
         Debug.Log("collider null " + (collectibleCollider == null));
      
-
-
-
-
         CollectibleStart();
+        
+        Debug.Log("collectible sound is null " + (collectibleSound == null));
     }
 
 
@@ -128,18 +128,26 @@ public  abstract class  Collectible : MonoBehaviour
 
             }
 
+
+            if (startInteraction)
+            {
+                interact();
+            }
+
         }
 
 
 
     }
+
+
+    public abstract void increaseStat();
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
 
-            interact();
-            gameObject.SetActive(false);
+            startInteraction = true;           
 
         }
         
