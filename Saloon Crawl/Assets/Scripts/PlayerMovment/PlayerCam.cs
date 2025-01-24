@@ -13,27 +13,26 @@ public class CamMovement : MonoBehaviour
     private bool followPLayer = true;
     private playerController player;
 
- 
+
     private TerrainManager terrainManager;
 
-    private float targetAspect = 16.0f/9.0f;
-    private float offsetScalar = 1.0f;
-    float defaultZoom = 3.0f;
-    
-    
+    Vector3 offsetPos = Vector3.zero;
+    private float orthoSizeDefault = 5.0f;
+    private float camSizeDecrease = 0.01f;
+
 
 
 
     private DeathChecker deathChecker;
     private float deathZoom = 2;
 
-    // Start is called before the first frame update
+
     void Start()
     {
         cam = Camera.main;
-        
+        cam.orthographicSize = orthoSizeDefault;
         terrainManager = FindFirstObjectByType<TerrainManager>();
-        cam.orthographicSize = 3.0f; 
+
 
         player = FindObjectOfType<playerController>();
 
@@ -42,7 +41,9 @@ public class CamMovement : MonoBehaviour
 
     }
 
-    // Update is called once per frame
+
+
+
 
 
     public bool canSeePosition(Vector3 position)
@@ -58,6 +59,7 @@ public class CamMovement : MonoBehaviour
     void Update()
     {
         followPLayerPosition();
+        checkDeath();
     }
 
 
@@ -70,14 +72,30 @@ public class CamMovement : MonoBehaviour
         float end = cam.WorldToViewportPoint(player.CurrentTerrain.SpawnRight).x;
 
         return player.CurrentTerrain.NextTerrainType == null && end > 0.0f && end <= 1.0f;
-        
+
 
     }
 
+    public void shrinkOrthoSize(float size)
+    {
 
+        if (cam.orthographicSize > size)
+        {
+            cam.orthographicSize -= camSizeDecrease;
+
+
+        }
+
+
+    }
+
+    public void resetOrtho()
+    {
+        cam.orthographicSize = orthoSizeDefault;
+    }
     private void deathCheck()
     {
-       
+
 
 
     }
@@ -86,39 +104,30 @@ public class CamMovement : MonoBehaviour
     public bool playerCanSeeEnd()
     {
 
-      
+
 
 
         float end = cam.WorldToViewportPoint(player.CurrentTerrain.SpawnRight).x;
 
-        return  end > 0.0f && end < 1.0f;
+        return end > 0.0f && end < 1.0f;
 
 
     }
+
+
     private void followPLayerPosition()
     {
 
-        Vector3 finalCamPos = Vector3.Lerp(cam.transform.position, new Vector3(player.transform.position.x + offsetX, cam.transform.position.y, cam.transform.position.z),offsetSmooth *Time.deltaTime);
+         offsetPos = Vector3.Lerp(cam.transform.position, new Vector3(player.transform.position.x + offsetX, cam.transform.position.y, cam.transform.position.z), offsetSmooth * Time.deltaTime);
         if (followPLayer)
         {
 
-            cam.transform.position = finalCamPos;
+            cam.transform.position = offsetPos;
 
 
 
 
         }
-          if (deathChecker.IsAlive == false)
-           {
-
-               if (cam.orthographicSize > 2)
-               {
-                   Debug.Log("cam size is  " + cam.orthographicSize);
-                   cam.orthographicSize -= 0.01f;
-               }
-           }
-           cam.transform.position = finalCamPos;
-
 
 
 
@@ -127,23 +136,52 @@ public class CamMovement : MonoBehaviour
     }
 
 
-    public bool shiftToPosition(Vector3 position, float smoothing )
-    {
 
-        if(!(transform.position == position))
+    private void checkDeath()
+    {
+        if (deathChecker.IsAlive == false)
         {
 
-            transform.position =  Vector3.Lerp(transform.position,position, smoothing);
+            if (cam.orthographicSize > deathZoom)
+            {
+                Debug.Log("cam size is  " + cam.orthographicSize);
+                cam.orthographicSize -= 0.01f;
+            }
+        }
+
+
+
+    }
+
+
+    public bool shiftToPosition(Vector3 position, float smoothing)
+    {
+
+        if (transform.position != position)
+        {
+
+            transform.position = Vector3.Lerp(transform.position, position, smoothing);
             return false;
 
         }
 
         return true;
     }
+    public bool playerCamHasReachedPlayerPos()
+    {
+        return transform.position == offsetPos;
+    }
 
-
-
-
+    public Vector2 HalfRect
+    {
+        get { return new Vector2(cam.pixelRect.width / 2.0f, cam.pixelRect.height / 2.0f); }
+    
+    }
+    public Vector2 HalfPixelRes 
+    {
+        get { return new Vector2(cam.scaledPixelWidth / 2.0f, cam.scaledPixelHeight / 2.0f); }
+    
+    }
     public bool FollowPlayer
     {
         set { followPLayer = value; }

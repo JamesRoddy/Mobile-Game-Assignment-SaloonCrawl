@@ -247,7 +247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactables:
-  - {fileID: 338056231070623090, guid: 6b4bfaa0042c89b4aaf86043c2137cee, type: 3}
+  - {fileID: 5375781003310198972, guid: 7e72d0d47cf503442ba2ec7f992b3933, type: 3}
   interactableSpawnPositions:
   - {fileID: 1454493003433241789}
   - {fileID: 8303309832075604294}
@@ -255,9 +255,10 @@ MonoBehaviour:
   - {fileID: 8343284031695072571}
   minInteractables: 3
   maxInteractables: 4
-  backGroundContainer: {fileID: 0}
+  backGroundTopContainer: {fileID: 5969825016870501552}
+  backGroundBottomContainer: {fileID: 8288855864441508342}
   enemies:
-  - {fileID: 8740768668527974216, guid: 1a37e153a456f5046acd26686b457dc9, type: 3}
+  - {fileID: 2345869755238070221, guid: 27d1cffc143cdee4c9bc44d0e20d24f7, type: 3}
   minEnemies: 2
   maxEnemies: 4
   validAdjacentTerrainTypes: 0000000001000000

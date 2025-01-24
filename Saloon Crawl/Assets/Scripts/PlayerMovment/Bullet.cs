@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -11,6 +12,9 @@ public class Bullet : MonoBehaviour
     TouchControls control;
     playerController player;
     private float fCollisionRadius = 0.1f;
+
+    //Use this to fix the bullet changing direction for clicks
+    bool bShot = false;
 
     public LayerMask Ground;
     public LayerMask Enemy;
@@ -27,35 +31,28 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
         Destroy(this.gameObject, 0.5f);
 
         Dir = control.getTouchPos() - (new Vector2(player.bulletSpawnPoint.transform.position.x, player.bulletSpawnPoint.transform.position.y));
         Dir.Normalize();
         bullet.velocity = Dir * fBulletSpeed;
         tr.emitting = true;
-
-        if(Physics2D.OverlapCircle(transform.position, fCollisionRadius, Ground))
-        {
-            Destroy(this.gameObject);
-        }
-
-        if (Physics2D.OverlapCircle(transform.position, fCollisionRadius, Enemy))
-        {
-            Destroy(this.gameObject);
-        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
-        {
+       Debug.Log("Collision");
+       if (collision.gameObject.CompareTag("Enemy"))
+       {
             Destroy(this.gameObject);
-        }
+       }
 
-        if(collision.gameObject.CompareTag("Ground"))
-        {
+       if (collision.gameObject.CompareTag("Ground"))
+       {
             Destroy(this.gameObject);
-        }
+       }
+
     }
+
+
 }

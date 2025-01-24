@@ -12,9 +12,10 @@ public class DeathChecker : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Made contact with the enemy");
-
         foreach (string collsionTag in collsionTags)
         {
+            Debug.Log("Checking tags: " + collsionTag);
+            Debug.Log("Collision bool" + collision.gameObject.CompareTag(collsionTag));
             if (collision.gameObject.CompareTag(collsionTag))
             {
                 isAlive = false;
@@ -25,8 +26,6 @@ public class DeathChecker : MonoBehaviour
 
 
     }
-
-
 
     public bool IsAlive
     {
