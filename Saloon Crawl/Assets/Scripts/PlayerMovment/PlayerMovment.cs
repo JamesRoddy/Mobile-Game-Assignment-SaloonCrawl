@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class playerController : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class playerController : MonoBehaviour
     private BoxCollider2D playerBoxCollider;
     private Rigidbody2D playerRigidBody;
     private TerrainType currentTerrain;
+    private TouchControls touchControls;
+    private Camera currentCam;
+    private bool shouldIncrementScore = true;
     private int currentTerrainCycles;
     private float playerSpeed = 4.0f;
     private float minDistanceToEndOfCurrentTerrain = 144.0f;
@@ -20,7 +24,8 @@ public class playerController : MonoBehaviour
     bool grounded = false;
     float jumpVelocity = 6.0f;
     public Animator CowboyAnim;
-
+    private float scoreIncrement = 0.0f;
+    private float scoreIncrementMax = 0.1f;
     //Shooting variables
     public bool shouldShoot = false;
     public Transform bulletSpawnPoint;
@@ -30,15 +35,18 @@ public class playerController : MonoBehaviour
     GameObject bullet;
     Bullet bull;
     public GameObject arm;
-
+    private int score;
+    private bool isViewingNextTerrain = false;
     private int currentCoinCount = 0;
+    private CamMovement followCam;
 
     private DeathChecker deathChecker;
-
+    private Vector3 nextTerrainPos;
     public bool shouldSlide = false;
     bool isSliding = false;
     float fSlidePowerY = -10f;
 
+    private string scoreString = "";
     //Jump Soundeffects
     public AudioSource runSound;
     public AudioSource bulletShot;
@@ -51,8 +59,11 @@ public class playerController : MonoBehaviour
     {
         playerBoxCollider = GetComponent<BoxCollider2D>();
         playerRigidBody = GetComponent<Rigidbody2D>();
+        currentCam = FindFirstObjectByType<Camera>();
         CowboyAnim = GetComponent<Animator>();
         bull = FindObjectOfType<Bullet>();
+        followCam = FindFirstObjectByType<CamMovement>();
+        touchControls = FindFirstObjectByType<TouchControls>();
         runSound.Play();
 
 
@@ -63,23 +74,52 @@ public class playerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        grounded = isGrounded();
-        addMomentum();
-        jump();
-        shoot();
-        slide();
-        CowboyAnim.SetBool("OnGround", grounded);
-        CowboyAnim.SetBool("IsAlive", deathChecker.IsAlive);
-        IsDead();
+
+            shouldViewNextTerrain();
+            grounded = isGrounded();
+            addMomentum();
+            jump();
+            shoot();
+            slide();
+            CowboyAnim.SetBool("OnGround", grounded);
+            CowboyAnim.SetBool("IsAlive", deathChecker.IsAlive);
+            IsDead();
+        
+      
 
     }
+    private void shouldViewNextTerrain()
+    {
+        if(currentTerrain.NextTerrainType != null && (touchControls.accelerationHasHitPositve() || touchControls.SwipeLeft) && !IsViewingNextTerrain)
+        {
+            Debug.Log("CAM SHIFTING conditions hit to view next terrain current");
+            IsViewingNextTerrain = true;
+            followCam.FollowPlayer = false; 
+            nextTerrainPos = new Vector3(currentTerrain.NextTerrainType.transform.position.x, transform.position.y, transform.position.z);
+            Debug.Log("CAM SHIFTING next terrain pos " + nextTerrainPos);
+        }
+
+        if (!IsViewingNextTerrain)
+        {
+
+            playerRigidBody.simulated = true;
+
+            return;
+        }
+        
+        playerRigidBody.simulated = false;
+        shouldIncrementScore = false;
+
+
+    }
+  
     private void addMomentum()
     {
 
         playerRigidBody.velocity = new Vector2(playerSpeed, playerRigidBody.velocity.y);
     }
 
-
+    
     public bool isOnRightSideByCertainFractionOfScale(float divider)
     {
 
@@ -196,7 +236,24 @@ public class playerController : MonoBehaviour
 
     }
 
-   
+    private void ScoreConstantIncrement()
+    {
+
+        if (shouldIncrementScore)
+        {
+            scoreIncrement += Time.deltaTime;
+
+            if (scoreIncrement >= scoreIncrementMax)
+            {
+                CurrentScore++;
+                scoreString = Convert.ToString(CurrentScore);
+                scoreIncrement = 0.0f;
+            }
+
+        }
+
+
+    }
     public Vector2 playerPosVec2
     {
         get { return new Vector2(transform.position.x, transform.position.y); }
@@ -224,10 +281,20 @@ public class playerController : MonoBehaviour
         get { return currentCoinCount; }
         set { currentCoinCount = value; }
     }
-
-
+    public Vector3 NextTerrainCamPos
+    {
+        get { return new Vector3(nextTerrainPos.x,nextTerrainPos.y,currentCam.transform.position.z); }
+    }
+    public bool IsViewingNextTerrain
+    {
+        set {  isViewingNextTerrain = value; }
+        get { return isViewingNextTerrain; }
+    }
+    public string currentScoreString
+    {
+        get { return scoreString; }
+    }
     public bool Grounded
-
     {
         get { return grounded; }
     }
@@ -254,6 +321,15 @@ public class playerController : MonoBehaviour
         get { return currentTerrain.GetComponent<TerrainType>().GetClassification; }
     } 
 
+    public  int CurrentScore
+    {
+        get { return score; }
+        set { score = value; }
+    } 
+    public void addToPoints(int value)
+    {
+        score += value;
+    }
     bool isGrounded()
     {
 
@@ -269,10 +345,18 @@ public class playerController : MonoBehaviour
         if ( deathChecker.IsAlive == false)
         {
             if(grounded == true)
-            {
+            { 
+
                 Time.timeScale = 0;
             }
+            return;
         }
+
+        ScoreConstantIncrement();
     }
+
+
+    
+
 }
 
