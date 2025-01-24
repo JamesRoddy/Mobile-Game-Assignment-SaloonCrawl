@@ -11,7 +11,7 @@ public class EnemyScriptTest1 : EnemyDescriptorInfo// all enemies inherit from t
     float maxTimer = 1.5f;
     float t = 0.0f;
     BoxCollider2D boxCollider2D;
-    void Start()
+    public override void EnemyStart()
     {
         boxCollider2D = GetComponent<BoxCollider2D>();
         // spawn interval will be set in editor  and put in the list this is here as an example
@@ -22,16 +22,17 @@ public class EnemyScriptTest1 : EnemyDescriptorInfo// all enemies inherit from t
 /*        Debug.Log("started enemy script 1 ");*/
     }
 
-    void Update()
+    public override void EnemyUpdate()
     {
+        
         t += Time.deltaTime;
 /*        Debug.Log("enemy timer saloon " + t);
 */        if (t >= maxTimer)
-        {
+          {
 /*            Debug.Log("enemy timer reached max " + t);
 */            t = 0.0f;
             gameObject.SetActive(false);
-        }
+         }
 
 
 

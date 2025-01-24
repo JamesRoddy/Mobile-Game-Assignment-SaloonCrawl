@@ -15,19 +15,24 @@ public abstract class TerrainType : MonoBehaviour
     [SerializeField] protected List<GameObject> interactableSpawnPositions;
     [SerializeField] protected int minInteractables;
     [SerializeField] protected int maxInteractables;
-    [SerializeField] protected GameObject backGroundContainer;
+    [SerializeField] protected GameObject backGroundTopContainer;
+    [SerializeField] protected GameObject backGroundBottomContainer;
+
+    private SpriteRenderer backgroundTop;
+    private SpriteRenderer backgroundBottom;
     private List<Vector3> currentSpawnPositions = new List<Vector3>();
-/*    protected List<Vector3> interactableSpawnPositions = new List<Vector3>();
-*/  private float interactablesSpawnDivder = 2.0f;
+
+    private float interactablesSpawnDivder = 2.0f;
     private float interactablesSpawnPadding = 2.0f;
-    
+    private Vector3 boundingMin; 
+    private Vector3 boundingMax;
     private int currentMaxInteractables = 0;
     private int interactablesCounter = 0;
     protected bool hasInteractables = false;
     Vector3 interactableSpawnRight;
     Vector3 interactableSpawnLeft;
     Vector3 tempPositionForInteractable = Vector3.zero;
-
+    Bounds spriteBoundsSum;
     private bool hasDefferedInteactableSpawn = false;
     Vector3 spawnRight;
     Vector3 spawnLeft;
@@ -61,6 +66,7 @@ public abstract class TerrainType : MonoBehaviour
         obj.SetActive(true);
         obj.transform.position = position;
 
+        
     }
 
     public abstract void spawnEnemy(ref GameObject enemy, EnemyDescriptorInfo currentDescriptor);
@@ -88,26 +94,7 @@ public abstract class TerrainType : MonoBehaviour
 
                 return;
             }
-/*       
-            Vector3 finalPos = currentSpawnPositions[interactablesCounter].Position;
-            float overlap = currentSpawnPositions [interactablesCounter].Overlap.x;*/
-          
-          /*  if (overlap != 0.0f )
-            {
-                Collider2D interactbleCollider = interactable.GetComponent<Collider2D>(); 
-                
-                if(Mathf.Abs(overlap)<= interactbleCollider.bounds.size.x)
-                {
-                    float trueOverlap = 1.0f - Mathf.Abs( overlap)/interactbleCollider.bounds.size.x ; 
 
-
-                }
-
-
-
-               
-
-            }*/
 
             hasDefferedInteactableSpawn = false;
             interactable.SetActive(true);
@@ -173,10 +160,18 @@ public abstract class TerrainType : MonoBehaviour
 
     public void setGenericValues()
     {
-   
-        spawnRight = new Vector3((transform.position.x + transform.localScale.x / interactablesSpawnDivder), transform.position.y, transform.position.z);
-        spawnLeft = new Vector3((transform.position.x - transform.localScale.x / interactablesSpawnDivder), transform.position.y, transform.position.z);
+        backgroundTop = backGroundTopContainer.GetComponent<SpriteRenderer>();
+        backgroundBottom = backGroundBottomContainer.GetComponent<SpriteRenderer>();
+        spawnRight = new Vector3((transform.position.x + transform.localScale.x / interactablesSpawnDivder), transform.position.y , transform.position.z);
+        spawnLeft = new Vector3((transform.position.x - transform.localScale.x / interactablesSpawnDivder), transform.position.y , transform.position.z);
         hasCollectibles = false;
+
+        spriteBoundsSum.center = Vector3.Lerp(backgroundTop.bounds.center, backgroundBottom.bounds.center, 0.5f);
+        spriteBoundsSum.extents = new Vector3((backgroundTop.bounds.max.x - backgroundBottom.bounds.min.x) / 2.0f , (backgroundTop.bounds.max.y - backgroundBottom.bounds.min.y)/2.0f , (backgroundTop.bounds.max.z - backgroundBottom.bounds.min.z) / 2.0f);
+        spriteBoundsSum.min = backgroundBottom.bounds.min;
+        spriteBoundsSum.max = backgroundTop.bounds.max;
+         Debug.Log("background max and min "+ spriteBoundsSum.max  +" "+spriteBoundsSum.min +"center "+spriteBoundsSum.center +" extents "+spriteBoundsSum.extents);
+       
     }
     public void generatePositionsInteractables()
     {
@@ -189,18 +184,7 @@ public abstract class TerrainType : MonoBehaviour
         currentSpawnPositions.Capacity = currentMaxInteractables;
          float areaToAllocate = transform.localScale.x/currentMaxInteractables;
 
-        /*        Debug.Log("SPAWNING INTERACTABLES generating spawn positions  max spawn loc left "+interactableSpawnLeft+"max spawn loc right "+interactableSpawnRight+" has interactables "+hasInteractables + "current max " + currentMaxInteractables);
-        */
-
-
-
-        /*float rangeLeftX = 0.0f;
-        float rangeRightX = 0.0f;
-        float prevXLeft = 0.0f; 
-        float prevXRight = 0.0f;
-        float prevX = 0.0f;
-        float randomX = 0.0f;
-        Vector3 previousPos = Vector3.zero;*/
+       
         Debug.Log("count for interactable objects " + interactables.Count);
         int random = Random.Range(0, interactableSpawnPositions.Count);
         GameObject randomSpawnPositions = interactableSpawnPositions[random];
@@ -221,16 +205,26 @@ public abstract class TerrainType : MonoBehaviour
        
     }
   
-    
+
     private void Start()
     {
         TerrainStart();
         spawnRight = new Vector3((transform.position.x + transform.localScale.x / interactablesSpawnDivder) , transform.position.y, transform.position.z);
         spawnLeft = new Vector3((transform.position.x - transform.localScale.x / interactablesSpawnDivder) , interactableSpawnRight.y, interactableSpawnRight.z);
-        
+
+
     }
 
 
+
+
+
+
+    public Bounds SpriteBoundsSum
+    {
+        
+        get { return spriteBoundsSum; }
+    }
     public abstract bool Validate();
     public abstract void TerrainStart();
 

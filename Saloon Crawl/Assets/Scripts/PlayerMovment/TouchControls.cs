@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,14 +17,22 @@ public class TouchControls : MonoBehaviour
     bool bSwiping = false;
     public Vector2 touchPos;
     public bool bSwipeRight = false;
+    private bool bSwipeLeft = false;
+    private float dragDistance = 0.0f;
     float t;
-
-
+    float directionYThreshHold = 100.0f;
+    float directionXThreshHold = 150.0f;
+    private float swipeHorizontalPercent = 0.4f;
+    private float swipeVerticalPercent = 0.5f;
+    private Camera playerCam;
     void Start()
     {
         player = FindObjectOfType<playerController>();
         Debug.Log("start");
+        playerCam = Camera.main;
 
+        swipeHorizontalPercent *= playerCam.scaledPixelWidth;
+        swipeVerticalPercent *= playerCam.scaledPixelHeight;
     }
 
     
@@ -82,6 +91,20 @@ public class TouchControls : MonoBehaviour
         }
     }
 
+    public Vector2 getDragPos()
+    {
+        if( Input.touchCount == 1 &&  Input.GetTouch(0).phase == TouchPhase.Moved)
+        {
+
+            return Input.GetTouch(0).deltaPosition;
+
+
+        }
+
+        return Vector2.zero;
+
+
+    }
 
     void checkSwipe(Touch touch)
     {
@@ -91,11 +114,11 @@ public class TouchControls : MonoBehaviour
         //Debug.Log("touch moving");
 
         direction = touch.position - touchInitialPos;
-        
+        Debug.Log("direction difference x" + direction.x + "direction difference y" + direction.y +"swipe hori percent"+swipeHorizontalPercent+"swipe vertcial "+swipeVerticalPercent);
 
 
 
-        if (touch.phase == TouchPhase.Ended && direction.y > 100.0f && player.Grounded)
+        if (touch.phase == TouchPhase.Ended && direction.y > swipeVerticalPercent && player.Grounded)
         {
 
             //Debug.Log("ended");
@@ -105,7 +128,7 @@ public class TouchControls : MonoBehaviour
             bSwiping = true ;
         }
 
-        else if(touch.phase == TouchPhase.Ended && direction.x > 150.0f)
+        else if(touch.phase == TouchPhase.Ended && direction.x > swipeHorizontalPercent)
         {
             player.CowboyAnim.SetBool("Kick", true);
             player.kickSound.Play();
@@ -116,7 +139,7 @@ public class TouchControls : MonoBehaviour
            
         }
 
-        else if(touch.phase == TouchPhase.Ended && direction.y < -100.0f)
+        else if(touch.phase == TouchPhase.Ended && direction.y < -swipeVerticalPercent)
         {
             player.shouldSlide = true;
 
@@ -124,9 +147,18 @@ public class TouchControls : MonoBehaviour
             bSwiping = true;
             
         }
+        else if (touch.phase == TouchPhase.Ended && direction.x < -swipeHorizontalPercent)
+        {
+            bSwipeLeft = true;
+            direction = Vector2.zero;
+            Debug.Log("Swiping Left" + bSwipeLeft);
+            bSwiping = true;
+
+        }
 
         else
         {
+            bSwipeLeft =false;
             bSwiping = false ;
             bSwipeRight = false ;
         }
@@ -136,8 +168,34 @@ public class TouchControls : MonoBehaviour
 
     }
 
+    
+    public  void assignDrag(Touch touch)
+    {
+        if(  Input.touchCount == 1 && touch.phase == TouchPhase.Moved)
+        {
+             dragDistance  = Vector3.Distance( touch.position , touchInitialPos); 
+           
+
+
+        }
+        dragDistance = 0;
+      
+
+
+    }
+
+
     public Vector2 getTouchPos()
     {
         return touchPos;
     }
+
+
+
+    public bool SwipeLeft
+    {
+        get { return bSwipeLeft; } 
+
+    }
+
 }

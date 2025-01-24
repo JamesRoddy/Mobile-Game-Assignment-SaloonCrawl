@@ -55,7 +55,7 @@ public class TerrainManager : MonoBehaviour
 
             Vector3 normalizeViewportPosition = cam.WorldToViewportPoint(activeTerrain[i].transform.position + activeTerrain[i].GetComponent<TerrainType>().getHalfScale); 
             
-            if (!(normalizeViewportPosition.x > 0.0f))
+            if (!(normalizeViewportPosition.x > 0.0f) && !playerController.IsViewingNextTerrain)
             {
 
                 activeTerrain[i].SetActive(false);

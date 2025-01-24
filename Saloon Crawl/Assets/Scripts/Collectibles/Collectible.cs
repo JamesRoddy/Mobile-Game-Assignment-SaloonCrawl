@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public  abstract class  Collectible : MonoBehaviour
@@ -43,7 +44,7 @@ public  abstract class  Collectible : MonoBehaviour
         CollectibleStart();
     }
 
-    
+
 
     public void CollectibleEnable()
     {
@@ -117,14 +118,18 @@ public  abstract class  Collectible : MonoBehaviour
     
     private void Update()
     {
-        if (!isOnScreen())
+        if (!playerController.IsViewingNextTerrain)
         {
+            if (!isOnScreen())
+            {
 
-            gameObject.SetActive(false);
+                gameObject.SetActive(false);
 
+
+            }
 
         }
-      
+
 
 
     }
