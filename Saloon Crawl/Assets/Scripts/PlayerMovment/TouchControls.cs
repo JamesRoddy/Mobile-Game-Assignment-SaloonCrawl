@@ -22,8 +22,8 @@ public class TouchControls : MonoBehaviour
     float t;
     float directionYThreshHold = 100.0f;
     float directionXThreshHold = 150.0f;
-    private float swipeHorizontalPercent = 0.4f;
-    private float swipeVerticalPercent = 0.5f;
+    private float swipeHorizontalPercent = 0.2f;
+    private float swipeVerticalPercent = 0.1f;
     private Camera playerCam;
     private float accelMoveX;
     private float accelSense = 1.0f;
