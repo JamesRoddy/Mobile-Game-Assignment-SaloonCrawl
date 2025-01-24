@@ -31,12 +31,12 @@ public class PlayerCameraShift : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        hasReachedCentreOfTerrain();
+       /* hasReachedCentreOfTerrain();
 
         checkShouldShiftBack();
 
        
-        resolveOverlap();
+        resolveOverlap();*/
 
 
     }

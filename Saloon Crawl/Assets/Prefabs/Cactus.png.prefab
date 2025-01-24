@@ -147,14 +147,14 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 640
+    m_Bits: 2688
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 15991
   m_ForceReceiveLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 15991
   m_ContactCaptureLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -216,6 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d542cd1209534541bd722220a2ef8a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numberThatCanSpawn: 4
   kickPosition: {fileID: 4863324951157467701}
   isKicking: 0
   brokenStoolTop: {fileID: 6960176964059324321, guid: ccc19ac136a0c7949b7f02c847ca642b, type: 3}

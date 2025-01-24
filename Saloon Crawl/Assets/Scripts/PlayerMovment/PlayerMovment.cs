@@ -22,7 +22,7 @@ public class playerController : MonoBehaviour
     private bool shouldJump = false;
     [SerializeField] LayerMask groundLayer;
     bool grounded = false;
-    float jumpVelocity = 6.0f;
+    float jumpVelocity = 7.0f;
     public Animator CowboyAnim;
     private float scoreIncrement = 0.0f;
     private float scoreIncrementMax = 0.1f;
@@ -75,7 +75,7 @@ public class playerController : MonoBehaviour
     void Update()
     {
 
-            shouldViewNextTerrain();
+            //shouldViewNextTerrain();
             grounded = isGrounded();
             addMomentum();
             jump();

@@ -23,6 +23,7 @@ public class TouchControls : MonoBehaviour
     float directionYThreshHold = 100.0f;
     float directionXThreshHold = 150.0f;
     private float swipeHorizontalPercent = 0.2f;
+    private float swipeRightPercent = 0.05f;
     private float swipeVerticalPercent = 0.1f;
     private Camera playerCam;
     private float accelMoveX;
@@ -40,6 +41,7 @@ public class TouchControls : MonoBehaviour
       
         swipeHorizontalPercent *= playerCam.scaledPixelWidth;
         swipeVerticalPercent *= playerCam.scaledPixelHeight;
+        swipeRightPercent *= playerCam.scaledPixelWidth;
     }
 
     
@@ -139,7 +141,7 @@ public class TouchControls : MonoBehaviour
             bSwiping = true ;
         }
 
-        else if(touch.phase == TouchPhase.Ended && direction.x > swipeHorizontalPercent)
+        else if(touch.phase == TouchPhase.Ended && direction.x > swipeRightPercent)
         {
             player.CowboyAnim.SetBool("Kick", true);
             player.kickSound.Play();
@@ -158,14 +160,14 @@ public class TouchControls : MonoBehaviour
             bSwiping = true;
             
         }
-        else if (touch.phase == TouchPhase.Ended && direction.x < -swipeHorizontalPercent)
+       /* else if (touch.phase == TouchPhase.Ended && direction.x < -swipeHorizontalPercent)
         {
             bSwipeLeft = true;
             direction = Vector2.zero;
             Debug.Log("Swiping Left" + bSwipeLeft);
             bSwiping = true;
 
-        }
+        }*/
 
         else
         {
