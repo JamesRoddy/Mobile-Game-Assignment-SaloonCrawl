@@ -2187,13 +2187,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3357993255349064512, guid: 03d68603cadcdf547a5440a956157da5, type: 3}
-      propertyPath: m_ForceSendLayers.m_Bits
-      value: 1015
-      objectReference: {fileID: 0}
-    - target: {fileID: 3357993255349064512, guid: 03d68603cadcdf547a5440a956157da5, type: 3}
-      propertyPath: m_ForceReceiveLayers.m_Bits
-      value: 1015
+    - target: {fileID: 73082254506477174, guid: 03d68603cadcdf547a5440a956157da5, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7693534056221397672, guid: 03d68603cadcdf547a5440a956157da5, type: 3}
       propertyPath: m_LocalPosition.x

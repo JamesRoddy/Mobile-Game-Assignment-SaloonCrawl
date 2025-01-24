@@ -76,8 +76,8 @@ public class playerController : MonoBehaviour
     void Update()
     {
 
-            shouldViewNextTerrain();
-            grounded = isGrounded();
+/*            shouldViewNextTerrain();
+*/            grounded = isGrounded();
             addMomentum();
             jump();
             shoot();
@@ -117,8 +117,8 @@ public class playerController : MonoBehaviour
     private void addMomentum()
     {
 
-        playerRigidBody.velocity = new Vector2(playerSpeed, playerRigidBody.velocity.y);
-    }
+/*        playerRigidBody.velocity = new Vector2(playerSpeed, playerRigidBody.velocity.y);
+*/    }
 
     
     public bool isOnRightSideByCertainFractionOfScale(float divider)
@@ -347,13 +347,15 @@ public class playerController : MonoBehaviour
     {
         if ( deathChecker.IsAlive == false)
         {
+            CowboyAnim.SetBool("IsAlive", false);
             transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
 
             if (grounded == true)
-            { 
-
-
-                Time.timeScale = 0;
+            {
+               if(CowboyAnim.GetBool("Kick") == false)
+                {
+                    Time.timeScale = 0;
+                }
             }
             return;
         }

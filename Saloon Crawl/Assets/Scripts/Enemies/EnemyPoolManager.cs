@@ -49,6 +49,23 @@ public class Enemypool : MonoBehaviour
 
     }
 
+    public void setEnemyValues()
+    {
+        foreach(GameObject enemyInstance in pool)
+        {
+            
+         
+            EnemyDescriptorInfo enemydesc  =  enemyInstance.GetComponent<EnemyDescriptorInfo>();
+            Debug.Log("assigning spawn values enemy descriptor was null " + (enemyInstance.GetComponent<EnemyDescriptorInfo>() == null));
+            enemydesc.assignSpawnValues();
+
+          
+
+        }
+
+
+
+    }
     public bool hasAvailableObject()
     {
         if( pool[poolPointer].activeSelf)

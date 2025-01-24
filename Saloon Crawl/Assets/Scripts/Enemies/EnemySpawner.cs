@@ -8,6 +8,7 @@ public class EnemySpawner : MonoBehaviour
 
 
     TerrainManager terrainManager;
+    private GameObject currentEnemy;
     playerController player;
     private GameObject nextTileToSpawnEnemiesOn;
     private Enemypool currentObjectPool;
@@ -37,32 +38,27 @@ public class EnemySpawner : MonoBehaviour
             currentTerrainType = player.CurrentTerrain.NextAdjacentTerrainTile.GetComponent<TerrainType>();
             Debug.Log(" SPAWNING ENEMY type of current terrain type " + player.CurrentTerrain.NextAdjacentTerrainTile.GetComponent<TerrainType>().GetClassification);
             currentTerrainType.setSpawnPositions();
-            currentTerrainType.assignSpawnVlaue();
+            currentTerrainType.assignSpawnVlaue(); 
+            
             currentObjectPool = terrainManager.getEnemPool(currentPool);
+            currentObjectPool.setEnemyValues();
            Debug.Log(" SPAWNING ENEMY  type of pool " + currentPool +" pool has available object "+currentObjectPool.hasAvailableObject());
 
 
        }
 
 
-        if (currentObjectPool != null &&  currentObjectPool.hasAvailableObject())
+        if (currentObjectPool != null &&  currentObjectPool.hasAvailableObject()  )
         {
             /*Debug.Log(" SPAWNING ENEMY requesting object object pool has object: "+currentObjectPool.hasAvailableObject());*/
-            GameObject enemy = currentObjectPool.requestAvaialbeObject();
-          
-            if (currentDescriptorInfo != enemy.GetComponent<EnemyDescriptorInfo>())
+            if (!currentTerrainType.IsSpawningEnemy)
             {
-                Debug.Log(" SPAWNING ENEMY new enemy descriptor");
-                enemy.SetActive(true);
-                currentDescriptorInfo = enemy.GetComponent<EnemyDescriptorInfo>();
-                currentDescriptorInfo.assignSpawnValues();
-                Debug.Log("SPAWN ENEMY is alive " + currentDescriptorInfo.isAlive);
-                enemy.SetActive(false);
-                Debug.Log(" SPAWNING ENEMY assigning values new spawn interval " + currentDescriptorInfo.SpawnInterval);
-                
-            } 
+                currentEnemy = currentObjectPool.requestAvaialbeObject();
+                Debug.Log("terrain was not spawning enemy " + currentTerrainType.GetClassification + "enemy descriptor was null "+ (currentEnemy.GetComponent<EnemyDescriptorInfo>() == null));
+            }
 
-            currentTerrainType.spawnEnemy(ref enemy,currentDescriptorInfo); 
+            
+            currentTerrainType.spawnEnemy(ref currentEnemy, currentEnemy.GetComponent<EnemyDescriptorInfo>()); 
 
 
 

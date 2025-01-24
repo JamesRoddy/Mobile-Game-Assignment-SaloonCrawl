@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Aiming : EnemyDescriptorInfo
+public class Aiming : MonoBehaviour
 {
     private GameObject player;
     private Vector3 playerPosition;
@@ -32,7 +32,7 @@ public class Aiming : EnemyDescriptorInfo
     private Vector3 shootDirection;
     public AudioSource cockGun;
 
-    public override void EnemyStart()
+    public  void Start()
     {
         parentSprite = GetComponentInParent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player");
@@ -60,7 +60,7 @@ public class Aiming : EnemyDescriptorInfo
         /*        boxCollider = GetComponent<BoxCollider2D>();*/
     }
 
-    public override void EnemyUpdate()
+    public void AimingUpdate()
     {
         playerPosition = player.transform.position; // get player position into a vec 3 
         playerCam.WorldToViewportPoint(transform.position);

@@ -7,6 +7,7 @@ public abstract class EnemyDescriptorInfo : MonoBehaviour
 
     [SerializeField] protected List<float> spawnIntervals ;
     playerController controller;
+    private Aiming banditAim;
     private float spawnInterval = 0.0f;
     protected DeathChecker alive;
     public float SpawnInterval
@@ -18,6 +19,8 @@ public abstract class EnemyDescriptorInfo : MonoBehaviour
     private void Start()
     {
         controller =  FindFirstObjectByType<playerController>();
+       
+
         Debug.Log("enemy start");
        
      
@@ -39,15 +42,21 @@ public abstract class EnemyDescriptorInfo : MonoBehaviour
 
     public abstract void EnemyUpdate();
     
-    public void assignSpawnValues() 
+    public void resetDeath()
     {
         alive = GetComponent<DeathChecker>();
-        Debug.Log("alive is null " + (alive == null));
+        Debug.Log("ENEMY SPAWNING RESETTING DEATH alive is null " + (alive == null));
         alive.isAlive = true;
+      
+    }
+    public void assignSpawnValues() 
+    {
+        
        
         if (spawnIntervals.Count > 0) {
 
             spawnInterval = spawnIntervals[Random.Range(0, spawnIntervals.Count)];
+            Debug.Log("new spawn value " + spawnInterval);
             /*Debug.Log("SPAWNING ENEMY assigning new spawn interval " + spawnInterval);*/
         }
 
