@@ -5,7 +5,7 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class Aiming : MonoBehaviour
+public class Aiming : EnemyDescriptorInfo
 {
     private GameObject player;
     private Vector3 playerPosition;
@@ -32,11 +32,9 @@ public class Aiming : MonoBehaviour
     private bool canFlip = true;
     private DeathChecker deathChecker;
 
-
-    // Start is called before the first frame update
-    void Start()
+    public override void EnemyStart()
     {
-        parentSprite = GetComponentInParent<SpriteRenderer>(); 
+        parentSprite = GetComponentInParent<SpriteRenderer>();
         playerController = FindObjectOfType<playerController>();
         player = GameObject.FindGameObjectWithTag("Player");
         playerCam = Camera.main;
@@ -48,42 +46,41 @@ public class Aiming : MonoBehaviour
         contactLayers = LayerMask.GetMask("Player", "Ground");
         bulletTrail = transform.parent.Find("TrailPos").GetComponent<TrailRenderer>();
         bulletTrail.time = 0.15f;
-        parentLineRenderer  = transform.parent.GetComponent<LineRenderer>();
+        parentLineRenderer = transform.parent.GetComponent<LineRenderer>();
 
-        parentLineRenderer.startColor = Color.red; 
+        parentLineRenderer.startColor = Color.red;
         parentLineRenderer.endColor = Color.red;
         parentLineRenderer.startWidth = 0.01f;
         parentLineRenderer.endWidth = 0.01f;
         deathChecker = player.GetComponent<DeathChecker>();
         bulletTrail.enabled = false;
-       
-        Debug.Log( "arm not null "+(transform.Find("Arm") != null));
-/*        boxCollider = GetComponent<BoxCollider2D>();*/
+
+        Debug.Log("arm not null " + (transform.Find("Arm") != null));
+        /*        boxCollider = GetComponent<BoxCollider2D>();*/
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void EnemyUpdate()
     {
         playerPosition = player.transform.position; // get player position into a vec 3 
         playerCam.WorldToViewportPoint(transform.position);
         distance = Vector2.Distance(transform.position, playerPosition); // gets the distance between the player and the enemy
-     /*  Debug.Log("distance is  " + distance);*/
-        if(canFlip == true)
+        /*  Debug.Log("distance is  " + distance);*/
+        if (canFlip == true)
         {
             shouldFlipTowardsPlayer();
         }
-        
+
         if (distance < range) //&&!playerController.isCloseToEndOfCurrentterrain( )
         {
-/*            LookAtPlayer(playerPosition); // turns the arm to look at the player position*/
+            /*            LookAtPlayer(playerPosition); // turns the arm to look at the player position*/
             Shooting();
         }
-        else if(isInNotCameraView()) 
+        else if (isInNotCameraView())
         {
             Debug.Log("set active false " + isInNotCameraView());
             banditTransform.gameObject.SetActive(false);
         }
-        
+
         //Debug.Log("Bandit death/ isAlive: " + banditDeath.IsAlive);
     }
 

@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.09, y: -0.84, z: 0.04249453}
-  m_LocalScale: {x: 1.7845569, y: 1.7845569, z: 1.7845569}
+  m_LocalScale: {x: 1.2324862, y: 1.2324862, z: 1.2324862}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -122,6 +122,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 570dceeb73618fc44a6847490be9e202, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnIntervals:
+  - 3
+  - 2
 --- !u!50 &9130706733228521088
 Rigidbody2D:
   serializedVersion: 4
@@ -148,7 +151,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 6
+  m_Constraints: 4
 --- !u!61 &7454698297727760582
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -164,7 +167,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 1536
+    m_Bits: 3584
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -207,6 +210,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collsionTags:
-  - Bullet
-  - Kickable
+  - FlyingObject
   isAlive: 1

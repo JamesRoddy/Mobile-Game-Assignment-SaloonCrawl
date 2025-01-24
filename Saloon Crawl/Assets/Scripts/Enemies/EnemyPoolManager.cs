@@ -41,9 +41,9 @@ public class Enemypool : MonoBehaviour
 
     public GameObject requestAvaialbeObject()
     {
-      
 
-        
+
+      
         return pool[poolPointer];
 
 
@@ -57,10 +57,10 @@ public class Enemypool : MonoBehaviour
             if(poolPointer == maxSpawnCount)
             {
                 poolPointer = 0;
-              /*  Debug.Log("SPAWNING ENEMY pool pointer reached max " + poolPointer + " reseting... ");*/
+                Debug.Log("SPAWNING ENEMY pool pointer reached max " + poolPointer + " reseting... ");
             }
 
-         /*   Debug.Log(" SPAWNING ENEMY bool for object availablilty " + !pool[poolPointer].activeSelf);*/
+            Debug.Log(" SPAWNING ENEMY bool for object availablilty " + !pool[poolPointer].activeSelf);
 
             
         }

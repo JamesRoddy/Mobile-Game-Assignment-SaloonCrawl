@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Kick : MonoBehaviour
+public class Kick : Interactable
 {
 
     Rigidbody2D kickable;
@@ -23,8 +23,7 @@ public class Kick : MonoBehaviour
     public LayerMask Ground;
     public LayerMask Enemy;
 
-    // Start is called before the first frame update
-    void Start()
+    public override void interactableStart()
     {
         control = FindObjectOfType<TouchControls>();
         player = FindObjectOfType<playerController>();
@@ -34,10 +33,8 @@ public class Kick : MonoBehaviour
         kickableVelocity = (this.transform.up * fTravelSpeedUp) + (this.transform.right * fTravelSpeedRight);
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void interactableUpdate()
     {
-        
         if (player.transform.position.x >= kickPosition.transform.position.x && player.transform.position.x < kickable.transform.position.x && control.bSwipeRight)
         {
             StartCoroutine(playAnim());
@@ -48,7 +45,7 @@ public class Kick : MonoBehaviour
             bKicked = true;
         }
 
-        else if(isNotInCameraView())
+        else if (isNotInCameraView())
         {
             this.gameObject.SetActive(false);
         }
@@ -57,7 +54,6 @@ public class Kick : MonoBehaviour
         {
             kickable.transform.Rotate(0f, 0f, Time.deltaTime * 1000f, Space.World);
         }
-
     }
 
     void replaceSprites()
@@ -66,8 +62,8 @@ public class Kick : MonoBehaviour
         { 
             var stoolBottom = Instantiate(brokenStoolBottom, kickable.transform.position, kickable.transform.rotation);
             var stoolTop = Instantiate(brokenStoolTop, kickable.transform.position, kickable.transform.rotation);
-            Destroy(stoolTop, 2f);
-            Destroy(stoolBottom, 2f);
+            Destroy(stoolTop, 0.5f);
+            Destroy(stoolBottom, 0.5f);
         }
 
         else

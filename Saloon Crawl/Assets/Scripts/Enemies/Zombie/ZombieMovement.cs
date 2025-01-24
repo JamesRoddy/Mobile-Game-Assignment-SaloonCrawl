@@ -2,28 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-public class ZombieMovement : MonoBehaviour
+public class ZombieMovement : EnemyDescriptorInfo
 {
 
-    private float speed = -5;
+    private float speed = -3;
     private Rigidbody2D zombieRigidBody;
     private Camera playerCam;
     private DeathChecker zombieDeath;
 
-    // Start is called before the first frame update
-    void Start()
+
+    public override void EnemyStart()
     {
         zombieRigidBody = GetComponent<Rigidbody2D>();
         playerCam = Camera.main;
         zombieDeath = GetComponent<DeathChecker>();
+  
     }
 
-    // Update is called once per frame
-    void Update()
-    {
+    public override void EnemyUpdate()
+    { 
         Movement();
-        if(isInNotCameraView())
-        {
+        if (isInNotCameraView())
+        {  
             gameObject.SetActive(false);
         }
         isDead();
@@ -41,7 +41,8 @@ public class ZombieMovement : MonoBehaviour
     }
 
     private void isDead()
-    {
+    {   
+        
         if(zombieDeath.isAlive == false)
         {
             this.gameObject.SetActive(false);
