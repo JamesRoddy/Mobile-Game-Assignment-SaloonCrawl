@@ -16,7 +16,7 @@ public class ZombieMovement : EnemyDescriptorInfo
         zombieRigidBody = GetComponent<Rigidbody2D>();
         playerCam = Camera.main;
         zombieDeath = GetComponent<DeathChecker>();
-  
+       
     }
 
     public override void EnemyUpdate()
