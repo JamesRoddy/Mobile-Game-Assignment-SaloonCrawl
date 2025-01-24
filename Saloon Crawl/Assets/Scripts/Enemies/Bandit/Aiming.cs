@@ -15,7 +15,6 @@ public class Aiming : MonoBehaviour
     private float fireDelay;
     private float distance;
     public float range;
-    private SpriteRenderer spriteRenderer;
     private SpriteRenderer parentSprite;
     public Sprite aimingSprite;
     public Sprite shootSprite;
@@ -25,22 +24,20 @@ public class Aiming : MonoBehaviour
     private LineRenderer parentLineRenderer;
     private Transform gunTransform;
     private TrailRenderer bulletTrail;
-    private bool isFiring = false;
-    private Vector3 startPosition;
-    private playerController playerController; // use this 
-    private float flipX;
     private bool canFlip = true;
     private DeathChecker deathChecker;
-
+    private Animator indicator;
+    private float reload;
+    private playerController playerController;
+    private Vector3 shootDirection;
+    public AudioSource cockGun;
     // Start is called before the first frame update
     void Start()
     {
         parentSprite = GetComponentInParent<SpriteRenderer>(); 
-        playerController = FindObjectOfType<playerController>();
         player = GameObject.FindGameObjectWithTag("Player");
         playerCam = Camera.main;
 
-        spriteRenderer = transform.Find("Arm").GetComponent<SpriteRenderer>(); // get the sprite renderer of the arm child  ]
         gunTransform = transform.Find("Arm").transform.Find("GunPos");
         boxCollider = transform.parent.GetComponent<BoxCollider2D>();
         banditTransform = transform.parent.GetComponent<Transform>();
@@ -51,10 +48,13 @@ public class Aiming : MonoBehaviour
 
         parentLineRenderer.startColor = Color.red; 
         parentLineRenderer.endColor = Color.red;
-        parentLineRenderer.startWidth = 0.01f;
-        parentLineRenderer.endWidth = 0.01f;
+        parentLineRenderer.startWidth = 0.02f;
+        parentLineRenderer.endWidth = 0.02f;
         deathChecker = player.GetComponent<DeathChecker>();
         bulletTrail.enabled = false;
+        indicator = transform.parent.Find("Indicator").GetComponent<Animator>();
+        playerController = FindFirstObjectByType<playerController>();
+
 
         
        
@@ -141,24 +141,24 @@ public class Aiming : MonoBehaviour
     {
         aimingTime += Time.deltaTime; // incremements the aiming timer
         /*        Debug.Log("aiming time is" + aimingTime);*/
-        parentLineRenderer.enabled = true;
-
+        parentLineRenderer.enabled = !bulletTrail.enabled;
         if (aimingTime > 1) // after 1 second stop looking at the player position
         {
+
             if (shootPosition == Vector3.zero)
             {
-
-               /* Debug.Log("shoot position " + shootPosition);*/
                 shootPosition = playerPosition; // shoot position is the same as the last player position
                 LookAtPlayer(shootPosition); // turn the arm to look at where the bandit is going to shoot
                 bulletTrail.transform.position = gunTransform.position;
+                indicator.SetBool("Warning", true);
+                cockGun.PlayDelayed(0.5f);
                 Debug.Log("position locked "+bulletTrail.transform.position +"gun position "+gunTransform.position);
+                shootDirection = shootPosition - gunTransform.position;
+                shootDirection.Normalize();
             }
             canFlip = false;
-            //            Debug.Log("Player position locked in");
             fireDelay += Time.deltaTime; // increment the firing delay timer
 
-            /*Debug.Log("fire delay is " + fireDelay);*/
             if (fireDelay > 2) // after 2 seconds shoot
             {
                 Debug.Log("FIRE");
@@ -170,16 +170,28 @@ public class Aiming : MonoBehaviour
                 Fire();
                 shootPosition = Vector3.zero;
                 canFlip = true;
+                indicator.SetBool("Warning", false);
 
 
 
             }
-            
-            setLinePosition(gunTransform.position, shootPosition);
-            return;
+            if(parentSprite.flipX == true)
+            {
+                setLinePosition(gunTransform.position, shootPosition + shootDirection *5.0f); //playerController.getPlayerSpeed
+                return;
+            }
+            else
+            {
+                setLinePosition(gunTransform.position, shootPosition);
+                return;
+            }
         }
-        LookAtPlayer(playerPosition); // turn the arm to look at where the bandit is going to shoot
-        setLinePosition(gunTransform.position, playerPosition);
+
+        if(bulletTrail.enabled == false)
+        {
+            LookAtPlayer(playerPosition); // turn the arm to look at where the bandit is going to shoot
+            setLinePosition(gunTransform.position, playerPosition);
+        }
 
     }
 
@@ -245,9 +257,20 @@ public class Aiming : MonoBehaviour
     {
         float direction = shootPosition.x < banditTransform.position.x ? -1.0f : 1.0f;
         Debug.Log("player pixel width " + playerCam.pixelWidth +"shoot position smaller "+(shootPosition.x<banditTransform.position.x));
-        Vector3 screenPos = playerCam.ScreenToWorldPoint( (playerCam.WorldToScreenPoint(new Vector3( Mathf.Abs(gunTransform.position.x),gunTransform.position.y,gunTransform.position.z) + new Vector3(playerCam.pixelWidth * direction,0.0f,0.0f))));
-        Vector3 worldPosOffScreen = playerCam.ScreenToWorldPoint(screenPos);
-        Debug.Log( "trail target for off screen " + worldPosOffScreen +"direction "+direction);
+      
+  
+        Vector3 directionVec = new Vector3(shootPosition.x - gunTransform.position.x, shootPosition.y - gunTransform.position.y, 0.0f);
+        directionVec.Normalize();
+        Vector2 screenOffset =new  Vector2(playerCam.scaledPixelWidth *direction,0.0f);
+        float screenPositionDisstance = Vector3.SqrMagnitude(( playerCam.WorldToScreenPoint(shootPosition) +(Vector3)screenOffset) - playerCam.WorldToScreenPoint(shootPosition));
+      
+
+        Vector3 finalPos = new Vector3(shootPosition.x + directionVec.x * screenPositionDisstance,shootPosition.y + directionVec.y *screenPositionDisstance, shootPosition.z); 
+
+
+
+
+        Debug.Log( "trail target for off screen " + finalPos +"direction "+direction);
         float time = 0.0f;
         bulletTrail.transform.position = gunTransform.position;
         bulletTrail.enabled = true;
@@ -256,7 +279,7 @@ public class Aiming : MonoBehaviour
         {
             Debug.Log("SPANWING TRAIL OFFSCREEN DUE TO MISS  ");
 
-            bulletTrail.transform.position = Vector3.Lerp(trailStart, worldPosOffScreen, time);
+            bulletTrail.transform.position = Vector3.Lerp(trailStart, finalPos, time);
 
             time += Time.deltaTime/bulletTrail.time;            
             yield return null;

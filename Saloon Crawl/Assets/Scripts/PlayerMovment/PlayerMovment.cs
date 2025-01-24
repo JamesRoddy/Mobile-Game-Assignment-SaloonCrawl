@@ -53,7 +53,7 @@ public class playerController : MonoBehaviour
         playerRigidBody = GetComponent<Rigidbody2D>();
         CowboyAnim = GetComponent<Animator>();
         bull = FindObjectOfType<Bullet>();
-        runSound.Play();
+/*        runSound.Play();*/
 
 
        deathChecker = GetComponent<DeathChecker>();
@@ -274,6 +274,10 @@ public class playerController : MonoBehaviour
                 Time.timeScale = 0;
             }
         }
+    }
+    public float getPlayerSpeed
+    {
+        get { return playerSpeed; }
     }
 }
 
