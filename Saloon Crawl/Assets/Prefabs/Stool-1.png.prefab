@@ -33,7 +33,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -11, y: -2.2020104}
+  m_AnchoredPosition: {x: -12.04, y: -2.2020104}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4447178763750860470
@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 5214808972452940345}
   m_Layer: 9
   m_Name: Stool-1.png
-  m_TagString: Untagged
+  m_TagString: Kickable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -139,7 +139,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7446649514056780627}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -147,7 +147,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 896
+    m_Bits: 2688
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -164,7 +164,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0691843, y: -1.6773299}
+  m_Offset: {x: -0.06918454, y: -1.67733}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -175,7 +175,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 8.661579, y: 5.436898}
+  m_Size: {x: 6.340939, y: 5.436898}
   m_EdgeRadius: 0
 --- !u!50 &7691549235736047322
 Rigidbody2D:
@@ -216,6 +216,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d542cd1209534541bd722220a2ef8a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  numberThatCanSpawn: 3
   kickPosition: {fileID: 2629819400340122235}
   isKicking: 0
   brokenStoolTop: {fileID: 6514347530175954600, guid: b51e897860046ae4582248fa2b293974, type: 3}
