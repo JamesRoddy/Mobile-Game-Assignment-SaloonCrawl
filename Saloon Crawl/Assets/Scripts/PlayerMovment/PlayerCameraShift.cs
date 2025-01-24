@@ -10,9 +10,10 @@ public class PlayerCameraShift : MonoBehaviour
     private CamMovement playerCamMover;
     private playerController playerController;
     private TouchControls touchControls;
-    private float lerpShiftSmoothing = 0.2f;
-    private float lerpDragSmoothing = 0.85f;
+    private float lerpShiftSmoothing = 0.85f;
+    private float lerpDragSmoothing = 1.5f;
     private float orthoSizeWhenViewing = 4.0f;
+    private float OrothoSizeWhenViewingMin = 1.0f;
     private bool hasCentredOnTerrain = false;
     Vector2 screenBorderOffset = Vector2.zero;
     private bool isShiftingBack = false;
@@ -31,9 +32,12 @@ public class PlayerCameraShift : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       /* hasReachedCentreOfTerrain();
 
         checkShouldShiftBack();
+        hasReachedCentreOfTerrain();
+
+
+     
 
        
         resolveOverlap();*/
@@ -45,16 +49,26 @@ public class PlayerCameraShift : MonoBehaviour
    
     private void checkShouldShiftBack()
     {
-        if(hasCentredOnTerrain && touchControls.accelerationHasHitNegative())
+        
+        if (hasCentredOnTerrain && touchControls.accelerationHasHitNegative())
         {
-             playerCamMover.FollowPlayer = true;
+           
              isShiftingBack = true;
+            Debug.Log("is shifting back " + isShiftingBack);
         } 
 
-        if(isShiftingBack && playerCamMover.playerCamHasReachedPlayerPos())
+        if(isShiftingBack && playerCamMover.shiftToPlayerPosition())
         {
             playerController.IsViewingNextTerrain = false;
+            playerCamMover.FollowPlayer = true;
+            Debug.Log((playerController.IsViewingNextTerrain) + "player cam shifted back ");
+            isShiftingBack = false;
+            hasCentredOnTerrain = false;
+            playerCamMover.resetOrtho();
+            return;
         }
+    
+
     }
 
 
@@ -106,13 +120,24 @@ public class PlayerCameraShift : MonoBehaviour
        
     }
 
+    public float CamShiftOrthoMin
+    {
+        get { return OrothoSizeWhenViewingMin; }
+    }
+    public float CamShiftOrthoMax
+    {
+        get { return orthoSizeWhenViewing; }
+    }
 
-    
+    public bool IsShiftingBack
+    {
 
-    
+        get { return isShiftingBack; }
 
-    
 
+
+
+    }
 
 
 }

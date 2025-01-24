@@ -30,13 +30,14 @@ public class TerrainManager : MonoBehaviour
     private EnemySpawner enemySpawnHandler;
     private InteractableSpawnManager interactableSpawnManager;
     private CollectiblesManager collectiblesManager;
-
+    private PlayerCameraShift playerCamShift;
     private Transform terrainColliderHolder;
     private Camera cam;
     public void Start()
     {
         playerController = FindFirstObjectByType<playerController>();
         terrainColliderHolder = transform.GetChild(0).GetComponent<Transform>();
+        playerCamShift = FindFirstObjectByType<PlayerCameraShift>();
         cam = Camera.main;
         initialzeStartingTerrain();
         setPlayerCurrentTerrain(); 
@@ -54,7 +55,7 @@ public class TerrainManager : MonoBehaviour
 
             Vector3 normalizeViewportPosition = cam.WorldToViewportPoint(activeTerrain[i].transform.position + activeTerrain[i].GetComponent<TerrainType>().getHalfScale); 
             
-            if (!(normalizeViewportPosition.x > 0.0f) && !playerController.IsViewingNextTerrain)
+            if (!(normalizeViewportPosition.x > 0.0f) && !playerController.IsViewingNextTerrain && !playerCamShift.IsShiftingBack)
             {
 
                 activeTerrain[i].SetActive(false);
