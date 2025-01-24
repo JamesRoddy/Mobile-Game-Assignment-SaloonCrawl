@@ -40,7 +40,7 @@ public class PlayerCameraShift : MonoBehaviour
      
 
        
-        resolveOverlap();*/
+        resolveOverlap();
 
 
     }
