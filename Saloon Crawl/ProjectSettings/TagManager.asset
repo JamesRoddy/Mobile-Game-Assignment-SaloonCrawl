@@ -7,6 +7,9 @@ TagManager:
   - Ground
   - Enemy
   - Collectible
+  - Kickable
+  - Bullet
+  - FlyingObject
   layers:
   - Default
   - TransparentFX
@@ -21,7 +24,7 @@ TagManager:
   - Enemy
   - Collectible
   - Interactable
-  - 
+  - FlyingObject
   - 
   - 
   - 

@@ -32,6 +32,7 @@ public class Aiming : MonoBehaviour
     private bool canFlip = true;
     private DeathChecker deathChecker;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -55,8 +56,6 @@ public class Aiming : MonoBehaviour
         parentLineRenderer.endWidth = 0.01f;
         deathChecker = player.GetComponent<DeathChecker>();
         bulletTrail.enabled = false;
-
-        
        
         Debug.Log( "arm not null "+(transform.Find("Arm") != null));
 /*        boxCollider = GetComponent<BoxCollider2D>();*/
@@ -84,6 +83,8 @@ public class Aiming : MonoBehaviour
             Debug.Log("set active false " + isInNotCameraView());
             banditTransform.gameObject.SetActive(false);
         }
+        
+        //Debug.Log("Bandit death/ isAlive: " + banditDeath.IsAlive);
     }
 
     //function taking care of rotating the arm towards the player
@@ -279,6 +280,8 @@ public class Aiming : MonoBehaviour
 
 
     }
+
+    
 
 
 
