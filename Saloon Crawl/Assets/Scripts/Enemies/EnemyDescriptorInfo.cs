@@ -6,6 +6,7 @@ public abstract class EnemyDescriptorInfo : MonoBehaviour
 {
 
     [SerializeField] protected List<float> spawnIntervals ;
+    playerController controller;
     private float spawnInterval = 0.0f;
     public float SpawnInterval
     {
@@ -13,7 +14,26 @@ public abstract class EnemyDescriptorInfo : MonoBehaviour
         set { spawnInterval = value; }
     }
 
+    private void Start()
+    {
+        controller =  FindFirstObjectByType<playerController>();
+        EnemyStart();
+    }
+    public abstract void EnemyStart();
+  
+    private void Update()
+    {
 
+        if (!controller.IsViewingNextTerrain)
+        {
+            Debug.Log("enemy updating");
+            EnemyUpdate();
+        }
+
+    }
+
+    public abstract void EnemyUpdate();
+    
     public void assignSpawnValues() 
     {
 

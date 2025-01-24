@@ -255,7 +255,8 @@ MonoBehaviour:
   - {fileID: 8343284031695072571}
   minInteractables: 3
   maxInteractables: 4
-  backGroundContainer: {fileID: 0}
+  backGroundTopContainer: {fileID: 5969825016870501552}
+  backGroundBottomContainer: {fileID: 8288855864441508342}
   enemies:
   - {fileID: 8740768668527974216, guid: 1a37e153a456f5046acd26686b457dc9, type: 3}
   minEnemies: 2

@@ -10,8 +10,10 @@ public class InteractableSpawnManager : MonoBehaviour
     private TerrainType currentTerrainType;
     private TerrainClassifications currentPoolType;
     private InteractablePool currentPool;
+
+  
     bool initialsSet = false;
-    CamMovement playerCam;
+    CamMovement playerCam; 
     void Start()
     { 
         playerCam =Camera.main.GetComponent<CamMovement>();
@@ -22,14 +24,14 @@ public class InteractableSpawnManager : MonoBehaviour
 
    public void UpdateSpawns()
     {
-     
-        
+
+       
         if ( player.CurrentTerrain.NextTerrainType != null && !(player.CurrentTerrain.NextTerrainType.HasInteractables) &&  playerCam.playerCanSeeEnd()  && !currentPool.HasDeffered  )
         {
             
             initialsSet = true;
 /*            Debug.Log("condition to spawn interactables met terrain does not have interactables  " + !(player.CurrentTerrain.NextTerrainType.HasInteractables) + " player was close to end of current terrain is " + playerCam.playerCanSeeEnd() +"pool has not deffered "+!currentPool.HasDeffered);
-*/          currentTerrainType = player.CurrentTerrain.NextTerrainType;
+*/           currentTerrainType = player.CurrentTerrain.NextTerrainType;
            /* Debug.Log("current terrain type " + currentTerrainType.GetClassification);*/
             currentPoolType = player.CurrentTerrain.NextTerrainOn;
 /*            Debug.Log("current pool type " + currentPoolType);*/
