@@ -15,7 +15,7 @@ public class EnemySpawner : MonoBehaviour
     private TerrainClassifications currentPool;
     private TerrainType currentTerrainType;
     private EnemyDescriptorInfo currentDescriptorInfo;
-    void Start()
+    public void EnemySpanwnManagerStart()
     {
         terrainManager = GetComponent<TerrainManager>();
         player = FindObjectOfType<playerController>();

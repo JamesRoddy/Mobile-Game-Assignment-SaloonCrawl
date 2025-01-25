@@ -26,7 +26,7 @@ public class CollectiblesManager : MonoBehaviour
     private float finalPercent = 0.0f;
     private int totalObjects = 0;
     List<CollectiblesPool> tempCollectibileStore  = new List<CollectiblesPool>();    
-    void Start()
+    public  void CollectibleManagerStart()
     {
        
         playerController = FindObjectOfType<playerController>();
