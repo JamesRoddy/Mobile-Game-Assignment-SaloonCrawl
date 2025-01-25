@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 9130706733228521088}
   - component: {fileID: 7454698297727760582}
   - component: {fileID: 3889589501597414961}
+  - component: {fileID: -5250749195739163054}
   m_Layer: 10
   m_Name: Zombie
   m_TagString: Enemy
@@ -213,3 +214,16 @@ MonoBehaviour:
   - FlyingObject
   - Bullet
   isAlive: 1
+--- !u!114 &-5250749195739163054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2345869755238070221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33e61b39d5203e44f82e902f5985e341, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 5183209318270881231, guid: 89f77be7138233e44bf445567f64fc01, type: 3}

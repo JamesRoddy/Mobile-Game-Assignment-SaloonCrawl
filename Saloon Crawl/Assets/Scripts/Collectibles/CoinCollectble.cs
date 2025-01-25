@@ -24,6 +24,7 @@ public class CoinCollectble : Collectible
 
         playerController.CurrentCoinCount++; 
         Debug.Log("COIN COLLECTIBLE player coin count increased "+playerController.CurrentCoinCount);
+
         GetComponent<SpriteRenderer>().enabled = false;
         
        
@@ -31,6 +32,7 @@ public class CoinCollectble : Collectible
 
         if (!sound.isPlaying)
         {
+           
             startInteraction = false;
             gameObject.SetActive(false);
         }

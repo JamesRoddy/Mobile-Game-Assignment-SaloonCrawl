@@ -6,6 +6,7 @@ public class Kick : Interactable
 {
 
     Rigidbody2D kickable;
+    private 
     float fTravelSpeedRight = 10f;
     float fTravelSpeedUp = 5f;
     TouchControls control;
@@ -21,7 +22,7 @@ public class Kick : Interactable
     private BoxCollider2D collision;
     private float t = 0;
     private DeathChecker deathChecker;
-
+    private InstaniateScorePopUp scorePopUp;
     public LayerMask Ground;
     public LayerMask Enemy;
 
@@ -30,6 +31,7 @@ public class Kick : Interactable
         control = FindObjectOfType<TouchControls>();
         player = FindObjectOfType<playerController>();
         kickable = GetComponent<Rigidbody2D>();
+        scorePopUp = GetComponent<InstaniateScorePopUp>();
         playerCam = Camera.main;
         collision = GetComponent<BoxCollider2D>();
         kickableVelocity = (this.transform.up * fTravelSpeedUp) + (this.transform.right * fTravelSpeedRight);
@@ -108,16 +110,22 @@ public class Kick : Interactable
             
             replaceSprites();  
             if (collision.gameObject.CompareTag("Ground"))
-            {
+            { 
+                
                 ResetVariables();
+                scorePopUp.inistantiateScorePop(transform.position, Quaternion.identity);
                 player.CowboyAnim.SetBool("Kick", false);
-                iNum += 1;
-                this.gameObject.SetActive(false);
+                iNum += 1;                      
+                this.gameObject.SetActive(false); 
+
+
             }
 
             if (collision.gameObject.CompareTag("Enemy"))
             {
-                ResetVariables();
+
+                ResetVariables(); 
+                scorePopUp.inistantiateScorePop(transform.position,Quaternion.identity);
                 player.CowboyAnim.SetBool("Kick", false);
                 iNum += 1;
                 this.gameObject.SetActive(false);
@@ -145,8 +153,6 @@ public class Kick : Interactable
         bKicked = false;
         iNum = 0;
     }
-
-
 
 
     public bool Kicked
