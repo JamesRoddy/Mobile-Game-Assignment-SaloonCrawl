@@ -18,6 +18,7 @@ public class Bullet : MonoBehaviour
     public LayerMask Ground;
     public LayerMask Enemy;
     [SerializeField] private TrailRenderer tr;
+    public Vector2 Dir;
 
 
     // Start is called before the first frame update
@@ -28,6 +29,9 @@ public class Bullet : MonoBehaviour
         bullet = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
         offScreenCheck = GetComponent<Renderer>();
+
+        Dir = player.Dir;
+        this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, player.fBulletAngle));
     }
 
     // Update is called once per frame
@@ -35,8 +39,7 @@ public class Bullet : MonoBehaviour
     {
         Debug.Log("Bullet Active: " + isActiveAndEnabled);
 
-        this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, player.fBulletAngle));
-        bullet.velocity = player.Dir * fBulletSpeed;
+        bullet.velocity = Dir * fBulletSpeed;
         tr.emitting = true;
         
         if(isNotInCameraView())
@@ -65,7 +68,7 @@ public class Bullet : MonoBehaviour
     {
         bool isNotInCameraView = false;
 
-        if (!offScreenCheck)
+        if (!offScreenCheck.isVisible)
         {
             isNotInCameraView = true;
         }
