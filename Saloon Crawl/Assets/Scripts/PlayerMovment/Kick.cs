@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -112,6 +113,8 @@ public class Kick : Interactable
             if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Ground"))
             {
                 scorePopUp.inistantiateScorePop(transform.position,Quaternion.identity);
+                player.CurrentScore += scoreIncrement;
+                player.conactToScore(Convert.ToString(scoreIncrement));
                 player.CowboyAnim.SetBool("Kick", false);
                 iNum += 1;
                 

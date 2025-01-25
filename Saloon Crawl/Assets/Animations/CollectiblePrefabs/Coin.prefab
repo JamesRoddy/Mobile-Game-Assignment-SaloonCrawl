@@ -102,6 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxAmount: 8
   minAmount: 4
+  scoreIncrement: 10
   overlaps:
     serializedVersion: 2
     m_Bits: 512
