@@ -95,6 +95,7 @@ public class TouchControls : MonoBehaviour
             player.shouldShoot = true;
 
             touchPos = Camera.main.ScreenToWorldPoint(touch.position);
+            player.touchStore = touchPos;
             //Debug.Log("touchPos" + touchPos);
 
             Vector2 store = Camera.main.ScreenToWorldPoint(touch.position) - player.bulletSpawnPoint.position; 
@@ -220,7 +221,7 @@ public class TouchControls : MonoBehaviour
     {
         return accelMoveX > accelthresh;
     }
-        public Vector2 getTouchPos()
+    public Vector2 getTouchPos()
     {
         return touchPos;
     }

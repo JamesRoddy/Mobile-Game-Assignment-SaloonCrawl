@@ -8,17 +8,17 @@ public class Bullet : MonoBehaviour
 {
     Rigidbody2D bullet;
     float fBulletSpeed = 30f;
-    public Vector2 Dir;
+    
     TouchControls control;
     playerController player;
-    private float fCollisionRadius = 0.1f;
-
-    //Use this to fix the bullet changing direction for clicks
-    bool bShot = false;
+    private Camera playerCam;
+    private BoxCollider2D boxCollider;
+    private Renderer offScreenCheck;
 
     public LayerMask Ground;
     public LayerMask Enemy;
     [SerializeField] private TrailRenderer tr;
+
 
     // Start is called before the first frame update
     void Start()
@@ -26,17 +26,24 @@ public class Bullet : MonoBehaviour
         control = FindObjectOfType<TouchControls>();
         player = FindObjectOfType<playerController>();
         bullet = GetComponent<Rigidbody2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
+        offScreenCheck = GetComponent<Renderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Destroy(this.gameObject, 0.5f);
+        Debug.Log("Bullet Active: " + isActiveAndEnabled);
 
-        Dir = control.getTouchPos() - (new Vector2(player.bulletSpawnPoint.transform.position.x, player.bulletSpawnPoint.transform.position.y));
-        Dir.Normalize();
-        bullet.velocity = Dir * fBulletSpeed;
+        this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, player.fBulletAngle));
+        bullet.velocity = player.Dir * fBulletSpeed;
         tr.emitting = true;
+        
+        if(isNotInCameraView())
+        {
+            Destroy(this.gameObject, 0.2f);
+        }
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -52,6 +59,19 @@ public class Bullet : MonoBehaviour
             Destroy(this.gameObject);
        }
 
+    }
+
+    private bool isNotInCameraView()
+    {
+        bool isNotInCameraView = false;
+
+        if (!offScreenCheck)
+        {
+            isNotInCameraView = true;
+        }
+
+
+        return isNotInCameraView;
     }
 
 
