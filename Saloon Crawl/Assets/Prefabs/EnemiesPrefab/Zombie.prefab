@@ -126,6 +126,7 @@ MonoBehaviour:
   spawnIntervals:
   - 3
   - 2
+  scoreIncrement: 10
 --- !u!50 &9130706733228521088
 Rigidbody2D:
   serializedVersion: 4
