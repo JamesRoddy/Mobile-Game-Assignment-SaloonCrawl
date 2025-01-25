@@ -32,6 +32,7 @@ public class playerController : MonoBehaviour
     public GameObject bulletPrefab;
     public bool invoked = false;
     public float fBulletAngle;
+    public int iTapCount = 0;
     GameObject bullet;
     Bullet bull;
     public GameObject arm;
@@ -56,6 +57,9 @@ public class playerController : MonoBehaviour
     public AudioSource jumpSound;
     public AudioSource slideSound;
     public AudioSource kickSound;
+
+    public Vector2 Dir;
+    public Vector2 touchStore;
 
     // Start is called before the first frame update
     void Start()
@@ -151,23 +155,24 @@ public class playerController : MonoBehaviour
     private void shoot()
     {
         //Debug.Log("Bullet Destroyed: " + bullet.IsDestroyed());
-        if (shouldShoot && !invoked)
+        if (shouldShoot)
         {
             invoked = true;
             shouldShoot = false;
-            bulletPrefab.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, fBulletAngle));
+
             arm.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, fBulletAngle));
-            bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletPrefab.transform.rotation);
-
+            Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+          
+            Dir = touchStore - (new Vector2(bulletSpawnPoint.transform.position.x, bulletSpawnPoint.transform.position.y));
+            Dir.Normalize();
             bulletShot.Play();
-
         }
 
-        else if (bullet.IsDestroyed())
+        /*else if (bull.IsDestroyed())
         {
             shouldShoot = false;
             invoked = false;
-        }
+        }*/
     }
 
 
