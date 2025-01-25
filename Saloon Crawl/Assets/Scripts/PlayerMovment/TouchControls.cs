@@ -98,9 +98,9 @@ public class TouchControls : MonoBehaviour
             player.touchStore = touchPos;
             //Debug.Log("touchPos" + touchPos);
 
-            Vector2 store = Camera.main.ScreenToWorldPoint(touch.position) - player.bulletSpawnPoint.position; 
+      
 
-            player.fBulletAngle = Mathf.Atan2( store.y, store.x) * Mathf.Rad2Deg;
+        
            // Debug.Log("Bullet Angle:" + player.fBulletAngle);
         }
     }

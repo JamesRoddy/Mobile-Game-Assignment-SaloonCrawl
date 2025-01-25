@@ -53,3 +53,6 @@ TagManager:
   - name: ScorePopUp
     uniqueID: 1181074285
     locked: 0
+  - name: crossHair
+    uniqueID: 3166979285
+    locked: 0

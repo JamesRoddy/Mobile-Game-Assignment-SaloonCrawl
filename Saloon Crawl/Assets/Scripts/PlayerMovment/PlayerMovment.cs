@@ -20,13 +20,18 @@ public class playerController : MonoBehaviour
     private float playerSpeed = 4.0f;
     private float minDistanceToEndOfCurrentTerrain = 144.0f;
     private bool shouldJump = false;
+    [SerializeField] private GameObject spriteCrossHair;
+    private SpriteRenderer crossHairRenderer;
+    private float crossHairFadeMax = 1.0f;
+    private float crossHairFadeTimer = 0.0f;
     [SerializeField] LayerMask groundLayer;
     bool grounded = false;
     float jumpVelocity = 7.0f;
     public Animator CowboyAnim;
+   
     private float scoreIncrement = 0.0f;
     private float scoreIncrementMax = 0.1f;
-    private float scoreFadeTimer = 0.65f;
+    private float scoreFadeMax = 0.65f;
     private float scoreFadeIncrement = 0.0f;
     //Shooting variables
     public bool shouldShoot = false;
@@ -46,7 +51,7 @@ public class playerController : MonoBehaviour
     private DeathChecker deathChecker;
     string concatString = "";
     private GameManagerScript gameManagerScript;
-
+    private UpdateScoreText scoreText;
     private Vector3 nextTerrainPos;
     public bool shouldSlide = false;
     bool isSliding = false;
@@ -59,7 +64,7 @@ public class playerController : MonoBehaviour
     public AudioSource jumpSound;
     public AudioSource slideSound;
     public AudioSource kickSound;
-
+    private float crossHairDistance = 8.0f;
     public Vector2 Dir;
     public Vector2 touchStore;
     float t;
@@ -77,9 +82,10 @@ public class playerController : MonoBehaviour
         touchControls = FindFirstObjectByType<TouchControls>();
         runSound.Play();
         gameManagerScript = FindFirstObjectByType<GameManagerScript>();
-
-
-       deathChecker = GetComponent<DeathChecker>();
+        scoreText = FindFirstObjectByType<UpdateScoreText>();
+        crossHairRenderer = spriteCrossHair.GetComponent<SpriteRenderer>(); 
+        crossHairRenderer.enabled = false;
+        deathChecker = GetComponent<DeathChecker>();
 
     }
 
@@ -90,11 +96,12 @@ public class playerController : MonoBehaviour
            shouldViewNextTerrain();
            grounded = isGrounded();
            updateScoreString();
+           updateCrossHair();
            addMomentum();
            jump();
            shoot();
            slide();
-           CowboyAnim.SetBool("OnGround", grounded);
+           CowboyAnim.SetBool("OnGround", grounded && !IsViewingNextTerrain);
            CowboyAnim.SetBool("IsAlive", deathChecker.IsAlive);
            IsDead();
             
@@ -129,7 +136,7 @@ public class playerController : MonoBehaviour
 
     public void conactToScore(string concat)
     {
-        concatString =  concat;
+        concatString = "+"+ concat;
 
         if (hasConcatenatedScore)
         {
@@ -146,12 +153,12 @@ public class playerController : MonoBehaviour
         if (hasConcatenatedScore)
         {
 
-            if(scoreFadeIncrement < scoreFadeTimer)
+            if(scoreFadeIncrement <scoreFadeMax)
             {
-                scoreFadeTimer += Time.deltaTime;
+                scoreFadeIncrement += Time.deltaTime;
                 return;
             }
-
+            scoreFadeIncrement = 0.0f;
             concatString = "";
             hasConcatenatedScore = false;
 
@@ -176,7 +183,7 @@ public class playerController : MonoBehaviour
 
     private void jump()
     {
-        if (shouldJump && grounded)
+        if (shouldJump && grounded && !IsViewingNextTerrain)
         {
 
             playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpVelocity);
@@ -193,16 +200,29 @@ public class playerController : MonoBehaviour
     {
         t += Time.deltaTime;
         //Debug.Log("Bullet Destroyed: " + bullet.IsDestroyed());
-        if (shouldShoot && t >= 0.5f)
+        if (!IsViewingNextTerrain && shouldShoot && t >= 0.5f)
         {
             invoked = true;
             shouldShoot = false;
-
-            arm.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, fBulletAngle));
-            Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
-          
-            Dir = touchStore - (new Vector2(bulletSpawnPoint.transform.position.x, bulletSpawnPoint.transform.position.y));
+            Dir = touchStore - (new Vector2(bulletSpawnPoint.position.x, bulletSpawnPoint.position.y));
             Dir.Normalize();
+            fBulletAngle = Mathf.Atan2(Dir.y, Dir.x);
+            Debug.Log("bullet angle " + fBulletAngle + " direction " + Dir);
+            arm.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, fBulletAngle));
+            crossHairFadeTimer = 0.0f;
+            crossHairRenderer.enabled = true;
+          
+            spriteCrossHair.transform.position = bulletSpawnPoint.position + new Vector3(Dir.x * crossHairDistance, Dir.y * crossHairDistance, 0.0f);
+
+           
+            Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+           
+          
+
+            
+
+            Debug.Log("current shooting direction " + Dir);
+       
             bulletShot.Play();
             t = 0f; 
         }
@@ -231,7 +251,7 @@ public class playerController : MonoBehaviour
 }
     private void slide()
     {
-        if(isSliding)
+        if(isSliding || IsViewingNextTerrain)
         {
             return;
         }
@@ -276,6 +296,22 @@ public class playerController : MonoBehaviour
         Debug.Log("shouldSlide3: " + shouldSlide);
 
     }
+
+    public void updateCrossHair() {
+
+
+        if (crossHairFadeTimer < crossHairFadeMax && crossHairRenderer.enabled )
+        {
+            crossHairFadeTimer += Time.deltaTime;
+            return;
+        }
+
+
+        crossHairRenderer.enabled = false;
+        crossHairFadeTimer = 0;
+
+    }
+
     public bool isInCurrentTerrian()
     {
 
@@ -292,6 +328,7 @@ public class playerController : MonoBehaviour
 
     private void ScoreConstantIncrement()
     {
+        string scoreString ;
         
         if (shouldIncrementScore)
         {
@@ -300,13 +337,16 @@ public class playerController : MonoBehaviour
             if (scoreIncrement >= scoreIncrementMax)
             {
                 CurrentScore++;
-                scoreString = Convert.ToString(CurrentScore) + concatString;
+                currentScoreString = Convert.ToString(CurrentScore);
                 scoreIncrement = 0.0f;
             }
 
         }
-        scoreString = scoreString + concatString;
 
+        scoreString = currentScoreString + concatString;
+
+        scoreText.UpdateText(scoreString);
+      
 
     }
     public Vector2 playerPosVec2
@@ -418,7 +458,7 @@ public class playerController : MonoBehaviour
             }
             return;
         }
-
+        
         ScoreConstantIncrement();
     }
 
