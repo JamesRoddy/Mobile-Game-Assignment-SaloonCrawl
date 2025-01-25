@@ -358,7 +358,7 @@ public class playerController : MonoBehaviour
 
             if (grounded == true)
             {
-               if(CowboyAnim.GetBool("Kick") == false)
+               if(CowboyAnim.GetBool("Kick") == false && CowboyAnim.GetBool("IsSliding") == false)
                 {
                     Time.timeScale = 0;
                 }
