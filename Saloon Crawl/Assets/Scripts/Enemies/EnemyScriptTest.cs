@@ -21,7 +21,9 @@ public class EnemyScriptTest1 : EnemyDescriptorInfo// all enemies inherit from t
         // for example the saloon has no interval as the enemies are just static turrets 
 /*        Debug.Log("started enemy script 1 ");*/
     }
-
+    public override void EnemyEnable()
+    {
+    }
     public override void EnemyUpdate()
     {
         

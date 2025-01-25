@@ -24,10 +24,15 @@ public abstract class EnemyDescriptorInfo : MonoBehaviour
 
         Debug.Log("enemy start");
        
-     
+       
         EnemyStart(); 
        
     }
+
+    public abstract void EnemyEnable();
+    
+
+
     public abstract void EnemyStart();
   
     private void Update()
