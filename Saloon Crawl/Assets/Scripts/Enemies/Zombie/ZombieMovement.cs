@@ -49,6 +49,7 @@ public class ZombieMovement : EnemyDescriptorInfo
         if(zombieDeath.isAlive == false)
         {
             InstantiatePopUp();
+            controller.CurrentScore += scoreIncrement;
             this.gameObject.SetActive(false);
         }
     }

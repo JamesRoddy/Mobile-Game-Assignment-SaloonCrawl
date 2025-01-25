@@ -13,7 +13,7 @@ public class ScorePopUp : MonoBehaviour
     [SerializeField] private  float popUpTime;
 
     [SerializeField] private float speed;
- 
+  
 
     private float currentTimer = 0.0f;
 
@@ -27,7 +27,8 @@ public class ScorePopUp : MonoBehaviour
     {
         randomDirection.x = Random.Range(-1.0f, 1.0f);
         randomDirection.y = Random.Range(-1.0f, 1.0f);
-        currentTimer = 0.0f;
+        currentTimer = 0.0f; 
+
 
         Debug.Log("SCORE POP UP START  instantiating score pop up  random dir x "+ randomDirection.x+" random dir  y  "+randomDirection.y +" current timer "+currentTimer);
 
