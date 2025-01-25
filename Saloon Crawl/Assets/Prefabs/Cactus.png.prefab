@@ -57,6 +57,7 @@ GameObject:
   - component: {fileID: 7699110136604071095}
   - component: {fileID: 5057374447127039827}
   - component: {fileID: 1589106752766302966}
+  - component: {fileID: 8008346757457746307}
   m_Layer: 9
   m_Name: Cactus.png
   m_TagString: Kickable
@@ -147,14 +148,14 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 2688
+    m_Bits: 640
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
-    m_Bits: 15991
+    m_Bits: 13943
   m_ForceReceiveLayers:
     serializedVersion: 2
-    m_Bits: 15991
+    m_Bits: 13943
   m_ContactCaptureLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -227,3 +228,16 @@ MonoBehaviour:
   Enemy:
     serializedVersion: 2
     m_Bits: 1024
+--- !u!114 &8008346757457746307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5375781003310198972}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33e61b39d5203e44f82e902f5985e341, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 5183209318270881231, guid: 89f77be7138233e44bf445567f64fc01, type: 3}

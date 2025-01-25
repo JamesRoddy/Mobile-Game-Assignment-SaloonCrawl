@@ -45,6 +45,7 @@ public class ZombieMovement : EnemyDescriptorInfo
         
         if(zombieDeath.isAlive == false)
         {
+            InstantiatePopUp();
             this.gameObject.SetActive(false);
         }
     }

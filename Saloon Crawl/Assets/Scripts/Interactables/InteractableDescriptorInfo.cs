@@ -36,6 +36,8 @@ public abstract class Interactable : MonoBehaviour
     }
 
 
+   
+
 
     public bool DefferedSpawn { 
         
