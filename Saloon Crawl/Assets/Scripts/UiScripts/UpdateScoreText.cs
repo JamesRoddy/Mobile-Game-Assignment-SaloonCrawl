@@ -16,16 +16,13 @@ public class UpdateScoreText : MonoBehaviour
         player = FindFirstObjectByType<playerController>();
         scoreText = GetComponent<TMP_Text>();
        
-        scoreText.text = player.currentScoreString;
+    
 
     }
 
     // Update is called once per frame
-    void Update()
+    public void UpdateText(string value)
     {
-     
-        scoreText.text = player.currentScoreString;
-
-
+        scoreText.text = value;
     }
 }

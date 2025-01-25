@@ -1911,6 +1911,11 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &916005507 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4380377978918727295, guid: 03d68603cadcdf547a5440a956157da5, type: 3}
+  m_PrefabInstance: {fileID: 1197590509}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &995367028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2347,6 +2352,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3781977167510447231, guid: 03d68603cadcdf547a5440a956157da5, type: 3}
+      propertyPath: spriteCrossHair
+      value: 
+      objectReference: {fileID: 916005507}
+    - target: {fileID: 4380377978918727295, guid: 03d68603cadcdf547a5440a956157da5, type: 3}
+      propertyPath: m_Name
+      value: 'spriteCrossHair '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6661754912898303019, guid: 03d68603cadcdf547a5440a956157da5, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6661754912898303019, guid: 03d68603cadcdf547a5440a956157da5, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1127988011
+      objectReference: {fileID: 0}
     - target: {fileID: 7693534056221397672, guid: 03d68603cadcdf547a5440a956157da5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.07439804

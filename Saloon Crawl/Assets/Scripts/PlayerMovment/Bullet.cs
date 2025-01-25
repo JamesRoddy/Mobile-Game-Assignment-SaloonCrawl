@@ -3,17 +3,18 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Bullet : MonoBehaviour
 {
     Rigidbody2D bullet;
-    float fBulletSpeed = 30f;
-    
+    float fBulletSpeed = 60f;
+    float bulletDestroyTime = 0.025f;
     TouchControls control;
     playerController player;
     private Camera playerCam;
     private BoxCollider2D boxCollider;
-    private Renderer offScreenCheck;
+    private SpriteRenderer offScreenCheck;
 
     public LayerMask Ground;
     public LayerMask Enemy;
@@ -28,8 +29,8 @@ public class Bullet : MonoBehaviour
         player = FindObjectOfType<playerController>();
         bullet = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
-        offScreenCheck = GetComponent<Renderer>();
-
+        offScreenCheck = GetComponent<SpriteRenderer>();
+        playerCam = FindFirstObjectByType<Camera>();
         Dir = player.Dir;
         this.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, player.fBulletAngle));
     }
@@ -39,12 +40,12 @@ public class Bullet : MonoBehaviour
     {
         Debug.Log("Bullet Active: " + isActiveAndEnabled);
 
-        bullet.velocity = Dir * fBulletSpeed;
+        transform.Translate( Dir * fBulletSpeed *Time.deltaTime);
         tr.emitting = true;
         
         if(isNotInCameraView())
         {
-            Destroy(this.gameObject, 0.2f);
+            Destroy(this.gameObject, bulletDestroyTime);
         }
 
     }
@@ -68,8 +69,13 @@ public class Bullet : MonoBehaviour
     {
         bool isNotInCameraView = false;
 
-        if (!offScreenCheck.isVisible)
+        Vector3 viewPortPos = playerCam.WorldToViewportPoint(transform.position - offScreenCheck.bounds.size/2.0f); 
+
+        
+
+        if (viewPortPos.x>1.0f || viewPortPos.y >1.0f )
         {
+            
             isNotInCameraView = true;
         }
 
