@@ -44,6 +44,7 @@ public class TerrainManager : MonoBehaviour
         enemySpawnHandler = gameObject.AddComponent<EnemySpawner>(); 
         interactableSpawnManager = gameObject.AddComponent<InteractableSpawnManager>();
         collectiblesManager = FindFirstObjectByType<CollectiblesManager>();
+        interactableSpawnManager.CurrentPool = GetComponent<InteractablePool>();
         Debug.Log((terrainColliderHolder == null) + "terrain collider null");
     } 
     private void updateActiveObjects()

@@ -70,7 +70,9 @@ public class SallonTerrainType : TerrainType
             currentEnemySpawnCount++;
             
             activateObject(ref enemy,enemySpawnPos);
+          
             currentDescriptor.resetDeath();
+            currentDescriptor.EnemyEnable();
             previousEnemy = enemy;
 
 

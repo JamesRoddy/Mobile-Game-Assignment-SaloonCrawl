@@ -54,7 +54,9 @@ public class DesertTerrainType : TerrainType
         isSpawningEnemy = false;
         
         activateObject(ref enemy,spawnPos);
+   
         currentDescriptor.resetDeath();
+        currentDescriptor.EnemyEnable();
         spawnInterval = 0.0f;
 
     }
