@@ -212,7 +212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collsionTags:
-  - FlyingObject
+  - Kickable
   - Bullet
   isAlive: 1
 --- !u!114 &-5250749195739163054

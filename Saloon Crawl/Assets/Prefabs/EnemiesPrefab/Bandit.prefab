@@ -770,7 +770,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   collsionTags:
   - Bullet
-  - FlyingObject
+  - Kickable
   isAlive: 1
 --- !u!114 &7453179041923465471
 MonoBehaviour:
