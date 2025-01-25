@@ -5,8 +5,8 @@ using UnityEngine;
 public abstract class EventObject : MonoBehaviour
 {
 
-    playerController playerController;
-    Camera playerCam; 
+    protected playerController playerController;
+    protected Camera playerCam; 
     public void Start()
     {
         playerController = FindFirstObjectByType<playerController>();

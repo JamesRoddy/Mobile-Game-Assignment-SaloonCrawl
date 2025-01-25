@@ -6,6 +6,7 @@ public class Kick : Interactable
 {
 
     Rigidbody2D kickable;
+    private 
     float fTravelSpeedRight = 10f;
     float fTravelSpeedUp = 5f;
     TouchControls control;
@@ -19,8 +20,9 @@ public class Kick : Interactable
     int iNum = 0;
     private Camera playerCam;
     private BoxCollider2D collision;
-    private float t = 0;
-    private DeathChecker deathChecker;
+
+    //private DeathChecker deathChecker;
+    private InstaniateScorePopUp scorePopUp;
 
     public LayerMask Ground;
     public LayerMask Enemy;
@@ -30,6 +32,7 @@ public class Kick : Interactable
         control = FindObjectOfType<TouchControls>();
         player = FindObjectOfType<playerController>();
         kickable = GetComponent<Rigidbody2D>();
+        scorePopUp = GetComponent<InstaniateScorePopUp>();
         playerCam = Camera.main;
         collision = GetComponent<BoxCollider2D>();
         kickableVelocity = (this.transform.up * fTravelSpeedUp) + (this.transform.right * fTravelSpeedRight);
@@ -39,13 +42,12 @@ public class Kick : Interactable
     {
         if (player.transform.position.x >= kickPosition.transform.position.x && player.transform.position.x < kickable.transform.position.x && control.bSwipeRight)
         {
-            StartCoroutine(playAnim());
-            transform.gameObject.tag = "FlyingObject";
             transform.gameObject.layer = 13;
+            StartCoroutine(playAnim());
             kickable.velocity = kickableVelocity;
             control.bSwipeRight = false;
             bKicked = true;
-            deathChecker = player.GetComponent<DeathChecker>();
+            //deathChecker = player.GetComponent<DeathChecker>();
         }
 
         else if (isNotInCameraView())
@@ -57,6 +59,7 @@ public class Kick : Interactable
         {
             kickable.transform.Rotate(0f, 0f, Time.deltaTime * 1000f, Space.World);
         }
+
     }
 
     void replaceSprites()
@@ -105,29 +108,25 @@ public class Kick : Interactable
     {
         if(bKicked)
         {
-            
             replaceSprites();  
-            if (collision.gameObject.CompareTag("Ground"))
+            if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Ground"))
             {
-                ResetVariables();
+                scorePopUp.inistantiateScorePop(transform.position,Quaternion.identity);
                 player.CowboyAnim.SetBool("Kick", false);
                 iNum += 1;
+                
                 this.gameObject.SetActive(false);
+                ResetVariables();
             }
 
-            if (collision.gameObject.CompareTag("Enemy"))
-            {
-                ResetVariables();
-                player.CowboyAnim.SetBool("Kick", false);
-                iNum += 1;
-                this.gameObject.SetActive(false);
-            }
         }
 
         else
         {
             bKicked = false;
         }
+
+        
     }
 
     private bool isNotInCameraView()
@@ -136,17 +135,22 @@ public class Kick : Interactable
         return camViewPortPos.x < 0.0f;
     }
 
+
     void ResetVariables()
     {
-        fTravelSpeedRight = 10f;
-        fTravelSpeedUp = 5f;
-        kickableVelocity = Vector3.zero;
-        isKicking = false;
-        bKicked = false;
-        iNum = 0;
+        if(!isActiveAndEnabled)
+        {
+            kickable.transform.rotation = new Quaternion(0f, 0f, 0f, 0f);
+            collision.gameObject.SetActive(true);
+            fTravelSpeedRight = 10f;
+            fTravelSpeedUp = 5f;
+            isKicking = false;
+            bKicked = false;
+            iNum = 0;
+            this.gameObject.SetActive(false);
+            transform.gameObject.layer = 9;
+        }
     }
-
-
 
 
     public bool Kicked

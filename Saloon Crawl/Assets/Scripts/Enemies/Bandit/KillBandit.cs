@@ -6,10 +6,12 @@ public class KillBandit : MonoBehaviour
 {
 
     private DeathChecker banditDeath;
+    private  InstaniateScorePopUp scorePopUp;
     // Start is called before the first frame update
    private void Start()
     {
         banditDeath = GetComponent<DeathChecker>();
+        scorePopUp = GetComponent<InstaniateScorePopUp>();
     }
 
     // Update is called once per frame
@@ -22,6 +24,7 @@ public class KillBandit : MonoBehaviour
     {
         if (banditDeath.isAlive == false)
         {
+            scorePopUp.inistantiateScorePop(transform.position,Quaternion.identity);
             this.gameObject.SetActive(false);
         }
     }

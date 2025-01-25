@@ -7,9 +7,10 @@ public abstract class EnemyDescriptorInfo : MonoBehaviour
 
     [SerializeField] protected List<float> spawnIntervals ;
     playerController controller;
-    
+    protected Transform scoreIncrementPopUp;
     private float spawnInterval = 0.0f;
     protected DeathChecker alive;
+    private InstaniateScorePopUp scorePopUp;
     public float SpawnInterval
     {
         get { return spawnInterval; }
@@ -19,7 +20,7 @@ public abstract class EnemyDescriptorInfo : MonoBehaviour
     private void Start()
     {
         controller =  FindFirstObjectByType<playerController>();
-       
+        scorePopUp = GetComponent<InstaniateScorePopUp>();
 
         Debug.Log("enemy start");
        
@@ -45,6 +46,12 @@ public abstract class EnemyDescriptorInfo : MonoBehaviour
 
     }
 
+
+    public void InstantiatePopUp()
+    {
+        scorePopUp.inistantiateScorePop(transform.position,Quaternion.identity);
+    }
+
     public abstract void EnemyUpdate();
     
     public void resetDeath()
@@ -65,12 +72,14 @@ public abstract class EnemyDescriptorInfo : MonoBehaviour
             /*Debug.Log("SPAWNING ENEMY assigning new spawn interval " + spawnInterval);*/
         }
 
-    
+       
 
         
     
     
-    }
+    } 
+
+    
 
     public bool isAlive
     {
