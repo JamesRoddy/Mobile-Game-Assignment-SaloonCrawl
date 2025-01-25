@@ -26,6 +26,8 @@ public class playerController : MonoBehaviour
     public Animator CowboyAnim;
     private float scoreIncrement = 0.0f;
     private float scoreIncrementMax = 0.1f;
+    private float scoreFadeTimer = 0.65f;
+    private float scoreFadeIncrement = 0.0f;
     //Shooting variables
     public bool shouldShoot = false;
     public Transform bulletSpawnPoint;
@@ -40,9 +42,9 @@ public class playerController : MonoBehaviour
     private bool isViewingNextTerrain = false;
     private int currentCoinCount = 0;
     private CamMovement followCam;
-
+    private bool hasConcatenatedScore = false;
     private DeathChecker deathChecker;
-
+    string concatString = "";
     private GameManagerScript gameManagerScript;
 
     private Vector3 nextTerrainPos;
@@ -87,6 +89,7 @@ public class playerController : MonoBehaviour
 
            shouldViewNextTerrain();
            grounded = isGrounded();
+           updateScoreString();
            addMomentum();
            jump();
            shoot();
@@ -123,6 +126,39 @@ public class playerController : MonoBehaviour
 
     }
   
+
+    public void conactToScore(string concat)
+    {
+        concatString =  concat;
+
+        if (hasConcatenatedScore)
+        {
+            scoreFadeIncrement = 0.0f;
+        }
+
+        hasConcatenatedScore = true;
+    }
+
+
+    private void updateScoreString()
+    {
+
+        if (hasConcatenatedScore)
+        {
+
+            if(scoreFadeIncrement < scoreFadeTimer)
+            {
+                scoreFadeTimer += Time.deltaTime;
+                return;
+            }
+
+            concatString = "";
+            hasConcatenatedScore = false;
+
+        }
+
+
+    }
     private void addMomentum()
     {
 
@@ -256,19 +292,20 @@ public class playerController : MonoBehaviour
 
     private void ScoreConstantIncrement()
     {
-
+        
         if (shouldIncrementScore)
         {
             scoreIncrement += Time.deltaTime;
-
+            
             if (scoreIncrement >= scoreIncrementMax)
             {
                 CurrentScore++;
-                scoreString = Convert.ToString(CurrentScore);
+                scoreString = Convert.ToString(CurrentScore) + concatString;
                 scoreIncrement = 0.0f;
             }
 
         }
+        scoreString = scoreString + concatString;
 
 
     }
@@ -305,6 +342,8 @@ public class playerController : MonoBehaviour
     {
         get { return new Vector3(nextTerrainPos.x,nextTerrainPos.y,currentCam.transform.position.z); }
     }
+
+   
     public bool IsViewingNextTerrain
     {
         set {  isViewingNextTerrain = value; }
@@ -313,6 +352,7 @@ public class playerController : MonoBehaviour
     public string currentScoreString
     {
         get { return scoreString; }
+        set { scoreString = value; }
     }
     public bool Grounded
     {

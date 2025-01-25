@@ -10,6 +10,7 @@ public  abstract class  Collectible : MonoBehaviour
   
     [SerializeField] private int maxAmount;
     [SerializeField] private int minAmount;
+    [SerializeField] private int scoreIncrement;
     protected bool startInteraction = false;
     public LayerMask overlaps;
     protected playerController playerController;
@@ -71,7 +72,8 @@ public  abstract class  Collectible : MonoBehaviour
     {
 
         scorePopUp.inistantiateScorePop(transform.position, Quaternion.identity);
-
+        playerController.CurrentScore += scoreIncrement;
+        playerController.conactToScore(Convert.ToString(scoreIncrement));
 
     }
    

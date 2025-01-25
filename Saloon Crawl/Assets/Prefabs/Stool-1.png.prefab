@@ -218,6 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberThatCanSpawn: 3
+  scoreIncrement: 15
   kickPosition: {fileID: 2629819400340122235}
   isKicking: 0
   brokenStoolTop: {fileID: 6514347530175954600, guid: b51e897860046ae4582248fa2b293974, type: 3}
