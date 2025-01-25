@@ -18,7 +18,10 @@ public class ZombieMovement : EnemyDescriptorInfo
         zombieDeath = GetComponent<DeathChecker>();
        
     }
-
+    public override void EnemyEnable()
+    {
+       
+    }
     public override void EnemyUpdate()
     { 
         Movement();
