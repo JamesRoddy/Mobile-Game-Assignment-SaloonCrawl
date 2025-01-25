@@ -9,10 +9,12 @@ public  abstract class  Collectible : MonoBehaviour
   
     [SerializeField] private int maxAmount;
     [SerializeField] private int minAmount;
+    protected bool startInteraction = false;
     private LayerMask overlaps;
     protected playerController playerController;
     protected Camera playerCam;
     private Collider2D collectibleCollider;
+    public AudioSource sound;
     public int MaxAmount
     {
         get
@@ -120,6 +122,14 @@ public  abstract class  Collectible : MonoBehaviour
     {
         if (!playerController.IsViewingNextTerrain)
         {
+
+            if (startInteraction)
+            {
+                interact();
+
+
+            }
+
             if (!isOnScreen())
             {
 
@@ -137,9 +147,11 @@ public  abstract class  Collectible : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            Debug.Log(" colllectible sound play");
+            sound.Play();
+            startInteraction = true;
+           
 
-            interact();
-            gameObject.SetActive(false);
 
         }
         

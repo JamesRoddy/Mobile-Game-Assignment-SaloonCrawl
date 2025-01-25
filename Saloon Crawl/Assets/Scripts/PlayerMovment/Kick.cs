@@ -145,4 +145,12 @@ public class Kick : Interactable
         bKicked = false;
         iNum = 0;
     }
+
+
+
+
+    public bool Kicked
+    {
+        set { bKicked = value; } 
+    }
 }

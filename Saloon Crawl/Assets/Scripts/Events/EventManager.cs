@@ -8,13 +8,13 @@ public class EventManager : MonoBehaviour
 
     [SerializeField] private List<GameObject> eventObjectHolders;
 
-    List<Event> events =  new List<Event>();
-    List<Event> potential = new List<Event>();
-    List<Event> inactive = new List<Event>();
+    List<TerrainEvent> events =  new List<TerrainEvent>();
+    
 
-    Event currentEvent = null;
+    TerrainEvent currentEvent = null;
     private float genericCoolDown = 0.0f;
-
+    private float genericCooldownMin = 5.0f;
+    private float genericCooldDownMax = 10.0f;
 
 
 
@@ -25,7 +25,7 @@ public class EventManager : MonoBehaviour
         foreach (GameObject obj in eventObjectHolders) 
         {
             EventObjectPool pool =  gameObject.AddComponent<EventObjectPool>();
-            Event currentEvent = obj.GetComponent<Event>();
+            TerrainEvent currentEvent = obj.GetComponent<TerrainEvent>();
             pool.setValues(currentEvent.EventObjects); 
             currentEvent.ObjectPool = pool;
 
@@ -34,7 +34,7 @@ public class EventManager : MonoBehaviour
         
         }
 
-
+        
 
 
     }
@@ -43,7 +43,7 @@ public class EventManager : MonoBehaviour
     void Update()
     {
         checkForEvent();
-        if ( currentEvent != null && genericCoolDown <= 0.0f)
+        if ( currentEvent != null )
         {
 
             if (!currentEvent.HasFinished())
@@ -51,11 +51,13 @@ public class EventManager : MonoBehaviour
 
                 currentEvent.Fire();
                 return;
-            } 
+            }
 
+            genericCoolDown = Random.Range(genericCooldownMin, genericCooldDownMax);
+            currentEvent.AllocatedWaitTime = genericCoolDown;
 
-
-
+            events.Remove(currentEvent);
+            currentEvent = null;
 
 
      
@@ -63,7 +65,7 @@ public class EventManager : MonoBehaviour
         }
 
         
-        genericCoolDown -= Time.deltaTime;
+   
 
 
         
@@ -78,7 +80,7 @@ public class EventManager : MonoBehaviour
         if (events.Count > 0 && currentEvent ==null)
         {
             currentEvent = events[0];
-      
+            currentEvent.EventStart();
         }
 
 

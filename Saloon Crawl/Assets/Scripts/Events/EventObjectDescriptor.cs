@@ -4,7 +4,7 @@ using UnityEngine;
 
 public  class EventObjectDescriptor : MonoBehaviour
 {
-    [SerializeField] private int amountThatCanSpawn; 
+    [SerializeField] private int amountThatCanSpawn;
 
 
 

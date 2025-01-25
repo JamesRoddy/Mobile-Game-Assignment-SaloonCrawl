@@ -10,6 +10,7 @@ public class Bandit : EnemyDescriptorInfo
     public override void EnemyStart()
     {
         banditAim = transform.GetChild(0).GetComponent<Aiming>();
+        banditAim.AimingStart();
     }
 
     // Update is called once per frame

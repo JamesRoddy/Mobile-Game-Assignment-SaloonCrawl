@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 9222631840785171376}
   - component: {fileID: 8894061327594767606}
   - component: {fileID: 704868410054754756}
+  - component: {fileID: 1620691163063285208}
   m_Layer: 8
   m_Name: Luke Mcluke
   m_TagString: Player
@@ -282,7 +283,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 8320
+    m_Bits: 9856
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -843,3 +844,38 @@ MonoBehaviour:
   - Enemy
   - Kickable
   isAlive: 1
+--- !u!70 &1620691163063285208
+CapsuleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9021466747334748636}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.04828529, y: 0.022915142}
+  m_Size: {x: 0.29341105, y: 0.5691902}
+  m_Direction: 0

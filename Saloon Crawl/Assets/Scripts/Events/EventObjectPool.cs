@@ -17,10 +17,12 @@ public class EventObjectPool : MonoBehaviour
         { 
             GameObject instance =  Instantiate(eventObjects[i],Vector3.zero,Quaternion.identity);
             int amount = instance.GetComponent<EventObjectDescriptor>().AmountThatSpawn;
+            Debug.Log("EVENTS  spawning new event objects " + amount);
             instance.SetActive(false);
             eventObjectPool.Add(instance);
             for(int j  = 0; j < amount - 1; j++)
             {
+                
                 eventObjectPool.Add(Instantiate(instance,Vector3.zero,Quaternion.identity));
                
             }
@@ -61,7 +63,7 @@ public class EventObjectPool : MonoBehaviour
     public GameObject requestAvaialbeObject()
     {
 
-
+        eventObjectPool[currentPoolPointer].GetComponent<EventObject>().EventObjEnable();
 
         return eventObjectPool[currentPoolPointer++];
 

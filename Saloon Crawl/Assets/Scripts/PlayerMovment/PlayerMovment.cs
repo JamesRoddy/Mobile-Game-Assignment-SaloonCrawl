@@ -76,15 +76,15 @@ public class playerController : MonoBehaviour
     void Update()
     {
 
-/*            shouldViewNextTerrain();
-*/            grounded = isGrounded();
-            addMomentum();
-            jump();
-            shoot();
-            slide();
-            CowboyAnim.SetBool("OnGround", grounded);
-            CowboyAnim.SetBool("IsAlive", deathChecker.IsAlive);
-            IsDead();
+           shouldViewNextTerrain();
+           grounded = isGrounded();
+           addMomentum();
+           jump();
+           shoot();
+           slide();
+           CowboyAnim.SetBool("OnGround", grounded);
+           CowboyAnim.SetBool("IsAlive", deathChecker.IsAlive);
+           IsDead();
             
       
 
@@ -203,7 +203,7 @@ public class playerController : MonoBehaviour
         {
             Debug.Log("Airborn");
             playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, fSlidePowerY);
-            playerBoxCollider.size = new Vector2(fStoreY, fStoreX - 0.2f);
+/*           playerBoxCollider.size = new Vector2(fStoreY, fStoreX );*/
         }
 
         else
