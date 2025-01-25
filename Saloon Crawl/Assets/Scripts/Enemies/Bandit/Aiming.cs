@@ -55,6 +55,8 @@ public class Aiming : MonoBehaviour
         bulletTrail.enabled = false;
         indicator = transform.parent.Find("Indicator").GetComponent<Animator>();
         playerController = FindFirstObjectByType<playerController>();
+        fireDelay = 0;
+        aimingTime = 0;
 
         Debug.Log("arm not null " + (transform.Find("Arm") != null));
         /*        boxCollider = GetComponent<BoxCollider2D>();*/
@@ -132,6 +134,22 @@ public class Aiming : MonoBehaviour
 
         Vector3 camViewPortPos = playerCam.WorldToViewportPoint(new Vector3(banditTransform.position.x + boxCollider.bounds.size.x / 2.0f, banditTransform.position.y, banditTransform.position.z));
         return camViewPortPos.x < 0.0f;
+    } 
+
+    public void aimingEnable()
+    {
+
+        fireDelay = 0;
+        aimingTime = 0;
+        bulletTrail.enabled = false;
+        parentLineRenderer.enabled = true;
+        shootDirection = Vector3.zero;
+        shootPosition = Vector3.zero;
+        indicator.SetBool("Warning ", false);
+        canFlip = true ;
+        bulletTrail.transform.position = gunTransform.position;
+        setLinePosition(gunTransform.position, gunTransform.position);
+
     }
     private void Shooting()
     {

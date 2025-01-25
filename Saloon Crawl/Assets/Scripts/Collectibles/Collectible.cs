@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -10,11 +11,13 @@ public  abstract class  Collectible : MonoBehaviour
     [SerializeField] private int maxAmount;
     [SerializeField] private int minAmount;
     protected bool startInteraction = false;
-    private LayerMask overlaps;
+    public LayerMask overlaps;
     protected playerController playerController;
     protected Camera playerCam;
     private Collider2D collectibleCollider;
-    public AudioSource sound;
+    public AudioSource sound; 
+    protected InstaniateScorePopUp scorePopUp;
+    
     public int MaxAmount
     {
         get
@@ -35,8 +38,9 @@ public  abstract class  Collectible : MonoBehaviour
     {
         playerController = FindFirstObjectByType<playerController>();
         playerCam = Camera.main;
+        scorePopUp = GetComponent<InstaniateScorePopUp>();
+         
      
-       
         Debug.Log("collider null " + (collectibleCollider == null));
      
 
@@ -52,65 +56,25 @@ public  abstract class  Collectible : MonoBehaviour
     {
         if(collectibleCollider== null)
         {
-            
+
 
             collectibleCollider = GetComponent<Collider2D>();
+             
             Debug.Log("COLLECTIBLE COLLIDER SET  collider set " + collectibleCollider.GetType());
         }
-        overlaps = LayerMask.GetMask("Collectible", "Interactable");
-        StartCoroutine(checkLateOverlap());
+        GetComponent<SpriteRenderer>().enabled = true;
+      
+       /*StartCoroutine( checkLateOverlap());*/
     }
 
-
-    private IEnumerator checkLateOverlap()
+    public void instaniateScoreObject()
     {
-        yield return new WaitForFixedUpdate();
-        Debug.Log("COLLECITBLE overlap checks " + overlaps.ToString() + "is overlaping " + collectibleCollider.IsTouchingLayers(overlaps));
 
-        Vector2 startDir = new Vector2(0.0f, 0.0f); 
-
-
-        for(float angle = 0.0f; angle<360.0f; angle += 90.0f )
-        {
-            
-            startDir.x = Mathf.Cos(angle);
-            startDir.y = Mathf.Sin(angle);
-
-
-            RaycastHit2D ray = Physics2D.Raycast(transform.position, startDir,overlaps);
-            if (ray && Mathf.Abs(transform.position.x - ray.collider.transform.position.x) < collectibleCollider.bounds.size.x && Mathf.Abs(transform.position.x - ray.collider.transform.position.x) < collectibleCollider.bounds.size.x  && 
-                Mathf.Abs(transform.position.x - ray.collider.transform.position.y) < collectibleCollider.bounds.size.y)
-            {
-
-                float side = transform.position.x - ray.collider.transform.position.x <= 0.0f ? -1.0f : 1.0f;
-
-                transform.position = new Vector3(transform.position.x + ray.collider.bounds.size.x * side, transform.position.y, transform.position.z);
-
-
-                Debug.Log("COLLECTIBLES overlap found repositioning " + transform.position);
-
-
-
-
-            }
-
-
-
-            
-
-
-
-        }
-
-
-
-
-        
-
+        scorePopUp.inistantiateScorePop(transform.position, Quaternion.identity);
 
 
     }
-
+   
     public abstract void CollectibleStart();
   
     public abstract void interact();
@@ -147,18 +111,39 @@ public  abstract class  Collectible : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            Debug.Log(" colllectible sound play");
+           Debug.Log(" colllectible sound play");
             sound.Play();
+            scorePopUp.inistantiateScorePop(transform.position,Quaternion.identity);
             startInteraction = true;
            
 
 
         }
+       
         
 
     }
 
-    
+
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+       
+        if (collision.gameObject.CompareTag("Kickable"))
+        {
+
+            float directionX = transform.position.x - collision.transform.position.x>=0.0f ? 1.0f :-1.0f ;
+            float bottomOfColliderY = collision.collider.transform.position.y - collision.collider.bounds.size.y / 2.0f;
+            float topOfColliderY = collision.collider.transform.position.y + collision.collider.bounds.size.y / 2.0f;
+           
+            float overlap = Mathf.Abs(transform.position.y - bottomOfColliderY)/(topOfColliderY - bottomOfColliderY);
+            transform.position = new Vector3(transform.position.x , transform.position.y + collision.collider.bounds.size.y * overlap , transform.position.z);
+            Debug.Log(" COLLECTIBLE  new position due to overlap ");
+        }
+    }
+
+
+
     protected bool isOnScreen()
     {
         return playerCam.WorldToViewportPoint(transform.position).x >= 0.0f;

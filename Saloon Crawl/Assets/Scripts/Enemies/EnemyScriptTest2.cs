@@ -22,9 +22,11 @@ public class EnemyScriptTest2 : EnemyDescriptorInfo // all enemies inherit from 
 
             /*           Debug.Log("started enemy script 2");
             */
-      }    
-
-        public override void EnemyUpdate()
+      }
+    public override void EnemyEnable()
+    {
+    }
+    public override void EnemyUpdate()
         {
      
         t += Time.deltaTime;

@@ -10,23 +10,28 @@ public class InteractableSpawnManager : MonoBehaviour
     private TerrainType currentTerrainType;
     private TerrainClassifications currentPoolType;
     private InteractablePool currentPool;
-
+    
   
     bool initialsSet = false;
-    CamMovement playerCam; 
+    CamMovement playerCam;
+    Camera Cam;
+
     void Start()
-    { 
-        playerCam =Camera.main.GetComponent<CamMovement>();
-        terrainManager = GetComponent<TerrainManager>();
-        player = FindObjectOfType<playerController>();
-        currentPool = GetComponent<InteractablePool>();
+    {
+        Cam = FindFirstObjectByType<Camera>();
+        playerCam =  Cam.GetComponent<CamMovement>();
+        terrainManager = FindFirstObjectByType<TerrainManager>();
+        player = FindFirstObjectByType<playerController>();
+      
+        Debug.Log((Cam == null) + "cam was null  terrain manager null " + (terrainManager == null) + "player null " + player == null + " player cam " + (playerCam == null));
+       
     }
 
    public void UpdateSpawns()
     {
 
-       
-        if ( player.CurrentTerrain.NextTerrainType != null && !(player.CurrentTerrain.NextTerrainType.HasInteractables) &&  playerCam.playerCanSeeEnd()  && !currentPool.HasDeffered  )
+        Debug.Log( "current pool " + (playerCam == null));
+        if ( playerCam.playerCanSeeEnd() && player.CurrentTerrain.NextTerrainType != null && !(player.CurrentTerrain.NextTerrainType.HasInteractables)  && !currentPool.HasDeffered  )
         {
             
             initialsSet = true;
@@ -49,6 +54,14 @@ public class InteractableSpawnManager : MonoBehaviour
 
 
         }
+
+    } 
+
+
+    public InteractablePool CurrentPool
+    {
+        set { currentPool = value; }
+
 
     }
 }

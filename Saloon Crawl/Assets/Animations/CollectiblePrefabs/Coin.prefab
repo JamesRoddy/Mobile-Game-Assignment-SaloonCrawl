@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1380846991923405241}
   - component: {fileID: 7316514161243236077}
   - component: {fileID: 7878593265126999985}
+  - component: {fileID: -6995308789157191093}
   m_Layer: 11
   m_Name: Coin
   m_TagString: Collectible
@@ -101,6 +102,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxAmount: 8
   minAmount: 4
+  overlaps:
+    serializedVersion: 2
+    m_Bits: 512
   sound: {fileID: 7878593265126999985}
 --- !u!58 &7316514161243236077
 CircleCollider2D:
@@ -117,14 +121,14 @@ CircleCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 11392
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
-    m_Bits: 7927
+    m_Bits: 0
   m_ForceReceiveLayers:
     serializedVersion: 2
-    m_Bits: 7927
+    m_Bits: 0
   m_ContactCaptureLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -233,3 +237,16 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-6995308789157191093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1945639890461786987}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33e61b39d5203e44f82e902f5985e341, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 1015511759659173389, guid: 38ecb17461398a741adcd7d6e8e36588, type: 3}

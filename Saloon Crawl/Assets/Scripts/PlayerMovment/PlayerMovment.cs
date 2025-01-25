@@ -42,6 +42,9 @@ public class playerController : MonoBehaviour
     private CamMovement followCam;
 
     private DeathChecker deathChecker;
+
+    private GameManagerScript gameManagerScript;
+
     private Vector3 nextTerrainPos;
     public bool shouldSlide = false;
     bool isSliding = false;
@@ -70,6 +73,7 @@ public class playerController : MonoBehaviour
         followCam = FindFirstObjectByType<CamMovement>();
         touchControls = FindFirstObjectByType<TouchControls>();
         runSound.Play();
+        gameManagerScript = FindFirstObjectByType<GameManagerScript>();
 
 
        deathChecker = GetComponent<DeathChecker>();
@@ -352,6 +356,8 @@ public class playerController : MonoBehaviour
     {
         if ( deathChecker.IsAlive == false)
         {
+            gameManagerScript.finalScore = score;
+
             CowboyAnim.SetBool("IsAlive", false);
             transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
 

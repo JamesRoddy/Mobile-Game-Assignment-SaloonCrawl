@@ -165,10 +165,11 @@ public class CollectiblesManager : MonoBehaviour
                 spawnCount++;
                 return;
             }
+            Debug.Log("collectiblePool has no objects left  is " + currentPool.hasAvailableObject() + " or spawn count for pool was hit " + (spawnCount == numberOfCollectibles));
+
             spawnCount = 0;
             collectiblePoolPointer++;
             getNewRandomPercent();
-            Debug.Log("collectiblePool has no objects left  is " + currentPool.hasAvailableObject() + " or spawn count for pool was hit " + (spawnCount == numberOfCollectibles));
 
 
 

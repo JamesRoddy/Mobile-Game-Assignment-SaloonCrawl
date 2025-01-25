@@ -529,6 +529,7 @@ GameObject:
   - component: {fileID: 7453179041923465471}
   - component: {fileID: 239709707458224751}
   - component: {fileID: 3012005820178565207}
+  - component: {fileID: 5393567678069370256}
   m_Layer: 10
   m_Name: Bandit
   m_TagString: Enemy
@@ -823,3 +824,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnIntervals: []
+--- !u!114 &5393567678069370256
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6954496311966897436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33e61b39d5203e44f82e902f5985e341, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 5183209318270881231, guid: 89f77be7138233e44bf445567f64fc01, type: 3}

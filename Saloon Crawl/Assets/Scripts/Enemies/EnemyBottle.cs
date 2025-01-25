@@ -16,7 +16,7 @@ public class EnemyBottle : EventObject
 
     Vector3 bottleVelocity;
     Vector3 rotationAxis = Vector3.forward;
-    Camera playerCam;
+ 
    
 
     // Start is called before the first frame update
