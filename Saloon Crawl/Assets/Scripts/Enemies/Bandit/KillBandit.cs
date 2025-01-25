@@ -7,13 +7,13 @@ public class KillBandit : MonoBehaviour
 
     private DeathChecker banditDeath;
     // Start is called before the first frame update
-    void Start()
+   private void Start()
     {
         banditDeath = GetComponent<DeathChecker>();
     }
 
     // Update is called once per frame
-    void Update()
+    private  void Update()
     {
         isDead();
     }

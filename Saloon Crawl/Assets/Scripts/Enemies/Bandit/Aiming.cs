@@ -32,7 +32,7 @@ public class Aiming : MonoBehaviour
     private Vector3 shootDirection;
     public AudioSource cockGun;
 
-    public  void Start()
+    public  void AimingStart()
     {
         parentSprite = GetComponentInParent<SpriteRenderer>();
         player = GameObject.FindGameObjectWithTag("Player");

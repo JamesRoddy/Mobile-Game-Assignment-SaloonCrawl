@@ -6,7 +6,7 @@ using UnityEngine;
 public class CoinCollectble : Collectible
 {
     // Start is called before the first frame update
-  
+     
    
     public override void CollectibleStart()
     {
@@ -20,9 +20,26 @@ public class CoinCollectble : Collectible
     }
     public override void interact()
     {
+
+
         playerController.CurrentCoinCount++; 
         Debug.Log("COIN COLLECTIBLE player coin count increased "+playerController.CurrentCoinCount);
-        gameObject.SetActive(false);
+        GetComponent<SpriteRenderer>().enabled = false;
+        
+       
+
+
+        if (!sound.isPlaying)
+        {
+            startInteraction = false;
+            gameObject.SetActive(false);
+        }
+       
+
+
+
+
+    
     }
 
 
