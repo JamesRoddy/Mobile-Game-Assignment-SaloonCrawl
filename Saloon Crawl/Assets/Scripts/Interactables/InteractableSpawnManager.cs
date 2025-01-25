@@ -16,7 +16,7 @@ public class InteractableSpawnManager : MonoBehaviour
     CamMovement playerCam;
     Camera Cam;
 
-    void Start()
+    public void  interactbleSpawnManagerStart()
     {
         Cam = FindFirstObjectByType<Camera>();
         playerCam =  Cam.GetComponent<CamMovement>();

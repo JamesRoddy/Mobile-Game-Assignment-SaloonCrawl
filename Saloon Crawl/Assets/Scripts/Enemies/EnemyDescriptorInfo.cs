@@ -6,7 +6,8 @@ public abstract class EnemyDescriptorInfo : MonoBehaviour
 {
 
     [SerializeField] protected List<float> spawnIntervals ;
-    playerController controller;
+    protected playerController controller;
+    [SerializeField] protected int scoreIncrement;
     protected Transform scoreIncrementPopUp;
     private float spawnInterval = 0.0f;
     protected DeathChecker alive;

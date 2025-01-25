@@ -60,6 +60,7 @@ public class playerController : MonoBehaviour
 
     public Vector2 Dir;
     public Vector2 touchStore;
+    float t;
 
     // Start is called before the first frame update
     void Start()
@@ -154,8 +155,9 @@ public class playerController : MonoBehaviour
 
     private void shoot()
     {
+        t += Time.deltaTime;
         //Debug.Log("Bullet Destroyed: " + bullet.IsDestroyed());
-        if (shouldShoot)
+        if (shouldShoot && t >= 0.5f)
         {
             invoked = true;
             shouldShoot = false;
@@ -166,6 +168,12 @@ public class playerController : MonoBehaviour
             Dir = touchStore - (new Vector2(bulletSpawnPoint.transform.position.x, bulletSpawnPoint.transform.position.y));
             Dir.Normalize();
             bulletShot.Play();
+            t = 0f; 
+        }
+
+        else
+        {
+            shouldShoot = false;
         }
 
         /*else if (bull.IsDestroyed())
