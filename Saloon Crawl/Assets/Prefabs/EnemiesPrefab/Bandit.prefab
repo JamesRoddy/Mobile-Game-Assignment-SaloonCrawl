@@ -824,6 +824,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnIntervals: []
+  scoreIncrement: 25
 --- !u!114 &5393567678069370256
 MonoBehaviour:
   m_ObjectHideFlags: 0
