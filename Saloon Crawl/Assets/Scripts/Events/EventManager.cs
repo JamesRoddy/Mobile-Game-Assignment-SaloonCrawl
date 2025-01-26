@@ -48,6 +48,7 @@ public class EventManager : MonoBehaviour
 
             if (!currentEvent.HasFinished())
             {
+                Debug.Log("event firing event is not null " + currentEvent != null); 
 
                 currentEvent.Fire();
                 return;
@@ -81,6 +82,8 @@ public class EventManager : MonoBehaviour
         {
             currentEvent = events[0];
             currentEvent.EventStart();
+            
+            
         }
 
 

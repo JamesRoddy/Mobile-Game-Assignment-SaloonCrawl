@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EventObject : MonoBehaviour
+public abstract class EventObject : EventObjectDescriptor
 {
 
     protected playerController playerController;
@@ -11,7 +11,7 @@ public abstract class EventObject : MonoBehaviour
     {
         playerController = FindFirstObjectByType<playerController>();
         playerCam = FindFirstObjectByType<Camera>();
-
+        Debug.Log("EVENT event object start player controller is null " + (playerController == null) + " camera is null " + (playerCam == null));
         EventStart();
         EventObjEnable();
     }
