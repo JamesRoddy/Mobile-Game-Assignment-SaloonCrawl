@@ -83,10 +83,7 @@ public class EnemyBottle : EventObject
     {
         if(collision.gameObject.CompareTag( "Player")  )
         {
-            if(collision.gameObject.transform.position.x > transform.position.x + col.bounds.size.x/4.0f )
-            {
-                shouldKill = false;
-            }
+           
 
             if (!collision.gameObject.GetComponent<playerController>().IsSliding && shouldKill)
             {
