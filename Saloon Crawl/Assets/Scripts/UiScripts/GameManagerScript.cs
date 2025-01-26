@@ -15,6 +15,7 @@ public class GameManagerScript : MonoBehaviour
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private Slider MusicSlider;
     [SerializeField] private Slider SFXSlider;
+    public int enemiesKilledTotal;
 
     // Start is called before the first frame update
     void Start()

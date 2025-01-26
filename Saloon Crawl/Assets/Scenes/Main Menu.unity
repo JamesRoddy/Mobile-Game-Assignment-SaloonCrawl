@@ -5385,7 +5385,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Distance
+  m_text: 'Highest Score
 
 '
   m_isRightToLeft: 0

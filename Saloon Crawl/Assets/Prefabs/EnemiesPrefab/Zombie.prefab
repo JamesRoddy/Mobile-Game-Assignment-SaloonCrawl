@@ -174,13 +174,13 @@ BoxCollider2D:
   m_LayerOverridePriority: 1
   m_ForceSendLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 13303
   m_ForceReceiveLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 14839
   m_ContactCaptureLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 14839
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -213,8 +213,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collsionTags:
-  - Kickable
   - Bullet
+  - Kickable
   isAlive: 1
 --- !u!114 &-5250749195739163054
 MonoBehaviour:
@@ -254,7 +254,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ContactCaptureLayers:
     serializedVersion: 2
-    m_Bits: 128
+    m_Bits: 4294967295
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295

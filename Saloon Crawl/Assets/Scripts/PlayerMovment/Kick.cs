@@ -48,7 +48,6 @@ public class Kick : Interactable
             kickable.velocity = kickableVelocity;
             control.bSwipeRight = false;
             bKicked = true;
-            //deathChecker = player.GetComponent<DeathChecker>();
         }
 
         else if (isNotInCameraView())
@@ -110,7 +109,7 @@ public class Kick : Interactable
         if(bKicked)
         {
             replaceSprites();  
-            if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Ground"))
+            if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("EventObjectShootable"))
             {
                 scorePopUp.inistantiateScorePop(transform.position,Quaternion.identity);
                 player.CurrentScore += scoreIncrement;

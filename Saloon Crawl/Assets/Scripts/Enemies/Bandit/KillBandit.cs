@@ -10,6 +10,7 @@ public class KillBandit : MonoBehaviour
     private  InstaniateScorePopUp scorePopUp;
     private EnemyDescriptorInfo enemyDescriptorInfo;
     private playerController controller;
+    private bool hasDied = false;
        // Start is called before the first frame update
    private void Start()
     {
@@ -22,18 +23,21 @@ public class KillBandit : MonoBehaviour
     // Update is called once per frame
     private  void Update()
     {
-        isDead();
+        
+            isDead();
+        
+    
     }
 
     private void isDead()
     {
-        if (banditDeath.isAlive == false)
-        {  
-            
+       /* if (banditDeath.isAlive == false &&!hasDied)
+        {
+            hasDied = true;
             scorePopUp.inistantiateScorePop(transform.position,Quaternion.identity);
             controller.CurrentScore += enemyDescriptorInfo.ScoreIncrement;
             controller.conactToScore(Convert.ToString(enemyDescriptorInfo.ScoreIncrement));
             this.gameObject.SetActive(false);
-        }
+        }*/
     }
 }

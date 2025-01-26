@@ -25,9 +25,12 @@ public class playerController : MonoBehaviour
     private float crossHairFadeMax = 1.0f;
     private float crossHairFadeTimer = 0.0f;
     [SerializeField] LayerMask groundLayer;
+    private float slideVelocity = 5.0f;
     bool grounded = false;
     float jumpVelocity = 7.0f;
     public Animator CowboyAnim;
+    private float playerInvul;
+    private float slideInVul;
    
     private float scoreIncrement = 0.0f;
     private float scoreIncrementMax = 0.1f;
@@ -70,6 +73,7 @@ public class playerController : MonoBehaviour
     public Vector2 Dir;
     public Vector2 touchStore;
     float t;
+    public int enemiesKilled;
 
     [SerializeField] private GameObject gameOverScreen;
 
@@ -90,6 +94,7 @@ public class playerController : MonoBehaviour
         crossHairRenderer = spriteCrossHair.GetComponent<SpriteRenderer>(); 
         crossHairRenderer.enabled = false;
         deathChecker = GetComponent<DeathChecker>();
+        playerRigidBody.velocity = new Vector2(playerSpeed, 0.0f);
 
     }
 
@@ -173,8 +178,9 @@ public class playerController : MonoBehaviour
     private void addMomentum()
     {
 
-       playerRigidBody.velocity = new Vector2(playerSpeed, playerRigidBody.velocity.y);
-   }
+        playerRigidBody.velocity = new Vector2(playerSpeed, playerRigidBody.velocity.y);   
+    
+    }
 
     
     public bool isOnRightSideByCertainFractionOfScale(float divider)
@@ -212,7 +218,8 @@ public class playerController : MonoBehaviour
             Dir.Normalize();
             fBulletAngle = Mathf.Atan2(Dir.y, Dir.x);
             Debug.Log("bullet angle " + fBulletAngle + " direction " + Dir);
-            arm.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, fBulletAngle));
+           
+            arm.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, fBulletAngle * Mathf.Rad2Deg));
             crossHairFadeTimer = 0.0f;
             crossHairRenderer.enabled = true;
           
@@ -220,7 +227,6 @@ public class playerController : MonoBehaviour
 
            
             Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
-           
           
 
             
@@ -242,7 +248,7 @@ public class playerController : MonoBehaviour
             invoked = false;
         }*/
     }
-
+ 
 
     public bool CurrentTerrainCyclesIsMultiple(int numberToTest) {
 
@@ -274,6 +280,7 @@ public class playerController : MonoBehaviour
         float fStoreY = playerBoxCollider.size.y;
         shouldSlide = false;
         isSliding = true;
+        Debug.Log("is sliding " + isSliding);
         CowboyAnim.SetBool("IsSliding", true);
 
         if (!Grounded)
@@ -285,15 +292,16 @@ public class playerController : MonoBehaviour
 
         else
         {
-            playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, playerRigidBody.velocity.y);
+            playerRigidBody.velocity = new Vector2(slideVelocity, playerRigidBody.velocity.y);
             playerBoxCollider.size = new Vector2(fStoreY, fStoreX - 0.2f);
         }
 
         yield return new WaitForSeconds(0.5f);
-        playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, 0f);
+        playerRigidBody.velocity = new Vector2(playerSpeed,  playerRigidBody.velocity.y);
         playerBoxCollider.size = new Vector2(fStoreX, fStoreY);
-        isSliding = false;
+        isSliding = false; 
 
+        Debug.Log("is sliding end  " + isSliding);
         CowboyAnim.SetBool("IsSliding", false);
 
         
@@ -357,6 +365,7 @@ public class playerController : MonoBehaviour
     {
         get { return new Vector2(transform.position.x, transform.position.y); }
     }
+       
 
     public bool ShouldJump
     {
@@ -461,6 +470,8 @@ public class playerController : MonoBehaviour
             
             gameManagerScript.finalScore = score;
 
+            Debug.Log("enemies killed amount" + enemiesKilled);
+
             CowboyAnim.SetBool("IsAlive", false);
             transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;
 
@@ -479,6 +490,10 @@ public class playerController : MonoBehaviour
         ScoreConstantIncrement();
     }
 
+    public bool IsSliding
+    {
+        get { return isSliding; }
+    }
 
     
 

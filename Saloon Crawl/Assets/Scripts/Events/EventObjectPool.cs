@@ -65,7 +65,7 @@ public class EventObjectPool : MonoBehaviour
     public GameObject requestAvaialbeObject()
     {
 
-        eventObjectPool[currentPoolPointer].GetComponent<EventObject>().EventObjEnable();
+   
 
         return eventObjectPool[currentPoolPointer++];
 

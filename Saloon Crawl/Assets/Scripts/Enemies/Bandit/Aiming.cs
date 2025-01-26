@@ -136,21 +136,7 @@ public class Aiming : MonoBehaviour
         return camViewPortPos.x < 0.0f;
     } 
 
-    public void aimingEnable()
-    {
-
-        fireDelay = 0;
-        aimingTime = 0;
-        bulletTrail.enabled = false;
-        parentLineRenderer.enabled = true;
-        shootDirection = Vector3.zero;
-        shootPosition = Vector3.zero;
-        indicator.SetBool("Warning ", false);
-        canFlip = true ;
-        bulletTrail.transform.position = gunTransform.position;
-        setLinePosition(gunTransform.position, gunTransform.position);
-
-    }
+    
     private void Shooting()
     {
         aimingTime += Time.deltaTime; // incremements the aiming timer
@@ -322,12 +308,32 @@ public class Aiming : MonoBehaviour
 
 
 
-
     }
 
 
 
+    public void aimingReset()
+    {
+        fireDelay = 0;
+        aimingTime = 0;
+        Debug.Log("aiming reset firing delay "+ fireDelay);
+        Debug.Log("parent line renderer was null " + (parentLineRenderer == null));
+        Debug.Log("aiming enable ");
+        shootDirection = Vector3.zero;
+        shootPosition = Vector3.zero;
+        indicator.SetBool("Warning ", false);
+        parentSprite.flipX = false;
+        canFlip = true;
+        Debug.Log("bulley trail is null " + bulletTrail == null);
+        bulletTrail.transform.position = gunTransform.position;
+        transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
 
+        Debug.Log("aiming reset shoot direction vec3 zero " + shootDirection + " bullet trail was reset " + (bulletTrail.transform.position == gunTransform.position));
+        bulletTrail.enabled = false;
+        setLinePosition(gunTransform.position, gunTransform.position);
+
+     
+    }
 
 
 
