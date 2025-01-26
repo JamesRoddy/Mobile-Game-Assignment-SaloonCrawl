@@ -90,7 +90,7 @@ public class playerController : MonoBehaviour
         crossHairRenderer = spriteCrossHair.GetComponent<SpriteRenderer>(); 
         crossHairRenderer.enabled = false;
         deathChecker = GetComponent<DeathChecker>();
-        /*playerRigidBody.velocity = new Vector2(playerSpeed, 0.0f);*/
+        playerRigidBody.velocity = new Vector2(playerSpeed, 0.0f);
 
     }
 
@@ -102,8 +102,8 @@ public class playerController : MonoBehaviour
            grounded = isGrounded();
            updateScoreString();
            updateCrossHair();
-/*           addMomentum();
-*/           jump();
+           addMomentum();
+           jump();
            shoot();
            slide();
            CowboyAnim.SetBool("OnGround", grounded && !IsViewingNextTerrain);
@@ -214,7 +214,8 @@ public class playerController : MonoBehaviour
             Dir.Normalize();
             fBulletAngle = Mathf.Atan2(Dir.y, Dir.x);
             Debug.Log("bullet angle " + fBulletAngle + " direction " + Dir);
-            arm.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, fBulletAngle));
+           
+            arm.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, fBulletAngle * Mathf.Rad2Deg));
             crossHairFadeTimer = 0.0f;
             crossHairRenderer.enabled = true;
           
@@ -222,7 +223,6 @@ public class playerController : MonoBehaviour
 
            
             Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
-           
           
 
             
