@@ -71,6 +71,7 @@ public class playerController : MonoBehaviour
     public Vector2 Dir;
     public Vector2 touchStore;
     float t;
+    public int enemiesKilled;
 
     // Start is called before the first frame update
     void Start()
@@ -89,7 +90,7 @@ public class playerController : MonoBehaviour
         crossHairRenderer = spriteCrossHair.GetComponent<SpriteRenderer>(); 
         crossHairRenderer.enabled = false;
         deathChecker = GetComponent<DeathChecker>();
-        playerRigidBody.velocity = new Vector2(playerSpeed, 0.0f);
+        /*playerRigidBody.velocity = new Vector2(playerSpeed, 0.0f);*/
 
     }
 
@@ -101,8 +102,8 @@ public class playerController : MonoBehaviour
            grounded = isGrounded();
            updateScoreString();
            updateCrossHair();
-           addMomentum();
-           jump();
+/*           addMomentum();
+*/           jump();
            shoot();
            slide();
            CowboyAnim.SetBool("OnGround", grounded && !IsViewingNextTerrain);
@@ -453,6 +454,8 @@ public class playerController : MonoBehaviour
         if ( deathChecker.IsAlive == false)
         {
             gameManagerScript.finalScore = score;
+
+            Debug.Log("enemies killed amount" + enemiesKilled);
 
             CowboyAnim.SetBool("IsAlive", false);
             transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;

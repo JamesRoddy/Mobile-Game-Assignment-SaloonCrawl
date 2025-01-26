@@ -713,6 +713,7 @@ MonoBehaviour:
   highestScoreText: {fileID: 0}
   finalScore: 0
   highestScore: 0
+  enemiesKilledTotal: 0
 --- !u!1 &257233233
 GameObject:
   m_ObjectHideFlags: 0
@@ -2352,6 +2353,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 73082254506477174, guid: 03d68603cadcdf547a5440a956157da5, type: 3}
+      propertyPath: m_Mass
+      value: 0.0001
+      objectReference: {fileID: 0}
+    - target: {fileID: 73082254506477174, guid: 03d68603cadcdf547a5440a956157da5, type: 3}
+      propertyPath: m_Constraints
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3781977167510447231, guid: 03d68603cadcdf547a5440a956157da5, type: 3}
       propertyPath: spriteCrossHair
       value: 

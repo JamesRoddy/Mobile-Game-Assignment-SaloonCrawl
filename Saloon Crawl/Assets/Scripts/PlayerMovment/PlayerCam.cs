@@ -19,7 +19,7 @@ public class CamMovement : MonoBehaviour
     Vector3 offsetPos = Vector3.zero;
     private float orthoSizeDefault = 5.0f;
     private float camSizeDecrease = 0.01f;
-    private float deathZoom = 0.1f;
+    private float deathZoom = 0.01f;
     private float deathZoomMin = 2.0f;
 
 

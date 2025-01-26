@@ -9,6 +9,7 @@ public class GameManagerScript : MonoBehaviour
     public TMP_Text highestScoreText;
     public int finalScore;
     public int highestScore;
+    public int enemiesKilledTotal;
 
     // Start is called before the first frame update
     void Start()
@@ -30,6 +31,7 @@ public class GameManagerScript : MonoBehaviour
             highestScore = finalScore;
             PlayerPrefs.SetInt("HighestScore", highestScore);
         }
+
     }
 
 }
