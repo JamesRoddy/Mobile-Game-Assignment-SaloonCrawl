@@ -18,11 +18,6 @@ public class GameManagerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //audioMixer = GetComponent<AudioMixer>();
-        //AudioListener.volume = PlayerPrefs.GetFloat("AudioLevel", 1);
-        //MusicSlider = GetComponent<Slider>();
-        //SFXSlider = GetComponent<Slider>();
-
         MusicSlider.value = PlayerPrefs.GetFloat("MusicVolume", 1);
         SFXSlider.value = PlayerPrefs.GetFloat("SFXVolume", 1);
 
@@ -44,12 +39,6 @@ public class GameManagerScript : MonoBehaviour
             PlayerPrefs.SetInt("HighestScore", highestScore);
         }
     }
-
-    /*public void AudioValueChange(Slider slider)
-    {
-        PlayerPrefs.SetFloat("AudioLevel", slider.value);
-        AudioListener.volume = slider.value;
-    }*/
 
     public void SetMusicVolume(Slider slider)
     {

@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 6595795006160698582}
   - component: {fileID: 6661754912898303019}
   m_Layer: 0
-  m_Name: spriteCrossHair 1
+  m_Name: 'spriteCrossHair '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -186,8 +186,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1127988011
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 9b024f14991ba38428d32f4ca8412ecd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -339,7 +339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff598a8e26e10a74f9f07f163fb46dc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spriteCrossHair: {fileID: 0}
+  spriteCrossHair: {fileID: 4380377978918727295}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -351,6 +351,7 @@ MonoBehaviour:
   fBulletAngle: 0
   iTapCount: 0
   arm: {fileID: 886463662143959227}
+  deathChecker: {fileID: 0}
   shouldSlide: 0
   runSound: {fileID: 4813724070965062446}
   bulletShot: {fileID: 2537200899358794189}
@@ -361,6 +362,7 @@ MonoBehaviour:
   mainMusic: {fileID: -5584101671800341604}
   Dir: {x: 0, y: 0}
   touchStore: {x: 0, y: 0}
+  gameOverScreen: {fileID: 0}
 --- !u!61 &3357993255349064512
 BoxCollider2D:
   m_ObjectHideFlags: 0
