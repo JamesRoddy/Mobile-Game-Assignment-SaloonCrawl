@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 7344240651212718242}
   - component: {fileID: 4013512408773843786}
   - component: {fileID: 5230986761311955615}
+  - component: {fileID: 8927597881179942136}
   m_Layer: 0
   m_Name: Enemy Bottle-1.png
-  m_TagString: Untagged
+  m_TagString: EventObjectShootable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -74,8 +75,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -482004887
+  m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: bf9e8a8ea26fc57469ee1bbae974b8d5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -151,14 +152,14 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 15936
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 8759
   m_ForceReceiveLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 8247
   m_ContactCaptureLayers:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -168,7 +169,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.14797306, y: -0.031946182}
+  m_Offset: {x: -0.14797473, y: 0.35234737}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -179,7 +180,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 5.679147, y: 19.055214}
+  m_Size: {x: 4.3643765, y: 15.904011}
   m_EdgeRadius: 0
 --- !u!114 &5230986761311955615
 MonoBehaviour:
@@ -193,3 +194,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3c891e14e8505f41b5ed312d2c362b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  amountThatCanSpawn: 1
+--- !u!114 &8927597881179942136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5516997148055927724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 33e61b39d5203e44f82e902f5985e341, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefab: {fileID: 1015511759659173389, guid: 38ecb17461398a741adcd7d6e8e36588, type: 3}

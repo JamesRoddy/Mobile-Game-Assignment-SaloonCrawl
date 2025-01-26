@@ -20,12 +20,22 @@ public class playerController : MonoBehaviour
     private float playerSpeed = 4.0f;
     private float minDistanceToEndOfCurrentTerrain = 144.0f;
     private bool shouldJump = false;
+    [SerializeField] private GameObject spriteCrossHair;
+    private SpriteRenderer crossHairRenderer;
+    private float crossHairFadeMax = 1.0f;
+    private float crossHairFadeTimer = 0.0f;
     [SerializeField] LayerMask groundLayer;
+    private float slideVelocity = 5.0f;
     bool grounded = false;
     float jumpVelocity = 7.0f;
     public Animator CowboyAnim;
+    private float playerInvul;
+    private float slideInVul;
+   
     private float scoreIncrement = 0.0f;
     private float scoreIncrementMax = 0.1f;
+    private float scoreFadeMax = 0.65f;
+    private float scoreFadeIncrement = 0.0f;
     //Shooting variables
     public bool shouldShoot = false;
     public Transform bulletSpawnPoint;
@@ -40,11 +50,11 @@ public class playerController : MonoBehaviour
     private bool isViewingNextTerrain = false;
     private int currentCoinCount = 0;
     private CamMovement followCam;
-
+    private bool hasConcatenatedScore = false;
     private DeathChecker deathChecker;
-
+    string concatString = "";
     private GameManagerScript gameManagerScript;
-
+    private UpdateScoreText scoreText;
     private Vector3 nextTerrainPos;
     public bool shouldSlide = false;
     bool isSliding = false;
@@ -57,7 +67,7 @@ public class playerController : MonoBehaviour
     public AudioSource jumpSound;
     public AudioSource slideSound;
     public AudioSource kickSound;
-
+    private float crossHairDistance = 8.0f;
     public Vector2 Dir;
     public Vector2 touchStore;
     float t;
@@ -75,9 +85,11 @@ public class playerController : MonoBehaviour
         touchControls = FindFirstObjectByType<TouchControls>();
         runSound.Play();
         gameManagerScript = FindFirstObjectByType<GameManagerScript>();
-
-
-       deathChecker = GetComponent<DeathChecker>();
+        scoreText = FindFirstObjectByType<UpdateScoreText>();
+        crossHairRenderer = spriteCrossHair.GetComponent<SpriteRenderer>(); 
+        crossHairRenderer.enabled = false;
+        deathChecker = GetComponent<DeathChecker>();
+        playerRigidBody.velocity = new Vector2(playerSpeed, 0.0f);
 
     }
 
@@ -87,11 +99,13 @@ public class playerController : MonoBehaviour
 
            shouldViewNextTerrain();
            grounded = isGrounded();
+           updateScoreString();
+           updateCrossHair();
            addMomentum();
            jump();
            shoot();
            slide();
-           CowboyAnim.SetBool("OnGround", grounded);
+           CowboyAnim.SetBool("OnGround", grounded && !IsViewingNextTerrain);
            CowboyAnim.SetBool("IsAlive", deathChecker.IsAlive);
            IsDead();
             
@@ -123,11 +137,45 @@ public class playerController : MonoBehaviour
 
     }
   
+
+    public void conactToScore(string concat)
+    {
+        concatString = "+"+ concat;
+
+        if (hasConcatenatedScore)
+        {
+            scoreFadeIncrement = 0.0f;
+        }
+
+        hasConcatenatedScore = true;
+    }
+
+
+    private void updateScoreString()
+    {
+
+        if (hasConcatenatedScore)
+        {
+
+            if(scoreFadeIncrement <scoreFadeMax)
+            {
+                scoreFadeIncrement += Time.deltaTime;
+                return;
+            }
+            scoreFadeIncrement = 0.0f;
+            concatString = "";
+            hasConcatenatedScore = false;
+
+        }
+
+
+    }
     private void addMomentum()
     {
 
-       playerRigidBody.velocity = new Vector2(playerSpeed, playerRigidBody.velocity.y);
-   }
+        playerRigidBody.velocity = new Vector2(playerSpeed, playerRigidBody.velocity.y);   
+    
+    }
 
     
     public bool isOnRightSideByCertainFractionOfScale(float divider)
@@ -140,7 +188,7 @@ public class playerController : MonoBehaviour
 
     private void jump()
     {
-        if (shouldJump && grounded)
+        if (shouldJump && grounded && !IsViewingNextTerrain)
         {
 
             playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, jumpVelocity);
@@ -157,16 +205,29 @@ public class playerController : MonoBehaviour
     {
         t += Time.deltaTime;
         //Debug.Log("Bullet Destroyed: " + bullet.IsDestroyed());
-        if (shouldShoot && t >= 0.5f)
+        if (!IsViewingNextTerrain && shouldShoot && t >= 0.5f)
         {
             invoked = true;
             shouldShoot = false;
-
-            arm.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, fBulletAngle));
-            Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
-          
-            Dir = touchStore - (new Vector2(bulletSpawnPoint.transform.position.x, bulletSpawnPoint.transform.position.y));
+            Dir = touchStore - (new Vector2(bulletSpawnPoint.position.x, bulletSpawnPoint.position.y));
             Dir.Normalize();
+            fBulletAngle = Mathf.Atan2(Dir.y, Dir.x);
+            Debug.Log("bullet angle " + fBulletAngle + " direction " + Dir);
+            arm.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, fBulletAngle));
+            crossHairFadeTimer = 0.0f;
+            crossHairRenderer.enabled = true;
+          
+            spriteCrossHair.transform.position = bulletSpawnPoint.position + new Vector3(Dir.x * crossHairDistance, Dir.y * crossHairDistance, 0.0f);
+
+           
+            Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
+           
+          
+
+            
+
+            Debug.Log("current shooting direction " + Dir);
+       
             bulletShot.Play();
             t = 0f; 
         }
@@ -182,7 +243,7 @@ public class playerController : MonoBehaviour
             invoked = false;
         }*/
     }
-
+ 
 
     public bool CurrentTerrainCyclesIsMultiple(int numberToTest) {
 
@@ -195,7 +256,7 @@ public class playerController : MonoBehaviour
 }
     private void slide()
     {
-        if(isSliding)
+        if(isSliding || IsViewingNextTerrain)
         {
             return;
         }
@@ -214,6 +275,7 @@ public class playerController : MonoBehaviour
         float fStoreY = playerBoxCollider.size.y;
         shouldSlide = false;
         isSliding = true;
+        Debug.Log("is sliding " + isSliding);
         CowboyAnim.SetBool("IsSliding", true);
 
         if (!Grounded)
@@ -225,21 +287,38 @@ public class playerController : MonoBehaviour
 
         else
         {
-            playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, playerRigidBody.velocity.y);
+            playerRigidBody.velocity = new Vector2(slideVelocity, playerRigidBody.velocity.y);
             playerBoxCollider.size = new Vector2(fStoreY, fStoreX - 0.2f);
         }
 
         yield return new WaitForSeconds(0.5f);
-        playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, 0f);
+        playerRigidBody.velocity = new Vector2(playerSpeed,  playerRigidBody.velocity.y);
         playerBoxCollider.size = new Vector2(fStoreX, fStoreY);
-        isSliding = false;
+        isSliding = false; 
 
+        Debug.Log("is sliding end  " + isSliding);
         CowboyAnim.SetBool("IsSliding", false);
 
         
         Debug.Log("shouldSlide3: " + shouldSlide);
 
     }
+
+    public void updateCrossHair() {
+
+
+        if (crossHairFadeTimer < crossHairFadeMax && crossHairRenderer.enabled )
+        {
+            crossHairFadeTimer += Time.deltaTime;
+            return;
+        }
+
+
+        crossHairRenderer.enabled = false;
+        crossHairFadeTimer = 0;
+
+    }
+
     public bool isInCurrentTerrian()
     {
 
@@ -256,26 +335,32 @@ public class playerController : MonoBehaviour
 
     private void ScoreConstantIncrement()
     {
-
+        string scoreString ;
+        
         if (shouldIncrementScore)
         {
             scoreIncrement += Time.deltaTime;
-
+            
             if (scoreIncrement >= scoreIncrementMax)
             {
                 CurrentScore++;
-                scoreString = Convert.ToString(CurrentScore);
+                currentScoreString = Convert.ToString(CurrentScore);
                 scoreIncrement = 0.0f;
             }
 
         }
 
+        scoreString = currentScoreString + concatString;
+
+        scoreText.UpdateText(scoreString);
+      
 
     }
     public Vector2 playerPosVec2
     {
         get { return new Vector2(transform.position.x, transform.position.y); }
     }
+       
 
     public bool ShouldJump
     {
@@ -305,6 +390,8 @@ public class playerController : MonoBehaviour
     {
         get { return new Vector3(nextTerrainPos.x,nextTerrainPos.y,currentCam.transform.position.z); }
     }
+
+   
     public bool IsViewingNextTerrain
     {
         set {  isViewingNextTerrain = value; }
@@ -313,6 +400,7 @@ public class playerController : MonoBehaviour
     public string currentScoreString
     {
         get { return scoreString; }
+        set { scoreString = value; }
     }
     public bool Grounded
     {
@@ -378,10 +466,14 @@ public class playerController : MonoBehaviour
             }
             return;
         }
-
+        
         ScoreConstantIncrement();
     }
 
+    public bool IsSliding
+    {
+        get { return isSliding; }
+    }
 
     
 

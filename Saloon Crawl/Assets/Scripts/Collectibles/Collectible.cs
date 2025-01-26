@@ -10,6 +10,7 @@ public  abstract class  Collectible : MonoBehaviour
   
     [SerializeField] private int maxAmount;
     [SerializeField] private int minAmount;
+    [SerializeField] private int scoreIncrement;
     protected bool startInteraction = false;
     public LayerMask overlaps;
     protected playerController playerController;
@@ -71,7 +72,8 @@ public  abstract class  Collectible : MonoBehaviour
     {
 
         scorePopUp.inistantiateScorePop(transform.position, Quaternion.identity);
-
+        playerController.CurrentScore += scoreIncrement;
+        playerController.conactToScore(Convert.ToString(scoreIncrement));
 
     }
    
@@ -114,6 +116,8 @@ public  abstract class  Collectible : MonoBehaviour
            Debug.Log(" colllectible sound play");
             sound.Play();
             scorePopUp.inistantiateScorePop(transform.position,Quaternion.identity);
+            playerController.CurrentScore += scoreIncrement;
+            playerController.conactToScore(Convert.ToString(scoreIncrement));
             startInteraction = true;
            
 
@@ -136,8 +140,8 @@ public  abstract class  Collectible : MonoBehaviour
             float bottomOfColliderY = collision.collider.transform.position.y - collision.collider.bounds.size.y / 2.0f;
             float topOfColliderY = collision.collider.transform.position.y + collision.collider.bounds.size.y / 2.0f;
            
-            float overlap = Mathf.Abs(transform.position.y - bottomOfColliderY)/(topOfColliderY - bottomOfColliderY);
-            transform.position = new Vector3(transform.position.x , transform.position.y + collision.collider.bounds.size.y * overlap , transform.position.z);
+            float overlap = 1.0f - (Mathf.Abs(transform.position.y - bottomOfColliderY)/(topOfColliderY - bottomOfColliderY));
+            transform.position = new Vector3(transform.position.x , (transform.position.y + collision.collider.bounds.size.y * overlap) + collectibleCollider.bounds.size.y , transform.position.z);
             Debug.Log(" COLLECTIBLE  new position due to overlap ");
         }
     }

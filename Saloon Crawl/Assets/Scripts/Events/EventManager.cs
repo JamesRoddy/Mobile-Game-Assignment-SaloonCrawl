@@ -29,7 +29,9 @@ public class EventManager : MonoBehaviour
             pool.setValues(currentEvent.EventObjects); 
             currentEvent.ObjectPool = pool;
 
+            
             currentEvent.AttachedQueue = events;
+            currentEvent.EventStart();
          
         
         }
@@ -48,6 +50,7 @@ public class EventManager : MonoBehaviour
 
             if (!currentEvent.HasFinished())
             {
+                Debug.Log("event firing event is not null " + currentEvent != null); 
 
                 currentEvent.Fire();
                 return;
@@ -79,8 +82,11 @@ public class EventManager : MonoBehaviour
         
         if (events.Count > 0 && currentEvent ==null)
         {
+            Debug.Log("EVENT event found");
             currentEvent = events[0];
-            currentEvent.EventStart();
+            currentEvent.EventEnable();
+            
+            
         }
 
 

@@ -119,8 +119,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: 579371265
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3bdd4e2c335989f49a3cf80c113df891, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -218,6 +218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   numberThatCanSpawn: 3
+  scoreIncrement: 15
   kickPosition: {fileID: 2629819400340122235}
   isKicking: 0
   brokenStoolTop: {fileID: 6514347530175954600, guid: b51e897860046ae4582248fa2b293974, type: 3}

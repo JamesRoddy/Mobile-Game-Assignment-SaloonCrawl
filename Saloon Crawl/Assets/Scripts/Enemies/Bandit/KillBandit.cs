@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,6 +30,8 @@ public class KillBandit : MonoBehaviour
         {  
             
             scorePopUp.inistantiateScorePop(transform.position,Quaternion.identity);
+            controller.CurrentScore += enemyDescriptorInfo.ScoreIncrement;
+            controller.conactToScore(Convert.ToString(enemyDescriptorInfo.ScoreIncrement));
             this.gameObject.SetActive(false);
         }
     }

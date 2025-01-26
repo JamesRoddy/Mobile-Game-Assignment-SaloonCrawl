@@ -19,12 +19,11 @@ public class CamMovement : MonoBehaviour
     Vector3 offsetPos = Vector3.zero;
     private float orthoSizeDefault = 5.0f;
     private float camSizeDecrease = 0.01f;
-
-
+    private float deathZoom = 0.1f;
+    private float deathZoomMin = 2.0f;
 
 
     private DeathChecker deathChecker;
-    private float deathZoom = 2;
 
 
     void Start()
@@ -143,10 +142,10 @@ public class CamMovement : MonoBehaviour
         if (deathChecker.IsAlive == false)
         {
 
-            if (cam.orthographicSize > deathZoom)
+            if (cam.orthographicSize > deathZoomMin)
             {
                 Debug.Log("cam size is  " + cam.orthographicSize);
-                cam.orthographicSize -= 0.01f;
+                cam.orthographicSize -= deathZoom;
             }
         }
 

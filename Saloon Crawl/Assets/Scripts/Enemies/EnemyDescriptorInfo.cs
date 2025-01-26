@@ -81,6 +81,12 @@ public abstract class EnemyDescriptorInfo : MonoBehaviour
     } 
 
     
+    public int ScoreIncrement
+    {
+        get { return scoreIncrement; }
+
+
+    }
 
     public bool isAlive
     {

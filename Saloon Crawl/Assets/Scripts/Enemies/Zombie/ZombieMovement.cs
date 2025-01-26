@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -16,15 +17,15 @@ public class ZombieMovement : EnemyDescriptorInfo
         zombieRigidBody = GetComponent<Rigidbody2D>();
         playerCam = Camera.main;
         zombieDeath = GetComponent<DeathChecker>();
-       
+        
     }
     public override void EnemyEnable()
     {
        
     }
     public override void EnemyUpdate()
-    { 
-        Movement();
+    {
+        addMomentum();
         if (isInNotCameraView())
         {  
             gameObject.SetActive(false);
@@ -32,10 +33,12 @@ public class ZombieMovement : EnemyDescriptorInfo
         isDead();
     }
 
-    private void Movement()
+  
+   private void addMomentum() 
     {
         zombieRigidBody.velocity = new Vector2(speed, zombieRigidBody.velocity.y);
     }
+  
     private bool isInNotCameraView()
     {
 
@@ -50,6 +53,7 @@ public class ZombieMovement : EnemyDescriptorInfo
         {
             InstantiatePopUp();
             controller.CurrentScore += scoreIncrement;
+            controller.conactToScore(Convert.ToString(ScoreIncrement));
             this.gameObject.SetActive(false);
         }
     }

@@ -2,18 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class EventObject : MonoBehaviour
+public abstract class EventObject : EventObjectDescriptor
 {
 
     protected playerController playerController;
-    protected Camera playerCam; 
+
+    protected Collider2D playerCol;
+    private bool eventStarted = false;
     public void Start()
     {
         playerController = FindFirstObjectByType<playerController>();
-        playerCam = FindFirstObjectByType<Camera>();
-
-        EventStart();
-        EventObjEnable();
+       
+        playerCol = playerController.GetComponent<Collider2D>();
+        Debug.Log("EVENT event object start player controller is null " + (playerController == null));
+      
+        
     }
 
     public abstract void EventStart();

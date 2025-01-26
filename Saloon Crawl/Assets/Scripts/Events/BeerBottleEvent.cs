@@ -8,19 +8,56 @@ public class BeerBottleEvent : TerrainEvent
 
     private GameObject beerBottle;
     private EventObject beerBottleEventScript;
+    private Collider2D bottleCol; 
+    private float boundsScalarMax = 1.0f;
+    private float boundPercentMin = 2.0f;
+
 
 
     public override void EventStart()
     {
-      
-        beerBottle = objectPool.requestAvaialbeObject();
-        beerBottle.SetActive(true);
+
+        Debug.Log("EVENT START ");
+
+
+        if (objectPool.hasAvailableObject())
+        {
+            beerBottle = objectPool.requestAvaialbeObject();
+          
+        }
+ 
+
         beerBottleEventScript = beerBottle.GetComponent<EventObject>();
-        isFiring = true;
+        bottleCol = beerBottle.GetComponent<Collider2D>();
+        Debug.Log("beer bottle was null " + beerBottle == null);
+        Debug.Log("EVENT beer bottle was null " + (beerBottle == null));
+        beerBottleEventScript.EventStart();
+
+      
+
 
 
     }
+    public override void EventEnable()
+    {
 
+        if (objectPool.hasAvailableObject())
+        {
+            beerBottle = objectPool.requestAvaialbeObject();
+            
+        }
+        beerBottleEventScript.EventObjEnable();
+
+
+
+        float offsetPercent = Random.Range(0.0f, boundsScalarMax);
+
+        float randomY = playerController.transform.position.y + (playerCol.bounds.size.y /2.0f) + ((playerCol.bounds.size.y/2.0f)  * offsetPercent);
+        Vector3 beerBottelPos = new Vector3(playerController.CurrentTerrain.SpawnRight.x + playerController.CurrentTerrain.transform.localScale.x, randomY, playerController.transform.position.z);
+        beerBottle.transform.position = beerBottelPos;
+        Debug.Log(" EVENT  beer bottle event set up new position " + beerBottle.transform.position + " percentage of bounds added " + offsetPercent);
+        isFiring = true;
+    }
     public override void Fire() {
 
         beerBottleEventScript.EventObjUpdate();

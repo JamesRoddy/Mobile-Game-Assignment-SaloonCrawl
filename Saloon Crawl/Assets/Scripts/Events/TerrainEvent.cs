@@ -23,6 +23,7 @@ public abstract class TerrainEvent : MonoBehaviour
     protected float alloactedWaitTime = 0.0f;
     protected bool isFiring = false;
     private TerrainEvent terrainEvent;
+    protected Collider2D playerCol;
     void Start()
     {
 
@@ -30,7 +31,9 @@ public abstract class TerrainEvent : MonoBehaviour
         Debug.Log("terrain event is null "+gameObject.GetComponent<TerrainEvent>());    
         playerController = FindFirstObjectByType<playerController>();
         playerCam = FindFirstObjectByType<CamMovement>();
-        currentShouldFireTimer += shouldFireTimer;
+        playerCol = playerController.GetComponent<Collider2D>();
+        currentShouldFireTimer = shouldFireTimer;
+        
         Debug.Log("EVENTS initial fire timer " + currentShouldFireTimer);
     }
     public abstract void EventStart();
@@ -43,10 +46,11 @@ public abstract class TerrainEvent : MonoBehaviour
 
         if (!isFiring  && shouldFire() &&!attachedQueue.Contains(terrainEvent))
         {
-            
+            Debug.Log(" EVENT pushing to queue is firing was" + isFiring);
             attachedQueue.Add(terrainEvent); 
 
             assignNewTriggerTime();
+            Debug.Log(" EVENT new trigger time assigned " + currentShouldFireTimer);
             eventTimer = 0.0f;
         }
 
@@ -61,7 +65,9 @@ public abstract class TerrainEvent : MonoBehaviour
 
         if (alloactedWaitTime > 0.0f)
         {
+            
             alloactedWaitTime -= Time.deltaTime;
+            Debug.Log(" EVENT waiting for allaocted wait time " + alloactedWaitTime);
             return false;
         }
 
@@ -74,8 +80,9 @@ public abstract class TerrainEvent : MonoBehaviour
     }
 
 
-  
 
+    public abstract void EventEnable();
+    
     public void incrementTimeToEvent()
     {
         if (!(eventTimer > currentShouldFireTimer) && !isFiring)

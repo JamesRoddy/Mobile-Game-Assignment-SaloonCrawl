@@ -913,7 +913,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 389000004}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a067dfe4a9aa09a4ab1092b226c0c029, type: 3}
   m_Name: 
@@ -1911,6 +1911,11 @@ RectTransform:
   m_AnchoredPosition: {x: -5, y: 0}
   m_SizeDelta: {x: -20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &916005507 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4380377978918727295, guid: 03d68603cadcdf547a5440a956157da5, type: 3}
+  m_PrefabInstance: {fileID: 1197590509}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &995367028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2347,6 +2352,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3781977167510447231, guid: 03d68603cadcdf547a5440a956157da5, type: 3}
+      propertyPath: spriteCrossHair
+      value: 
+      objectReference: {fileID: 916005507}
+    - target: {fileID: 4380377978918727295, guid: 03d68603cadcdf547a5440a956157da5, type: 3}
+      propertyPath: m_Name
+      value: 'spriteCrossHair '
+      objectReference: {fileID: 0}
+    - target: {fileID: 6661754912898303019, guid: 03d68603cadcdf547a5440a956157da5, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6661754912898303019, guid: 03d68603cadcdf547a5440a956157da5, type: 3}
+      propertyPath: m_SortingLayerID
+      value: -1127988011
+      objectReference: {fileID: 0}
     - target: {fileID: 7693534056221397672, guid: 03d68603cadcdf547a5440a956157da5, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.07439804
@@ -3136,7 +3157,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1647085487
 Transform:
   m_ObjectHideFlags: 0
@@ -3159,12 +3180,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1647085486}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a228c8a6f1f22446830c901d220843e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventObjects: []
+  eventObjects:
+  - {fileID: 5516997148055927724, guid: 8c9da06cec156884395bf17986ec7cd1, type: 3}
   shouldFireTimer: 10
   timerRandomOffsetMin: 5
   timerRandomOffsetMax: -5

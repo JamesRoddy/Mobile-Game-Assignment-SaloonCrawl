@@ -8,6 +8,7 @@ using UnityEngine;
 public abstract class Interactable : MonoBehaviour
 {
     [SerializeField] protected int numberThatCanSpawn; // set in inspector not in code  
+    [SerializeField] protected int scoreIncrement;
     playerController controller;
     private bool defferedSpawn = false;// tells pool to wait for the object to deactivate then spawn again 
     void Start()
