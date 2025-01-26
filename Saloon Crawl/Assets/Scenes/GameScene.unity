@@ -713,6 +713,9 @@ MonoBehaviour:
   highestScoreText: {fileID: 0}
   finalScore: 0
   highestScore: 0
+  audioMixer: {fileID: 24100000, guid: f07a61aca1ee68848bed961f1bd1cef2, type: 2}
+  MusicSlider: {fileID: 434607944}
+  SFXSlider: {fileID: 1223754321}
 --- !u!1 &257233233
 GameObject:
   m_ObjectHideFlags: 0
@@ -1010,7 +1013,19 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 208676863}
+        m_TargetAssemblyTypeName: GameManagerScript, Assembly-CSharp
+        m_MethodName: SetMusicVolume
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 434607944}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Slider, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &464126739
 GameObject:
   m_ObjectHideFlags: 0
@@ -1703,7 +1718,7 @@ AudioSource:
   m_GameObject: {fileID: 673665227}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
+  OutputAudioMixerGroup: {fileID: -9219893681756435574, guid: f07a61aca1ee68848bed961f1bd1cef2, type: 2}
   m_audioClip: {fileID: 8300000, guid: 3a3b53cb5495be8418906880aecd152b, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
@@ -2362,7 +2377,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6661754912898303019, guid: 03d68603cadcdf547a5440a956157da5, type: 3}
       propertyPath: m_SortingLayer
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 6661754912898303019, guid: 03d68603cadcdf547a5440a956157da5, type: 3}
       propertyPath: m_SortingLayerID
@@ -2697,7 +2712,19 @@ MonoBehaviour:
   m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 208676863}
+        m_TargetAssemblyTypeName: GameManagerScript, Assembly-CSharp
+        m_MethodName: SetSFXVolume
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1223754321}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Slider, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1257028055
 GameObject:
   m_ObjectHideFlags: 0
