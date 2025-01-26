@@ -14,6 +14,7 @@ public class Bandit : EnemyDescriptorInfo
     private Transform gunPos;
     private TrailRenderer trail;
     private SpriteRenderer spriteRenderer;
+    private GameManagerScript gameManagerScript; 
     public override void EnemyStart()
     {
         banditAim = transform.GetChild(0).GetComponent<Aiming>();
@@ -24,8 +25,9 @@ public class Bandit : EnemyDescriptorInfo
         gunPos = transform.Find("ArmPivot").Find("Arm").GetChild(0);
         spriteRenderer = GetComponent<SpriteRenderer>();
         banditAim.AimingStart();
-      
-        
+        gameManagerScript = FindFirstObjectByType<GameManagerScript>();
+
+
     }
 
     public override void EnemyEnable()
@@ -59,6 +61,7 @@ public class Bandit : EnemyDescriptorInfo
             InstantiatePopUp();
             controller.CurrentScore += ScoreIncrement;
             controller.conactToScore(Convert.ToString(ScoreIncrement));
+            gameManagerScript.enemiesKilledThisRun += 1;
             this.gameObject.SetActive(false);
         }
     }

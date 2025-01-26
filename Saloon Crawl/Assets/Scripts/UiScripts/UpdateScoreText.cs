@@ -10,6 +10,7 @@ public class UpdateScoreText : MonoBehaviour
     // Start is called before the first frame update
     playerController player;
     TMP_Text scoreText;
+    public TMP_Text finalScore;
 
     void Start()
     {
@@ -24,5 +25,6 @@ public class UpdateScoreText : MonoBehaviour
     public void UpdateText(string value)
     {
         scoreText.text = value;
+        finalScore.text = player.currentScoreString;
     }
 }
