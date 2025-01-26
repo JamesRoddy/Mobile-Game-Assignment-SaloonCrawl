@@ -6,14 +6,18 @@ public class EventManager : MonoBehaviour
 {
     // Start is called before the first frame update
 
+
+
+    // central class for managing the events and when they generate 
+
     [SerializeField] private List<GameObject> eventObjectHolders;
 
     List<TerrainEvent> events =  new List<TerrainEvent>();
     
-
+    
     TerrainEvent currentEvent = null;
     private float genericCoolDown = 0.0f;
-    private float genericCooldownMin = 5.0f;
+    private float genericCooldownMin = 5.0f; // used to assign random offsets to the event timers of each event  
     private float genericCooldDownMax = 10.0f;
 
 
@@ -22,16 +26,19 @@ public class EventManager : MonoBehaviour
     void Start()
     {
 
+
+        // intialise events assinging the object pool they need and give them access to the current event queue so the event objects can push their TerrainEvent compoenent to the list to be updated 
         foreach (GameObject obj in eventObjectHolders) 
         {
             EventObjectPool pool =  gameObject.AddComponent<EventObjectPool>();
             TerrainEvent currentEvent = obj.GetComponent<TerrainEvent>();
+            // assigning the pool objects to the added eventObjectPool compoenent 
             pool.setValues(currentEvent.EventObjects); 
             currentEvent.ObjectPool = pool;
 
             
             currentEvent.AttachedQueue = events;
-            currentEvent.EventStart();
+            currentEvent.EventStart(); // initialise event values 
          
         
         }
@@ -41,7 +48,6 @@ public class EventManager : MonoBehaviour
 
     }
 
-    // Update is called once per frame
     void Update()
     {
         checkForEvent();
@@ -50,7 +56,6 @@ public class EventManager : MonoBehaviour
 
             if (!currentEvent.HasFinished())
             {
-                Debug.Log("event firing event is not null " + currentEvent != null); 
 
                 currentEvent.Fire();
                 return;

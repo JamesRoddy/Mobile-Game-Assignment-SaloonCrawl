@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class EventObjectPool : MonoBehaviour
 {
-    // Start is called before the first frame update
+
+
+
+    // main pool class used for event objects 
     private List<GameObject> eventObjectPool = new List<GameObject>();
     private int currentPoolPointer = 0;
  
@@ -17,7 +20,6 @@ public class EventObjectPool : MonoBehaviour
         { 
             GameObject instance =  Instantiate(eventObjects[i],Vector3.zero,Quaternion.identity);
             int amount = instance.GetComponent<EventObjectDescriptor>().AmountThatSpawn;
-            Debug.Log("EVENTS  spawning new event objects " + amount);
             instance.SetActive(false);
             eventObjectPool.Add(instance);
             for(int j  = 0; j < amount - 1; j++)
@@ -39,21 +41,11 @@ public class EventObjectPool : MonoBehaviour
     }
 
 
-    public void deactivateAll()
-    {
-        foreach (GameObject obj in eventObjectPool) {
-          
-            obj.SetActive(false);
-        
-        }
-    }
-
     public bool hasAvailableObject()
     {
         if(currentPoolPointer == eventObjectPool.Count)
         {
 
-            Debug.Log("EVENT objet pool count reached for current evenet " + currentPoolPointer+" reseting... ");
             currentPoolPointer = 0;
         }
 

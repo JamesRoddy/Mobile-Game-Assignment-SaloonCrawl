@@ -3448,6 +3448,10 @@ PrefabInstance:
       propertyPath: m_Constraints
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 73082254506477174, guid: 03d68603cadcdf547a5440a956157da5, type: 3}
+      propertyPath: m_GravityScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3781977167510447231, guid: 03d68603cadcdf547a5440a956157da5, type: 3}
       propertyPath: gameOverScreen
       value: 

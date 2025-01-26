@@ -119,7 +119,6 @@ public class PoolTerrainManager : MonoBehaviour
             poolPointer = 0;
             if (pool[0].activeSelf)
             {
-               /* Debug.Log("could not get available object from pool 0 was active  " + pool[0].activeSelf);*/
                 return -1;
             }
       

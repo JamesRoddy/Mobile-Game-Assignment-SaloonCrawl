@@ -38,7 +38,6 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Bullet Active: " + isActiveAndEnabled);
 
         transform.Translate( Dir * fBulletSpeed *Time.deltaTime);
         tr.emitting = true;

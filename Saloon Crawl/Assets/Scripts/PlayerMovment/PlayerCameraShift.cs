@@ -70,13 +70,16 @@ public class PlayerCameraShift : MonoBehaviour
 
     private void resolveOverlap()
     {
+
+        // if the camera has  centred on the terrain 
         if (hasCentredOnTerrain && !isShiftingBack)
         {
 
 
-            Vector2 deltaPos = touchControls.getDragPos();
+            Vector2 deltaPos = touchControls.getDragPos(); // allows the player to inspect the next terrain by moving the camera with a single finger 
 
-            Debug.Log("CAM SHIFTING  dragging " + transform.position);
+          
+            // keep camera within the bounds of the terrain using the background sprites as a guide 
             Vector3 direction = Vector2.zero;
             direction.x = transform.position.x < playerController.CurrentTerrain.NextTerrainType.transform.position.x ? -1.0f : 1.0f;
 
@@ -84,20 +87,18 @@ public class PlayerCameraShift : MonoBehaviour
             Vector2 screenOffset = new Vector2(playerCamMover.HalfRect.x * direction.x, playerCamMover.HalfRect.y * direction.y);
 
             Vector3 nextPos = playerCam.ScreenToWorldPoint(playerCam.WorldToScreenPoint((transform.position + (Vector3)deltaPos * Time.deltaTime)) + (Vector3)screenOffset);
-            /*  Debug.Log("  CAM SHIFTING screen pixel rect offset" +screenOffset +"current pos "+nextPos);*/
             Vector3 overlap = Vector3.zero;
             if (!playerController.CurrentTerrain.NextTerrainType.SpriteBoundsSum.Contains(new Vector3(nextPos.x, nextPos.y, 0.0f)))
             {
-                Debug.Log("CAMERA SHIFTING next position that was overlaping " + nextPos);
+              
                 Bounds resolve = playerController.CurrentTerrain.NextTerrainType.SpriteBoundsSum;
                 Vector3 resolution = nextPos - resolve.ClosestPoint(nextPos);
                 overlap = new Vector3(resolution.x, resolution.y, 0.0f);
-                Debug.Log("CAMERA SHIFTING resolving overlap " + overlap);
 
             }
 
 
-            transform.position = Vector3.Lerp(transform.position, (transform.position + (Vector3)deltaPos * Time.deltaTime) + -overlap, lerpDragSmoothing);
+            transform.position = Vector3.Lerp(transform.position, (transform.position + (Vector3)deltaPos * Time.deltaTime) + -overlap, lerpDragSmoothing); // lerp the camera postion to make movement more smooth along with accounting for bounds checking 
 
             touchControls.zoomPLayerCamera();
         }
