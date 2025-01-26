@@ -454,6 +454,7 @@ public class playerController : MonoBehaviour
         if ( deathChecker.IsAlive == false)
         {
             gameManagerScript.finalScore = score;
+            gameManagerScript.enemiesKilledThisRun = enemiesKilled;
 
             Debug.Log("enemies killed amount" + enemiesKilled);
 

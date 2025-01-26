@@ -3420,8 +3420,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highestScoreText: {fileID: 1272525371}
+  enemiesKilled: {fileID: 455046590}
   finalScore: 0
   highestScore: 0
+  enemiesKilledThisRun: 0
 --- !u!1 &1544298414
 GameObject:
   m_ObjectHideFlags: 0
