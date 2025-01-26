@@ -17,15 +17,15 @@ public class ZombieMovement : EnemyDescriptorInfo
         zombieRigidBody = GetComponent<Rigidbody2D>();
         playerCam = Camera.main;
         zombieDeath = GetComponent<DeathChecker>();
-       
+        
     }
     public override void EnemyEnable()
     {
        
     }
     public override void EnemyUpdate()
-    { 
-        Movement();
+    {
+        addMomentum();
         if (isInNotCameraView())
         {  
             gameObject.SetActive(false);
@@ -33,10 +33,12 @@ public class ZombieMovement : EnemyDescriptorInfo
         isDead();
     }
 
-    private void Movement()
+  
+   private void addMomentum() 
     {
         zombieRigidBody.velocity = new Vector2(speed, zombieRigidBody.velocity.y);
     }
+  
     private bool isInNotCameraView()
     {
 
