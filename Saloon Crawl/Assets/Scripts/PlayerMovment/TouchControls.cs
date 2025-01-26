@@ -20,36 +20,31 @@ public class TouchControls : MonoBehaviour
     private bool bSwipeLeft = false;
     private float dragDistance = 0.0f;
     float t;
-    float directionYThreshHold = 100.0f;
-    float directionXThreshHold = 150.0f;
+  
     private float swipeHorizontalPercent = 0.2f;
-    private float swipeRightPercent = 0.05f;
+    private float swipeRightPercent = 0.05f; // used to make it so that the amount the player has to swiipe relates to their screen size 
     private float swipeVerticalPercent = 0.1f;
     private Camera playerCam;
-    private float accelMoveX;
-    private float accelSense = 1.0f;
-    private float inputAccelClampMin = -1.0f;
-    private float inputAccelClampMax = 1.0f;
-    private float accelthresh = 0.5f;
-    private float zoomSpeed = 0.1f;
+    private float accelMoveX; // vairbale to store accelerometer X
+
+    private float accelthresh = 0.5f; // define thresh hold that the accelerometer must reach for input 
+    private float zoomSpeed = 0.1f; // define the zoom speed for multi touch zoom
     void Start()
     {
         player = FindObjectOfType<playerController>();
-        Debug.Log("start");
         playerCam = Camera.main; 
        
-      
-        swipeHorizontalPercent *= playerCam.scaledPixelWidth;
-        swipeVerticalPercent *= playerCam.scaledPixelHeight;
-        swipeRightPercent *= playerCam.scaledPixelWidth;
+        // define how much the player must swipe for input based on their screen size 
+        swipeHorizontalPercent *= Screen.width;
+        swipeVerticalPercent *= Screen.height;
+        swipeRightPercent *= Screen.width;
     }
 
     
     void Update()
     {
 
-        accelMoveX = Input.acceleration.x ;
-        Debug.Log( "accelreation x " + accelMoveX);
+        accelMoveX = Input.acceleration.x ; // get the current acceleration of the accelerometer of the device  in x 
         if (Input.touchCount > 0)
         {
             Touch touch = Input.GetTouch(0);
@@ -74,10 +69,8 @@ public class TouchControls : MonoBehaviour
             t += Time.deltaTime;
             if (t > 0.5f)
             {
-                Debug.Log("Stopping swipe");
                 bSwipeRight = false;
 
-                Debug.Log("Stopping Anim");
                 player.CowboyAnim.SetBool("Kick", false);
                 t = 0f;
             }
@@ -96,37 +89,35 @@ public class TouchControls : MonoBehaviour
 
             touchPos = Camera.main.ScreenToWorldPoint(touch.position);
             player.touchStore = touchPos;
-            //Debug.Log("touchPos" + touchPos);
 
       
 
         
-           // Debug.Log("Bullet Angle:" + player.fBulletAngle);
         }
     }
 
-
+    // main method for allowing the player to  zoom the camera when viewing the next terrain 
     public  void zoomPLayerCamera ()
     {
 
-        if(Input.touchCount == 2)
+        if(Input.touchCount == 2) // if we have multiple touches 
         {
             Touch touch0 = Input.GetTouch(0);
             Touch touch1 = Input.GetTouch(1);
 
-            Vector2 deltaDifference0 = touch0.position - touch0.deltaPosition;
+            Vector2 deltaDifference0 = touch0.position - touch0.deltaPosition; // get the difference between the delta position(difference between last update and current) and subtarct from current
             Vector2 deltaDifference1 = touch1.position - touch1.deltaPosition;
-            float prevPositionDifference = (deltaDifference0 - deltaDifference1).magnitude;
+            float prevPositionDifference = (deltaDifference0 - deltaDifference1).magnitude; // get the maginutde/distance between the position on last 
 
-            float currentPosition = (touch0.position - touch1.position).magnitude;
+            float currentPosition = (touch0.position - touch1.position).magnitude;// get current difference 
 
-            float magDiff = prevPositionDifference - currentPosition;
+            float magDiff = prevPositionDifference - currentPosition; // get the difference between current and last
 
-            if (playerCam.orthographic)
+            if (playerCam.orthographic) // if the camera has an orthographic compoenent 
             {
-                playerCam.orthographicSize += magDiff * zoomSpeed;
+                playerCam.orthographicSize += magDiff * zoomSpeed; // add on to the ortho size scaling and shrikning the camera by the difference between the last differencec between the two touches and the current 
                 PlayerCameraShift cameraShift= playerCam.GetComponent<PlayerCameraShift>();
-                playerCam.orthographicSize = Mathf.Clamp(playerCam.orthographicSize, cameraShift.CamShiftOrthoMin, cameraShift.CamShiftOrthoMax);
+                playerCam.orthographicSize = Mathf.Clamp(playerCam.orthographicSize, cameraShift.CamShiftOrthoMin, cameraShift.CamShiftOrthoMax); // ensure to clamp the size so the zoom doesnt go to far out or in 
             }
 
         }
@@ -140,7 +131,7 @@ public class TouchControls : MonoBehaviour
         {
 
            
-            return Input.GetTouch(0).deltaPosition;
+            return Input.GetTouch(0).deltaPosition; // return the delta position of the current touch when dragging 
 
 
         }
@@ -150,23 +141,18 @@ public class TouchControls : MonoBehaviour
 
     }
 
+    // check swipe directions 
     void checkSwipe(Touch touch)
     {
 
 
 
-        //Debug.Log("touch moving");
 
         direction = touch.position - touchInitialPos;
-        Debug.Log("direction difference x" + direction.x + "direction difference y" + direction.y +"swipe hori percent"+swipeHorizontalPercent+"swipe vertcial "+swipeVerticalPercent);
-
-
 
         if (touch.phase == TouchPhase.Ended && direction.y > swipeVerticalPercent && player.Grounded)
         {
 
-            //Debug.Log("ended");
-            Debug.Log("Swipe up");
             player.ShouldJump = true;
             direction = Vector2.zero;
             bSwiping = true ;
@@ -179,7 +165,6 @@ public class TouchControls : MonoBehaviour
             direction = Vector2.zero;
             bSwiping = true;
             bSwipeRight = true;
-            Debug.Log("Swiping Right" + bSwipeRight);
            
         }
 
@@ -191,14 +176,7 @@ public class TouchControls : MonoBehaviour
             bSwiping = true;
             
         }
-       /* else if (touch.phase == TouchPhase.Ended && direction.x < -swipeHorizontalPercent)
-        {
-            bSwipeLeft = true;
-            direction = Vector2.zero;
-            Debug.Log("Swiping Left" + bSwipeLeft);
-            bSwiping = true;
-
-        }*/
+      
 
         else
         {
@@ -212,14 +190,14 @@ public class TouchControls : MonoBehaviour
 
     }
 
-
+    // getters to return when the accelerometer hits a particualr thesh hold 
     public bool accelerationHasHitNegative()
     {
-        return accelMoveX < -accelthresh;
+        return accelMoveX < -accelthresh; // if the accelX is smaller than the negated accelThresh 
     }
     public bool accelerationHasHitPositve()
     {
-        return accelMoveX > accelthresh;
+        return accelMoveX > accelthresh;// if the accelX is smaller than the  accelThresh 
     }
     public Vector2 getTouchPos()
     {

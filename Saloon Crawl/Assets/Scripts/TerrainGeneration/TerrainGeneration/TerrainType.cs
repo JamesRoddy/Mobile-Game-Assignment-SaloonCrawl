@@ -10,6 +10,8 @@ public abstract class TerrainType : MonoBehaviour
     private Vector2 groundSize;
     protected Transform ground;
 
+
+    // generic terrain type class that will store all of the object that will need to be pooled by the various pool managers along with storing all the generic information shared across terrain types
     // interactables 
     [SerializeField] protected List<GameObject> interactables;
     [SerializeField] protected List<GameObject> interactableSpawnPositions;
@@ -74,28 +76,19 @@ public abstract class TerrainType : MonoBehaviour
 
     public void spawnInteractableObjects(InteractablePool pool)
     {
-        /*  Debug.Log("SPAWNING INTERACTABLES  spawning at generated  positions  current max interactables " + currentMaxInteractables);*/
 
 
-        if (interactablesCounter < currentMaxInteractables)
-        {/*
-            Debug.Log("SPAWNING INTERACTABLES requesting object for " + classification + "current interactables count " + interactablesCounter +" current max "+currentMaxInteractables);*/
-            GameObject interactable = pool.getRandomAvailableObject();
-            if (pool.HasDeffered)
+        if (interactablesCounter < currentMaxInteractables) // while we still need objects
+        {
+            GameObject interactable = pool.getRandomAvailableObject(); // pick a random interactable from the pool 
+            if (pool.HasDeffered) // if the pool has not got an availabe object begin waiting 
             {
-                if (currentSpawnPositions
-                    [interactablesCounter].x < transform.position.x && tempPositionForInteractable == Vector3.zero)
-                {
-                    hasDefferedInteactableSpawn = true;
-                    /*Debug.Log(" SPAWNING INTERACTABLES had to shift interactable spawn position to the right due to it being defferred");*/
-
-                }
-                /*  Debug.Log(" SPAWNING INTERACTABLES pool has deffered object waiting ... ");*/
+              
 
                 return;
             }
 
-
+            //// spawn the requested object at the needed position 
             hasDefferedInteactableSpawn = false;
             interactable.SetActive(true);
             interactable.transform.position = currentSpawnPositions[interactablesCounter];
@@ -109,8 +102,6 @@ public abstract class TerrainType : MonoBehaviour
 
         if (interactablesCounter == currentMaxInteractables || interactablesCounter == interactableSpawnPositions.Count)
         {
-            /*   Debug.LogWarning("if max interactables is great than number of spawnPositions " + interactablesCounter == interactableSpawnPositions.Count +" max interactables will never be hit if 1 is displayed ");
-               Debug.Log(" SPAWNING INTERACTABLES interactable spanw count max hit for terrain " + classification);*/
             hasInteractables = true;
 
         }
@@ -144,7 +135,6 @@ public abstract class TerrainType : MonoBehaviour
     {
 
         currentEnemiesCount = Random.Range(MinEnemies, MaxEnemies + 1);
-        /* Debug.Log("assiging new spanw count " + currentEnemiesCount);*/
 
     }
 
@@ -172,7 +162,6 @@ public abstract class TerrainType : MonoBehaviour
         spriteBoundsSum.extents = new Vector3((backgroundTop.bounds.max.x - backgroundBottom.bounds.min.x) / 2.0f, (backgroundTop.bounds.max.y - backgroundBottom.bounds.min.y) / 2.0f, (backgroundTop.bounds.max.z - backgroundBottom.bounds.min.z) / 2.0f);
         spriteBoundsSum.min = backgroundBottom.bounds.min;
         spriteBoundsSum.max = backgroundTop.bounds.max;
-        Debug.Log("background max and min " + spriteBoundsSum.max + " " + spriteBoundsSum.min + "center " + spriteBoundsSum.center + " extents " + spriteBoundsSum.extents);
 
     }
     public void generatePositionsInteractables()
@@ -185,18 +174,14 @@ public abstract class TerrainType : MonoBehaviour
         currentMaxInteractables = Random.Range(minInteractables, maxInteractables + 1);
         currentSpawnPositions.Capacity = currentMaxInteractables;
 
-        Debug.Log("count for interactable objects " + interactables.Count);
         int random = Random.Range(0, interactableSpawnPositions.Count);
         GameObject randomSpawnPositions = interactableSpawnPositions[random];
-        Debug.Log("SPAWNING INTERACTABLES new random " + random + " for class " + classification);
         int count = randomSpawnPositions.transform.childCount;
-        Debug.Log("number of spawn positions " + count);
         Transform[] childrenTransforms = randomSpawnPositions.GetComponentsInChildren<Transform>(); ;
 
         for (int i = 0; i < count; i++)
         {
 
-            Debug.Log(" SPAWNING INTERACTABLES adding new postion " + randomSpawnPositions.transform.GetChild(i).position);
             currentSpawnPositions.Add(randomSpawnPositions.transform.GetChild(i).position);
 
 

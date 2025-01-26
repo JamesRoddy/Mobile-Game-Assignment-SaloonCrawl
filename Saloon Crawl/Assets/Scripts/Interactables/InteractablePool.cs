@@ -9,15 +9,14 @@ public class InteractablePool : MonoBehaviour
     private int maxSpawnCount = 0;
     private bool hasDeffered = false;
     private GameObject defferedInteractable;
-
-    /* private int poolPointer = 0;*/
+    // interactable pool has a random object chosen to be activated therefore to keep track of this the objects that are active are stored in the active list and the objects that are ianctive are stored in the pool
     private List<GameObject> pool = new List<GameObject>();
     private List<GameObject> active = new List<GameObject>();
 
     public void setValues(List<GameObject> interactables, int  terrainMultipler)
     {
-/*        Debug.Log("setting values for interactables ");
-*/        for (int i = 0; i < interactables.Count; i++)
+        // instantiate on start based on amout needed from the terrain the pool is assigned  to 
+      for (int i = 0; i < interactables.Count; i++)
         {
             GameObject interactable = Instantiate(interactables[i], Vector3.zero, Quaternion.identity);
             int count = interactable.GetComponent<Interactable>().NumberThatCanSpawn*terrainMultipler;
@@ -57,14 +56,13 @@ public class InteractablePool : MonoBehaviour
     public GameObject getRandomAvailableObject()
     {
 
-        if(hasDeffered && active.Count>0)
+        if(hasDeffered && active.Count>0) // if the pool has run out of objects and need to send one to the inetractale spawn manager 
         {
 
-            if (active[0].activeSelf == false)
+            if (active[0].activeSelf == false) // check if the first object added to the active list is deactived as alll objects are deactived when they leave the camera therefore this object is the most likley to have been deactivated  
             {
-       /*         Debug.Log(" SPAWNINNG INTERACTABLES  pool if no longer deffered found inactive object in active");*/
                 hasDeffered = false;
-                pool.Add(active[0]);
+                pool.Add(active[0]); // shif the object into the pool to be used 
                 active.Remove(active[0]);
                 
 
@@ -75,25 +73,22 @@ public class InteractablePool : MonoBehaviour
 
         }
 
-        if (pool.Count > 0)
+        if (pool.Count > 0) // if we still have objects in the pool 
         {
             GameObject interactable;
             defferedInteractable = null;
             hasDeffered = false;
-/*            Debug.Log("SPAWNING INTERACTABLES getting random interactable");
-*/            interactable = pool[Random.Range(0, pool.Count)];
-  
+            interactable = pool[Random.Range(0, pool.Count)];
+ 
             active.Add(interactable);
             pool.Remove(interactable);
-/*            Debug.Log("SPAWNING INTERACTABLES new active count after request  " + active.Count + "new pool count " + pool.Count);
-*/            return interactable;
+            return interactable;
         }
 
 
         if (defferedInteractable == null)
         {
-/*            Debug.Log(" SPAWNING INTERACTABLES pool has deffered ");
-*/
+
 
             defferedInteractable = active[Random.Range(0, active.Count)];
             defferedInteractable.GetComponent<Interactable>().DefferedSpawn = true;

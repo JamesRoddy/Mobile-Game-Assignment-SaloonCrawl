@@ -21,7 +21,6 @@ public class EnemyBottle : EventObject
     Camera playerCam;
     InstaniateScorePopUp scorePopUp;
     Collider2D col;
-    // Start is called before the first frame update
     
     public override void EventStart()
     {
@@ -33,7 +32,6 @@ public class EnemyBottle : EventObject
         scorePopUp = GetComponent<InstaniateScorePopUp>(); 
         col = GetComponent<Collider2D>();
      
-        Debug.Log("EVENT beer bottle start");
         
     }
 
@@ -42,10 +40,8 @@ public class EnemyBottle : EventObject
         gameObject.SetActive(true);
         bottle.velocity = bottleVelocity;
         shotCountCurrentLim =  UnityEngine.Random.Range(shotCountMin, shotCountMax + 1);
-        Debug.Log("EVENT beer bottle enable");
 
     }
-    // Update is called once per frame
     public override void EventObjUpdate()
     {
        
@@ -70,7 +66,7 @@ public class EnemyBottle : EventObject
             transform.rotation = Quaternion.identity; 
             angle = 0.0f;
             shotCount = 0;
-            Debug.Log("EVENT beer bottle deactivate");
+     
             gameObject.SetActive(false);
         }
         
@@ -88,7 +84,6 @@ public class EnemyBottle : EventObject
             if (!collision.gameObject.GetComponent<playerController>().IsSliding && shouldKill)
             {
                 collision.gameObject.GetComponent<DeathChecker>().isAlive = false;
-                Debug.Log("EVENT beer bottle collided with player");
 
                 this.gameObject.SetActive(false);
             }
@@ -117,13 +112,7 @@ public class EnemyBottle : EventObject
 
             }
              
-          /*  if (collision.gameObject.CompareTag("Kickable"))
-            {
-                collision.gameObject.GetComponent<Kick>().Kicked = true;
-                Debug.Log("EVENT beer bottle collided with kickable");
-
-
-            }*/
+        
 
 
         }

@@ -16,21 +16,20 @@ public class DesertTerrainType : TerrainType
     {
         enemySpawnPosition = new Vector3(transform.position.x+transform.localScale.x/2.0f,transform.position.y,transform.position.z);    
         hasSpawnPositions = true;
-        Debug.Log(" SPAWNING ENEMY setting spawn position for  "+classification + " position "+ enemySpawnPosition);
     }
 
 
 
     public override void spawnEnemy(ref GameObject enemy, EnemyDescriptorInfo currentDescriptor)
     {
-      
-        Vector3 spawnPos =  new Vector3(enemySpawnPosition.x - enemy.transform.localScale.x/2.0f, enemySpawnPosition.y + enemy.transform.localScale.y, enemySpawnPosition.z);
+
+        Vector3 spawnPos =  new Vector3(enemySpawnPosition.x - enemy.transform.localScale.x/2.0f, enemySpawnPosition.y , enemySpawnPosition.z);
      
         if (firstSpawn)
         {
 
-           Debug.Log("SPAWNING enemy first spawn " + classification);
             activateObject(ref enemy,spawnPos);
+            enemy.transform.position = new Vector3(enemy.transform.position.x, enemy.transform.position.y + enemy.GetComponent<Collider2D>().bounds.size.y, enemy.transform.position.z);
             maxSpawnInterval = currentDescriptor.SpawnInterval;
             firstSpawn = false;
             return;
@@ -38,7 +37,6 @@ public class DesertTerrainType : TerrainType
         isSpawningEnemy = true;
         if (maxSpawnInterval != currentDescriptor.SpawnInterval)
         {
-           Debug.Log("SPAWNING ENEMY " + classification + " new spawn interval "+currentDescriptor.SpawnInterval);
             spawnInterval = 0.0f;
             maxSpawnInterval = currentDescriptor.SpawnInterval;
         }
@@ -50,11 +48,11 @@ public class DesertTerrainType : TerrainType
             return;
         }
 
-         Debug.Log("time until next spawn reached " + classification + " spawn interval " + spawnInterval+"spawning enemy set to false ");
         isSpawningEnemy = false;
         
         activateObject(ref enemy,spawnPos);
-   
+        enemy.transform.position = new Vector3(enemy.transform.position.x, enemy.transform.position.y + enemy.GetComponent<Collider2D>().bounds.size.y, enemy.transform.position.z);
+
         currentDescriptor.resetDeath();
         currentDescriptor.EnemyEnable();
         spawnInterval = 0.0f;
@@ -66,16 +64,13 @@ public class DesertTerrainType : TerrainType
         currentEnemySpawnCount = 0;
         NextTerrainType = null;
         isSpawningEnemy = false;
-        Debug.Log("reset terrain called for " + classification + " has spawn positions is now false " + hasSpawnPositions );
     }
     public override void TerrainEnable()
     {
-      Debug.Log("terrain enable called for " + classification );
         assignSpawnVlaue();
     }
     public override bool Validate()
     {
-      /*  Debug.Log("desert trigger condition hit " + true);*/
 
 
         return true;
@@ -85,7 +80,6 @@ public class DesertTerrainType : TerrainType
 
         firstSpawn = true;
         hasSpawnPositions = false;
-        Debug.Log(" ENEMY SPAWN terrain start " + classification + "first spawn " + firstSpawn + " has spawn positions " + hasSpawnPositions);
 
 
     }

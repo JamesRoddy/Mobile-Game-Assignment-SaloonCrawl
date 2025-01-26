@@ -18,7 +18,6 @@ public class SallonTerrainType : TerrainType
     private List<Vector3> EnemySpawnPositions =  new List<Vector3>();
     public override bool Validate()
     {
-    /*    Debug.Log("saloon trigger condition hit " + (Vector3.Distance(previousTransFormPosition, player.transform.position) > baseSaloonDist));*/
         return (Vector3.Distance(previousTransFormPosition, player.transform.position) > baseSaloonDist);
 
     }
@@ -35,7 +34,6 @@ public class SallonTerrainType : TerrainType
                 float side = previous < transform.position.x ? enemySpawnLeft.x : enemySpawnRight.x;
           
                 randomX =  UnityEngine.Random.Range(transform.position.x,side);
-               Debug.Log("SPAWNING ENEMIES SALOON  previous was " + previous + " transform position is " + transform.position.x + "side is " + side+" new random is "+randomX);
 
             }
             previous = randomX;
@@ -45,7 +43,6 @@ public class SallonTerrainType : TerrainType
         } 
 
         hasSpawnPositions = true;
-        Debug.Log(" SPAWNING ENEMY current terrain to spawn on " + classification + " has spawn positions " + HasSpawnPositions +" number " + EnemySpawnPositions.Count);
 
     }
 
@@ -58,19 +55,17 @@ public class SallonTerrainType : TerrainType
         if(currentEnemySpawnCount != EnemySpawnPositions.Count)
         {
 
-            Debug.Log("SPAWNING ENEMY   in saloon " + classification + " enemy decriptor info was " + (currentDescriptor == null));
 
-/*            Debug.Log(" SPAWNING ENEMY spawning enemy for " + classification + "current count " + currentEnemySpawnCount + "current max " + currentEnemiesCount);*/
-            Vector3 enemySpawnPos = EnemySpawnPositions[currentEnemySpawnCount] + new Vector3(0.0f,enemy.transform.localScale.y,0.0f); 
+            Vector3 enemySpawnPos = EnemySpawnPositions[currentEnemySpawnCount];
             
-           /* Debug.Log(" SPAWNING ENEMY spawn position " + enemySpawnPos);*/
             
             currentEnemySpawnCount++;
             
             activateObject(ref enemy,enemySpawnPos);
-          
+            enemy.transform.position = new Vector3(enemy.transform.position.x, enemy.transform.position.y + enemy.GetComponent<Collider2D>().bounds.size.y, enemy.transform.position.z);
+
             currentDescriptor.resetDeath();
-            currentDescriptor.EnemyEnable();
+            StartCoroutine(currentDescriptor.EnemyEnableWait());
             return;
 
 
@@ -89,7 +84,6 @@ public class SallonTerrainType : TerrainType
         NextTerrainType = null;
         hasMetEnemyRequirements = false;
         
-                Debug.Log("reset terrain called for " + classification + " has spawn positions is now false " + hasSpawnPositions +" terrain type null"+(NextTerrainType == null));
 
     }
     public override void TerrainEnable()
@@ -103,7 +97,6 @@ public class SallonTerrainType : TerrainType
    
 
 
-        /*   Debug.Log(" terrain enable called for " + classification + " previousSpawnPos now  " + previousTransFormPosition);*/
 
     }
 
@@ -118,8 +111,7 @@ public class SallonTerrainType : TerrainType
         currentEnemySpawnCount = 0;
         EnemySpawnPositions.Clear();
 
-/*        Debug.Log(" SPAWNING ENEMY reseting terrain  " + classification + " spawn positions count " + EnemySpawnPositions.Count + "EnemyspawnPositions right " + enemySpawnRight + "spawn positions left" + enemySpawnLeft);
-*/      if(player == null)
+     if(player == null)
         { 
 
             player = FindObjectOfType<playerController>();

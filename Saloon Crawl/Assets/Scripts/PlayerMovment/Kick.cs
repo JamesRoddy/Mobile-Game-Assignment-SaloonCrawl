@@ -81,22 +81,7 @@ public class Kick : Interactable
 
     IEnumerator playAnim()
     {
-/*        DeathChecker playerDeath = player.GetComponent<DeathChecker>();
-        if (playerDeath.IsAlive == true)
-        {
-            player.CowboyAnim.SetBool("Kick", true);
-            t += Time.deltaTime;
-            if (t < 0.5)
-            {
-                player.CowboyAnim.SetBool("Kick", false);
-                yield return null;
-            }
-        }
-        else
-        {
-            player.CowboyAnim.SetBool("Kick", false );
-                            yield return null;
-        }*/
+
         player.CowboyAnim.SetBool("Kick", true);
         yield return new WaitForSeconds(0.5f);
         player.CowboyAnim.SetBool("Kick", false);

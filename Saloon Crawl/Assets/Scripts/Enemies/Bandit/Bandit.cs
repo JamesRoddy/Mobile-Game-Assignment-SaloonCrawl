@@ -30,14 +30,18 @@ public class Bandit : EnemyDescriptorInfo
 
     }
 
+
+
+
+
     public override void EnemyEnable()
     {
 
 
-        lineRenderer = GetComponent<LineRenderer>();
+      /*  lineRenderer = GetComponent<LineRenderer>();
         trailRenderer = transform.Find("TrailPos").gameObject;
         gunPos = transform.Find("ArmPivot").Find("Arm").GetChild(0);
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();*/
     
         Debug.Log("line renderer null " + (lineRenderer == null) + "spriter renderer null " + (spriteRenderer == null) + "trail is null " + (trailRenderer == null));
         spriteRenderer.flipX = false;

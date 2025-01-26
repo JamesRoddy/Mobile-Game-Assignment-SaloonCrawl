@@ -5,6 +5,11 @@ using UnityEngine;
 public abstract class EventObject : EventObjectDescriptor
 {
 
+
+    // generic event object class for event objects such as the beer bottle 
+    // allows for generic istaniation of each event object pool without requring multiple different methods inn order to instaniate pools for each 
+    // this means that the instantiation of event objects can be done in a single for loop
+
     protected playerController playerController;
 
     protected Collider2D playerCol;
@@ -14,7 +19,6 @@ public abstract class EventObject : EventObjectDescriptor
         playerController = FindFirstObjectByType<playerController>();
        
         playerCol = playerController.GetComponent<Collider2D>();
-        Debug.Log("EVENT event object start player controller is null " + (playerController == null));
       
         
     }

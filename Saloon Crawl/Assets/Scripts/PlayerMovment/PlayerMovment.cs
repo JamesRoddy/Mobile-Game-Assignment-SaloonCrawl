@@ -120,18 +120,16 @@ public class playerController : MonoBehaviour
     {
         if(currentTerrain.NextTerrainType != null && (touchControls.accelerationHasHitPositve() || touchControls.SwipeLeft) && !IsViewingNextTerrain &&! PlayerCameraShift.IsShiftingBack)
         {
-            Debug.Log("CAM SHIFTING conditions hit to view next terrain current");
             IsViewingNextTerrain = true;
             followCam.FollowPlayer = false; 
             nextTerrainPos = new Vector3(currentTerrain.NextTerrainType.transform.position.x, transform.position.y, transform.position.z);
-            Debug.Log("CAM SHIFTING next terrain pos " + nextTerrainPos);
         }
 
         if (!IsViewingNextTerrain )
         {
 
             playerRigidBody.simulated = true;
-
+            shouldIncrementScore = true;
             return;
         }
         
@@ -208,15 +206,13 @@ public class playerController : MonoBehaviour
     private void shoot()
     {
         t += Time.deltaTime;
-        //Debug.Log("Bullet Destroyed: " + bullet.IsDestroyed());
-        if (!IsViewingNextTerrain && shouldShoot && t >= 0.5f)
+        if (!IsViewingNextTerrain && shouldShoot && t >= 0.5f && !deathChecker.isAlive == false)
         {
             invoked = true;
             shouldShoot = false;
             Dir = touchStore - (new Vector2(bulletSpawnPoint.position.x, bulletSpawnPoint.position.y));
             Dir.Normalize();
             fBulletAngle = Mathf.Atan2(Dir.y, Dir.x);
-            Debug.Log("bullet angle " + fBulletAngle + " direction " + Dir);
            
             arm.transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, fBulletAngle * Mathf.Rad2Deg));
             crossHairFadeTimer = 0.0f;
@@ -230,7 +226,6 @@ public class playerController : MonoBehaviour
 
             
 
-            Debug.Log("current shooting direction " + Dir);
        
             bulletShot.Play();
             t = 0f; 
@@ -241,11 +236,7 @@ public class playerController : MonoBehaviour
             shouldShoot = false;
         }
 
-        /*else if (bull.IsDestroyed())
-        {
-            shouldShoot = false;
-            invoked = false;
-        }*/
+        
     }
  
 
@@ -279,14 +270,11 @@ public class playerController : MonoBehaviour
         float fStoreY = playerBoxCollider.size.y;
         shouldSlide = false;
         isSliding = true;
-        Debug.Log("is sliding " + isSliding);
         CowboyAnim.SetBool("IsSliding", true);
 
         if (!Grounded)
         {
-            Debug.Log("Airborn");
             playerRigidBody.velocity = new Vector2(playerRigidBody.velocity.x, fSlidePowerY);
-/*           playerBoxCollider.size = new Vector2(fStoreY, fStoreX );*/
         }
 
         else
@@ -300,11 +288,9 @@ public class playerController : MonoBehaviour
         playerBoxCollider.size = new Vector2(fStoreX, fStoreY);
         isSliding = false; 
 
-        Debug.Log("is sliding end  " + isSliding);
         CowboyAnim.SetBool("IsSliding", false);
 
         
-        Debug.Log("shouldSlide3: " + shouldSlide);
 
     }
 
@@ -326,13 +312,11 @@ public class playerController : MonoBehaviour
     public bool isInCurrentTerrian()
     {
 
-/*        Debug.Log("is on current terrain " + currentTerrain.GetClassification + " is in bounds " + (transform.position.x <= currentTerrain.SpawnRight.x && transform.position.x >= currentTerrain.SpawnLeft.x));
-*/        return (transform.position.x <= currentTerrain.SpawnRight.x && transform.position.x >= currentTerrain.SpawnLeft.x);
+        return (transform.position.x <= currentTerrain.SpawnRight.x && transform.position.x >= currentTerrain.SpawnLeft.x);
     }
     public bool isCloseToEndOfCurrentterrain()
     {
-/*        Debug.Log("current terrain was null " + (currentTerrain == null));
-*/
+
         return Vector3.SqrMagnitude((currentTerrain.transform.position + currentTerrain.getHalfScale) - transform.position) <= minDistanceToEndOfCurrentTerrain;
 
     }

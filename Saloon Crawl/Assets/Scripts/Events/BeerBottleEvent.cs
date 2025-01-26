@@ -16,8 +16,7 @@ public class BeerBottleEvent : TerrainEvent
 
     public override void EventStart()
     {
-
-        Debug.Log("EVENT START ");
+        
 
 
         if (objectPool.hasAvailableObject())
@@ -29,8 +28,7 @@ public class BeerBottleEvent : TerrainEvent
 
         beerBottleEventScript = beerBottle.GetComponent<EventObject>();
         bottleCol = beerBottle.GetComponent<Collider2D>();
-        Debug.Log("beer bottle was null " + beerBottle == null);
-        Debug.Log("EVENT beer bottle was null " + (beerBottle == null));
+    
         beerBottleEventScript.EventStart();
 
       
@@ -55,7 +53,6 @@ public class BeerBottleEvent : TerrainEvent
         float randomY = playerController.transform.position.y + (playerCol.bounds.size.y /2.0f) + ((playerCol.bounds.size.y/2.0f)  * offsetPercent);
         Vector3 beerBottelPos = new Vector3(playerController.CurrentTerrain.SpawnRight.x + playerController.CurrentTerrain.transform.localScale.x, randomY, playerController.transform.position.z);
         beerBottle.transform.position = beerBottelPos;
-        Debug.Log(" EVENT  beer bottle event set up new position " + beerBottle.transform.position + " percentage of bounds added " + offsetPercent);
         isFiring = true;
     }
     public override void Fire() {

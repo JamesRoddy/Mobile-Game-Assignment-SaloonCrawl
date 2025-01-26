@@ -7,7 +7,7 @@ using UnityEngine.Jobs;
 public class CollectiblesManager : MonoBehaviour
 {
     // Start is called before the first frame update
-
+    // main manager class for collectible spanwing and positioning  managing when an object should be requested from a paritcualr collectible pool 
     [SerializeField] private List<GameObject> collectibles;
     private List<CollectiblesPool> collectiblesPools = new List<CollectiblesPool>();
     private playerController playerController;
@@ -28,7 +28,7 @@ public class CollectiblesManager : MonoBehaviour
     List<CollectiblesPool> tempCollectibileStore  = new List<CollectiblesPool>();    
     public  void CollectibleManagerStart()
     {
-       
+       // init collectible pools 
         playerController = FindObjectOfType<playerController>();
         Debug.Log("collectibles count "+collectibles.Count);
         playerCamera = Camera.main.GetComponent<CamMovement>();

@@ -6,15 +6,15 @@ public class EnemySpawner : MonoBehaviour
 {
     // Start is called before the first frame update
 
-
+    // main classs repsonsile for spawning enemies of the current pool of the current terrain type this allows there to be one central class that spawns enemies from each enemy pool object that stores particualr enemies 
     TerrainManager terrainManager;
     private GameObject currentEnemy;
     playerController player;
     private GameObject nextTileToSpawnEnemiesOn;
     private Enemypool currentObjectPool;
-    private TerrainClassifications currentPool;
+    private TerrainClassifications currentPool; /// used to access and dynamcially adjust the current pool of enemies being used based on player current terrain and next terrain 
     private TerrainType currentTerrainType;
-    private EnemyDescriptorInfo currentDescriptorInfo;
+    private EnemyDescriptorInfo currentDescriptorInfo; //info about current enemy being spawned 
     public void EnemySpanwnManagerStart()
     {
         terrainManager = GetComponent<TerrainManager>();
@@ -30,36 +30,30 @@ public class EnemySpawner : MonoBehaviour
     {
         if ( player.CurrentTerrain.NextTerrainType != null && !(player.CurrentTerrain.NextTerrainType.HasSpawnPositions) && player.isCloseToEndOfCurrentterrain())
        {
-          Debug.Log(" SPAWNING ENEMY  conditions hit to generate new enemies terrain had no spawn positions was  " + !(player.CurrentTerrain.NextTerrainType.HasSpawnPositions) + "player was too close to terrain was " + player.isCloseToEndOfCurrentterrain());
-          currentPool = player.CurrentTerrain.NextTerrainOn;
-            Debug.Log(" SPAWNING ENEMY  current pool for spawining is " + player.CurrentTerrain.NextTerrainOn);
-            nextTileToSpawnEnemiesOn = player.CurrentTerrain.NextAdjacentTerrainTile;
-           Debug.Log(" SPAWNING ENEMY type of current terrain tile to spawn on " + player.CurrentTerrain.NextAdjacentTerrainTile.GetComponent<TerrainType>().GetClassification);
+            currentPool = player.CurrentTerrain.NextTerrainOn; // set the current terrain classifctaion for the current enemy pool to be used by the enemy spawner object
+            nextTileToSpawnEnemiesOn = player.CurrentTerrain.NextAdjacentTerrainTile; // set the next terrain object 
             currentTerrainType = player.CurrentTerrain.NextAdjacentTerrainTile.GetComponent<TerrainType>();
-            Debug.Log(" SPAWNING ENEMY type of current terrain type " + player.CurrentTerrain.NextAdjacentTerrainTile.GetComponent<TerrainType>().GetClassification);
+
+            // set up the next terrain to be spawned on 
             currentTerrainType.setSpawnPositions();
             currentTerrainType.assignSpawnVlaue();
             currentEnemy = null;
             currentObjectPool = terrainManager.getEnemPool(currentPool);
             currentObjectPool.setEnemyValues();
-           Debug.Log(" SPAWNING ENEMY  type of pool " + currentPool +" pool has available object "+currentObjectPool.hasAvailableObject());
 
 
        }
 
-
-        if (currentObjectPool != null &&  currentObjectPool.hasAvailableObject()  && !currentTerrainType.HasMetEnemyRequirements)
+        // request an object while the current pool has an availabe inactive obejct and if the current terrian type has not met its current max spawn values 
+        if (currentObjectPool != null &&  currentObjectPool.hasAvailableObject()  && !currentTerrainType.HasMetEnemyRequirements) 
         {
-            Debug.Log(" SPAWNING ENEMY requesting object object pool has object: "+currentObjectPool.hasAvailableObject());
-            if (!currentTerrainType.IsSpawningEnemy  )
+            if (!currentTerrainType.IsSpawningEnemy  ) 
             {
                 currentEnemy = currentObjectPool.requestAvaialbeObject();
-                Debug.Log("terrain was not spawning enemy " + currentTerrainType.GetClassification + "enemy descriptor was null "+ (currentEnemy.GetComponent<EnemyDescriptorInfo>() == null));
             }
 
             if(currentEnemy != null)
             {
-                Debug.Log(" current enemy descriptor is null " + currentEnemy.GetComponent<EnemyDescriptorInfo>() == null);
 
                 currentTerrainType.spawnEnemy(ref currentEnemy, currentEnemy.GetComponent<EnemyDescriptorInfo>());
             }
