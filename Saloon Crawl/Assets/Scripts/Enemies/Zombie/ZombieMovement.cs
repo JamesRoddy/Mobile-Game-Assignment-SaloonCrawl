@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEditor;
 using UnityEngine;
 public class ZombieMovement : EnemyDescriptorInfo
@@ -10,13 +11,14 @@ public class ZombieMovement : EnemyDescriptorInfo
     private Rigidbody2D zombieRigidBody;
     private Camera playerCam;
     private DeathChecker zombieDeath;
-
+    private GameManagerScript gameManagerScript;
 
     public override void EnemyStart()
     {
         zombieRigidBody = GetComponent<Rigidbody2D>();
         playerCam = Camera.main;
         zombieDeath = GetComponent<DeathChecker>();
+        gameManagerScript = FindFirstObjectByType<GameManagerScript>();
         
     }
     public override void EnemyEnable()
@@ -54,6 +56,7 @@ public class ZombieMovement : EnemyDescriptorInfo
             InstantiatePopUp();
             controller.CurrentScore += scoreIncrement;
             controller.conactToScore(Convert.ToString(ScoreIncrement));
+            gameManagerScript.enemiesKilledThisRun += 1;
             this.gameObject.SetActive(false);
         }
     }

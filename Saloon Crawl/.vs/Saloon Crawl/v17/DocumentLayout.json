@@ -3,6 +3,7 @@
   "WorkspaceRootPath": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\",
   "Documents": [
     {
+
       "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\assets\\scripts\\enemies\\bandit\\bandit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemies\\bandit\\bandit.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -27,12 +28,14 @@
       "RelativeMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playermovment\\playercamerashift.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+
       "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\assets\\scripts\\enemies\\enemyscripttest2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemies\\enemyscripttest2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\assets\\scripts\\enemies\\enemyscripttest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\enemies\\enemyscripttest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+
     },
     {
       "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\assets\\scripts\\enemies\\enemypoolmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -43,6 +46,7 @@
       "RelativeMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playermovment\\playercam.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+
       "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\assets\\scripts\\playermovment\\playerdeath.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playermovment\\playerdeath.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -97,6 +101,8 @@
     {
       "AbsoluteMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\assets\\scripts\\playermovment\\touchcontrols.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{EF704775-BC05-A988-AA98-04849D2FF967}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playermovment\\touchcontrols.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+
+
     }
   ],
   "DocumentGroupContainers": [
@@ -114,6 +120,7 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 3,
               "Title": "PlayerMovment.cs",
               "DocumentMoniker": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\PlayerMovment.cs",
@@ -173,12 +180,14 @@
               "ToolTip": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\Enemies\\Bandit\\Bandit.cs",
               "RelativeToolTip": "Assets\\Scripts\\Enemies\\Bandit\\Bandit.cs",
               "ViewState": "AgIAABkAAAAAAAAAAAAQwCsAAAA1AAAAAAAAAA==",
+
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-25T17:30:20.467Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 2,
               "Title": "Aiming.cs",
               "DocumentMoniker": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\Enemies\\Bandit\\Aiming.cs",
@@ -225,12 +234,14 @@
               "ToolTip": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\Enemies\\EnemyPoolManager.cs",
               "RelativeToolTip": "Assets\\Scripts\\Enemies\\EnemyPoolManager.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-26T12:49:17.121Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 9,
               "Title": "PlayerCam.cs",
               "DocumentMoniker": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\PlayerCam.cs",
@@ -238,12 +249,14 @@
               "ToolTip": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\PlayerCam.cs",
               "RelativeToolTip": "Assets\\Scripts\\PlayerMovment\\PlayerCam.cs",
               "ViewState": "AgIAAAcAAAAAAAAAAAAAABgAAAAAAAAAAAAAAA==",
+
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-26T11:44:06.058Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 10,
               "Title": "PlayerDeath.cs",
               "DocumentMoniker": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\PlayerDeath.cs",
@@ -253,10 +266,12 @@
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwBIAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-23T16:26:00.748Z",
+
               "EditorCaption": ""
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 11,
               "Title": "Bullet.cs",
               "DocumentMoniker": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\Bullet.cs",
@@ -331,6 +346,7 @@
             {
               "$type": "Document",
               "DocumentIndex": 17,
+
               "Title": "PoolTerrainManager.cs",
               "DocumentMoniker": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\TerrainGeneration\\TerrainGeneration\\PoolTerrainManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\TerrainGeneration\\TerrainGeneration\\PoolTerrainManager.cs",
@@ -342,7 +358,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 18,
+
               "Title": "TerrainCategories.cs",
               "DocumentMoniker": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\TerrainGeneration\\TerrainGeneration\\TerrainCategories.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\TerrainGeneration\\TerrainGeneration\\TerrainCategories.cs",
@@ -354,7 +372,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 19,
+
               "Title": "DesertTerrain.cs",
               "DocumentMoniker": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\TerrainGeneration\\TerrainGeneration\\DesertTerrain.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\TerrainGeneration\\TerrainGeneration\\DesertTerrain.cs",
@@ -366,6 +386,7 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 20,
               "Title": "GameManagerScript.cs",
               "DocumentMoniker": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\UiScripts\\GameManagerScript.cs",
@@ -379,6 +400,7 @@
             {
               "$type": "Document",
               "DocumentIndex": 22,
+
               "Title": "InteractableSpawnManager.cs",
               "DocumentMoniker": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\Interactables\\InteractableSpawnManager.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Interactables\\InteractableSpawnManager.cs",
@@ -391,6 +413,8 @@
             {
               "$type": "Document",
               "DocumentIndex": 23,
+
+
               "Title": "TouchControls.cs",
               "DocumentMoniker": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\PlayerMovment\\TouchControls.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerMovment\\TouchControls.cs",
@@ -402,7 +426,9 @@
             },
             {
               "$type": "Document",
+
               "DocumentIndex": 21,
+
               "Title": "EnemyBottle.cs",
               "DocumentMoniker": "C:\\Users\\richa\\OneDrive\\Desktop\\SaloonCrawl\\Saloon-Crawl\\Saloon Crawl\\Assets\\Scripts\\Enemies\\EnemyBottle.cs",
               "RelativeDocumentMoniker": "Assets\\Scripts\\Enemies\\EnemyBottle.cs",

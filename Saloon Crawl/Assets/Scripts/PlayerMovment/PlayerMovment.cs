@@ -73,7 +73,6 @@ public class playerController : MonoBehaviour
     public Vector2 Dir;
     public Vector2 touchStore;
     float t;
-    public int enemiesKilled;
 
     [SerializeField] private GameObject gameOverScreen;
 
@@ -470,7 +469,6 @@ public class playerController : MonoBehaviour
             
             gameManagerScript.finalScore = score;
 
-            Debug.Log("enemies killed amount" + enemiesKilled);
 
             CowboyAnim.SetBool("IsAlive", false);
             transform.GetChild(0).GetComponent<SpriteRenderer>().enabled = false;

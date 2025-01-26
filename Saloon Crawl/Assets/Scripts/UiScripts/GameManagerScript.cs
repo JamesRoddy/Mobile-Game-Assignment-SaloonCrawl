@@ -10,12 +10,14 @@ public class GameManagerScript : MonoBehaviour
 {
     public TMP_Text highestScoreText;
     public TMP_Text currentScoreText;
+    public TMP_Text EnemiesKilled;
     public int finalScore;
     public int highestScore;
     [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private Slider MusicSlider;
     [SerializeField] private Slider SFXSlider;
-    public int enemiesKilledTotal;
+    public int mostEnemiesKilled;
+    public int enemiesKilledThisRun;
 
     // Start is called before the first frame update
     void Start()
@@ -24,9 +26,11 @@ public class GameManagerScript : MonoBehaviour
         SFXSlider.value = PlayerPrefs.GetFloat("SFXVolume", 1);
 
         highestScore = PlayerPrefs.GetInt("HighestScore");
+        mostEnemiesKilled = PlayerPrefs.GetInt("MostEnemiesKilled");
         try
         {
             highestScoreText.text = highestScore.ToString();
+            EnemiesKilled.text = mostEnemiesKilled.ToString();
             
         }
         catch
@@ -40,6 +44,11 @@ public class GameManagerScript : MonoBehaviour
         {
             highestScore = finalScore;
             PlayerPrefs.SetInt("HighestScore", highestScore);
+        }
+        if(enemiesKilledThisRun > mostEnemiesKilled) 
+        {
+            mostEnemiesKilled = enemiesKilledThisRun;
+            PlayerPrefs.SetInt("MostEnemiesKilled", mostEnemiesKilled);
         }
 
         currentScoreText.text = finalScore.ToString();
