@@ -53,10 +53,12 @@ public abstract class EnemyDescriptorInfo : MonoBehaviour
     private void Update()
     {
 
-        if (!controller.IsViewingNextTerrain) // if the player has not started viewing the next terrain menaing that they cant see their current 
+        if (controller.IsViewingNextTerrain && controller.CurrentTerrain.containsPoint(transform.position)) // if the player has not started viewing the next terrain menaing that they cant see their current 
         {
-            EnemyUpdate();
+            return;
         }
+            EnemyUpdate();
+        
 
     }
 

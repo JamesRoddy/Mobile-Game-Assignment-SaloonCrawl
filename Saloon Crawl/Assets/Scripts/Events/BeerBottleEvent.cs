@@ -57,6 +57,12 @@ public class BeerBottleEvent : TerrainEvent
     }
     public override void Fire() {
 
+
+        if (playerController.IsViewingNextTerrain && playerController.CurrentTerrain.containsPoint(beerBottleEventScript.transform.position)) // if the player has not started viewing the next terrain menaing that they cant see their current 
+        {
+            return;
+        }
+
         beerBottleEventScript.EventObjUpdate();
 
 
