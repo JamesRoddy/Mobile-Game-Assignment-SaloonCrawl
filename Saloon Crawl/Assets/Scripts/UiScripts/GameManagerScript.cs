@@ -51,7 +51,7 @@ public class GameManagerScript : MonoBehaviour
             PlayerPrefs.SetInt("MostEnemiesKilled", mostEnemiesKilled);
         }
 
-        currentScoreText.text = finalScore.ToString();
+/*        currentScoreText.text = finalScore.ToString();*/
     }
 
     public void SetMusicVolume(Slider slider)

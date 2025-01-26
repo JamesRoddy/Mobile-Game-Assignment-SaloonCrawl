@@ -713,12 +713,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highestScoreText: {fileID: 250489548}
   currentScoreText: {fileID: 1402739791}
+  EnemiesKilled: {fileID: 0}
   finalScore: 0
   highestScore: 0
   audioMixer: {fileID: 24100000, guid: f07a61aca1ee68848bed961f1bd1cef2, type: 2}
   MusicSlider: {fileID: 434607944}
   SFXSlider: {fileID: 1223754321}
-  enemiesKilledTotal: 0
+  mostEnemiesKilled: 0
+  enemiesKilledThisRun: 0
 --- !u!1 &245571889
 GameObject:
   m_ObjectHideFlags: 0
@@ -5216,6 +5218,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: debd6f5e7035bdb49bd3c49277d685d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  finalScore: {fileID: 1402739791}
 --- !u!1 &1838478914
 GameObject:
   m_ObjectHideFlags: 0
