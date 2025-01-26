@@ -9,6 +9,7 @@ using UnityEngine.UI;
 public class GameManagerScript : MonoBehaviour
 {
     public TMP_Text highestScoreText;
+    public TMP_Text currentScoreText;
     public int finalScore;
     public int highestScore;
     [SerializeField] private AudioMixer audioMixer;
@@ -25,6 +26,7 @@ public class GameManagerScript : MonoBehaviour
         try
         {
             highestScoreText.text = highestScore.ToString();
+            
         }
         catch
         {}
@@ -38,6 +40,8 @@ public class GameManagerScript : MonoBehaviour
             highestScore = finalScore;
             PlayerPrefs.SetInt("HighestScore", highestScore);
         }
+
+        currentScoreText.text = finalScore.ToString();
     }
 
     public void SetMusicVolume(Slider slider)
