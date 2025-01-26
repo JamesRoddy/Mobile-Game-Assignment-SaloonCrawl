@@ -51,7 +51,7 @@ public class playerController : MonoBehaviour
     private int currentCoinCount = 0;
     private CamMovement followCam;
     private bool hasConcatenatedScore = false;
-    private DeathChecker deathChecker;
+    public DeathChecker deathChecker;
     string concatString = "";
     private GameManagerScript gameManagerScript;
     private UpdateScoreText scoreText;
@@ -67,11 +67,15 @@ public class playerController : MonoBehaviour
     public AudioSource jumpSound;
     public AudioSource slideSound;
     public AudioSource kickSound;
+    public AudioSource gameOver;
+    public AudioSource mainMusic;
     private float crossHairDistance = 8.0f;
     public Vector2 Dir;
     public Vector2 touchStore;
     float t;
     public int enemiesKilled;
+
+    [SerializeField] private GameObject gameOverScreen;
 
     // Start is called before the first frame update
     void Start()
@@ -449,10 +453,21 @@ public class playerController : MonoBehaviour
         return hit.collider != null;
     }
 
+    public void StopAllSounds()
+    {
+        mainMusic.Stop();
+        runSound.Stop();
+        jumpSound.Stop();
+        kickSound.Stop();
+        slideSound.Stop();
+        bulletShot.Stop();
+    }
+
     private void IsDead()
     {
         if ( deathChecker.IsAlive == false)
         {
+            
             gameManagerScript.finalScore = score;
 
             Debug.Log("enemies killed amount" + enemiesKilled);
@@ -465,6 +480,8 @@ public class playerController : MonoBehaviour
                if(CowboyAnim.GetBool("Kick") == false && CowboyAnim.GetBool("IsSliding") == false)
                 {
                     Time.timeScale = 0;
+                    gameOverScreen.GetComponent<MenuButtonScript>().EnableMenu();
+                    StopAllSounds();
                 }
             }
             return;
