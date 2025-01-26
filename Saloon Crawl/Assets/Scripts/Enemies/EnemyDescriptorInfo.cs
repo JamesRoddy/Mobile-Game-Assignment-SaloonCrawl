@@ -11,7 +11,7 @@ public abstract class EnemyDescriptorInfo : MonoBehaviour
     protected Transform scoreIncrementPopUp;
     private float spawnInterval = 0.0f;
     protected DeathChecker alive;
-    private InstaniateScorePopUp scorePopUp;
+    protected InstaniateScorePopUp scorePopUp;
     public float SpawnInterval
     {
         get { return spawnInterval; }
@@ -23,7 +23,7 @@ public abstract class EnemyDescriptorInfo : MonoBehaviour
         controller =  FindFirstObjectByType<playerController>();
         scorePopUp = GetComponent<InstaniateScorePopUp>();
 
-        Debug.Log("enemy start");
+        Debug.Log("enemy start " );
        
        
         EnemyStart(); 

@@ -769,8 +769,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   collsionTags:
-  - Bullet
   - Kickable
+  - Bullet
   isAlive: 1
 --- !u!114 &7453179041923465471
 MonoBehaviour:
