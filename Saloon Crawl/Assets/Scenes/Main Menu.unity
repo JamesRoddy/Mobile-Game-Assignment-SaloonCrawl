@@ -3517,11 +3517,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   highestScoreText: {fileID: 1272525371}
+  currentScoreText: {fileID: 0}
+  EnemiesKilled: {fileID: 455046590}
   finalScore: 0
   highestScore: 0
   audioMixer: {fileID: 24100000, guid: f07a61aca1ee68848bed961f1bd1cef2, type: 2}
   MusicSlider: {fileID: 1965391048}
   SFXSlider: {fileID: 1976186923}
+  mostEnemiesKilled: 0
+  enemiesKilledThisRun: 0
 --- !u!1 &1544298414
 GameObject:
   m_ObjectHideFlags: 0
@@ -4368,7 +4372,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Enemies Killed
+  m_text: 'Most Enemies Killed
 
 '
   m_isRightToLeft: 0

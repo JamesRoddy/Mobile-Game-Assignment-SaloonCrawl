@@ -55,10 +55,6 @@ public class Bullet : MonoBehaviour
        Debug.Log("Collision");
        if (collision.gameObject.CompareTag("Enemy") || collision.gameObject.CompareTag("Ground") || collision.gameObject.CompareTag("EventObjectShootable"))
        {
-            if (collision.gameObject.CompareTag("Enemy"))
-            {
-                player.enemiesKilled += 1;
-            }
             Destroy(this.gameObject);
        }
 
