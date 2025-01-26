@@ -7,7 +7,7 @@ public class TerrainManager : MonoBehaviour
 {
 
 
-
+    // main central class repsonsilbe for hanldin gterrain genertaion with all the pool objects and pool managers attached 
     [SerializeField] int terrainMinSpawnLimit = 3;
 
     [SerializeField] List<GameObject> terrainTypeObjects = new List<GameObject>();
@@ -16,22 +16,25 @@ public class TerrainManager : MonoBehaviour
     private Vector3 initialPos = Vector3.zero;
     private float localScaleFratcionDivider = 4.0f;
     Vector3 genericPadding = new Vector3(-0.01f, 0.0f, 0.0f); 
-    /*    private bool terrainRequestFailed = false;
-    */
-    /*private int maxTerrainCycles = 4;*/ 
+    
   
     private int currentTerrainCycles = 0;
 
     private playerController playerController;
     private List<GameObject> activeTerrain;
+
+    // diciotnaires used to store all of the initialised pools based on their associated terrain type 
     private Dictionary<TerrainClassifications, PoolTerrainManager> terrainPools = new Dictionary<TerrainClassifications, PoolTerrainManager>();
     private Dictionary<TerrainClassifications, Enemypool> enemyPools = new Dictionary<TerrainClassifications, Enemypool>();
     private Dictionary<TerrainClassifications, InteractablePool> interactableObjectPools = new Dictionary<TerrainClassifications, InteractablePool>();
+
+    // all of the managers for the pools
     private EnemySpawner enemySpawnHandler;
     private InteractableSpawnManager interactableSpawnManager;
     private CollectiblesManager collectiblesManager;
+
     private PlayerCameraShift playerCamShift;
-    private Transform terrainColliderHolder;
+    private Transform terrainColliderHolder; // generic terrain collider that moves with the player 
     private Camera cam;
     public void Start()
     {
@@ -39,38 +42,41 @@ public class TerrainManager : MonoBehaviour
         terrainColliderHolder = transform.GetChild(0).GetComponent<Transform>();
         playerCamShift = FindFirstObjectByType<PlayerCameraShift>();
         cam = Camera.main;
-        initialzeStartingTerrain();
-        setPlayerCurrentTerrain(); 
+
+        initialzeStartingTerrain(); // intit all terrain pools and objects 
+        setPlayerCurrentTerrain();  // set the players current terrain used to determine when pool managers should dynamically swicth the current pool they are managing based on current and next terrian type for the player 
+
+
         enemySpawnHandler = gameObject.AddComponent<EnemySpawner>(); 
         interactableSpawnManager = gameObject.AddComponent<InteractableSpawnManager>();
         collectiblesManager = FindFirstObjectByType<CollectiblesManager>();
-        interactableSpawnManager.CurrentPool = GetComponent<InteractablePool>();
+        interactableSpawnManager.CurrentPool = GetComponent<InteractablePool>(); // set the current interatcable object pool
+        // intialise all pool manager components with their associated terrain objects 
         interactableSpawnManager.interactbleSpawnManagerStart();
         enemySpawnHandler.EnemySpanwnManagerStart();
         collectiblesManager.CollectibleManagerStart();
-        Debug.Log((terrainColliderHolder == null) + "terrain collider null");
     } 
     private void updateActiveObjects()
     {
 
-        
+        // update all active event objects and manage when they need to be deactivated
         for (int i = 0; i < activeTerrain.Count; i++)
         {
 
             Vector3 normalizeViewportPosition = cam.WorldToViewportPoint(activeTerrain[i].transform.position + activeTerrain[i].GetComponent<TerrainType>().getHalfScale); 
             
-            if (!(normalizeViewportPosition.x > 0.0f) && !playerController.IsViewingNextTerrain && !playerCamShift.IsShiftingBack)
+            if (!(normalizeViewportPosition.x > 0.0f) && !playerController.IsViewingNextTerrain && !playerCamShift.IsShiftingBack) // if the terrain object is fully off screen and the player is not intentially viewing the next terrain using the camera controls(accelerometer,multi touch zoom, dragging with touch)
             {
 
-                activeTerrain[i].SetActive(false);
-                activeTerrain[i].GetComponent<TerrainType>().ResetTerrain();
-                activeTerrain.RemoveAt(i);
+                activeTerrain[i].SetActive(false); // the object no longer needs to be updated to deactivate it to stop any calls to its components(reducing the load of having multiple objects active but off screen)
+                activeTerrain[i].GetComponent<TerrainType>().ResetTerrain(); // reset all values 
+                activeTerrain.RemoveAt(i); // remove from the active pool objects list
               
 
             }
 
         }
-        setPlayerCurrentTerrain();
+        setPlayerCurrentTerrain(); // set current terrain of player after update 
 
 
 
@@ -81,9 +87,9 @@ public class TerrainManager : MonoBehaviour
 
 
 
-    private void getNewTerrainChunck(bool shouldGenerate)
+    private void getNewTerrainChunck(bool shouldGenerate) //  main generation algorithm using the pool manager associated with the current terrain type 
     {
-        if (shouldGenerate)
+        if (shouldGenerate) 
         {
             Debug.Log("generating new chunk " + currentTerrainCycles);
          Vector3 positionToOffsetFrom = activeTerrain[activeTerrain.Count - 1].transform.position;
@@ -134,67 +140,61 @@ public class TerrainManager : MonoBehaviour
     private void TerrainGenerationPass(TerrainClassifications currentType, PoolTerrainManager currentPool, int spawnCount) {
 
 
-        if (spawnCount == terrainMinSpawnLimit)
+        if (spawnCount == terrainMinSpawnLimit) // if we have not hit our step limit 
         {
-        /*    Debug.Log("terrain finished generating due to count");*/
             return;
         }
-        nextTerrain = currentType;
-      /*  Debug.Log(
-            "current terrain type in gen step " + currentType +
-            "current pool " + currentPool.PoolTerrain +
-            " current spawn count " + spawnCount);*/
+        nextTerrain = currentType;// set the next terrain to the current chosen terrain type 
+    
         if (currentPool.hasHitSuccessionCount())
         {
-/*            Debug.Log("succession count  was hit on step " + spawnCount + "current terrain type " + currentType);
-*/
-            valdiateNextTerrainOption(currentPool.getAdjacencyOptions());
-            if (nextTerrain != currentType)
+
+            // if the current terrain pool has been requested a certain amount 
+            // meaning that there is a certain amount of the same terrain type object in one row  
+            // this is define by the terrain type object the current pool is pooling 
+            valdiateNextTerrainOption(currentPool.getAdjacencyOptions()); // validate the potential options that may be different to the current terrain type  based on the terrain objects defined adjacency rules 
+            if (nextTerrain != currentType) // if we didnt hit the same terrain type
             {
-               /* Debug.Log("terrain succession count reset " + currentType + " next terrain to gen " + nextTerrain);*/
-                currentPool.resetSuccessionCount();
+                currentPool.resetSuccessionCount(); // reset the current succession count of the chosen  poolTerrainManager(from the terrain pools dictionary)
             }
-            /*else
-            {
-                *//*Debug.Log("terrain succession count hit but not reset " + currentType);*//*
-            }*/
-           /* Debug.Log("new succession count next terrrain  " + nextTerrain);*/
-            currentPool = terrainPools[nextTerrain];
+          
+            currentPool = terrainPools[nextTerrain];// dynamically swap the current terrain pool during the algorithm to use the current terrain chosen 
 
         }
 
         if (currentPool.allTerrainActive())
         {
-            /*Debug.Log("all terrain was hit on setp " + spawnCount + "current terrain type " + currentType);*/
-            valdiateNextTerrainOption(currentPool.getAdjacencyOptions(), currentType);
-            if (nextTerrain == currentType)
+            // if the current pool we are using in the algorithm has all its objects activateds 
+            valdiateNextTerrainOption(currentPool.getAdjacencyOptions(), currentType); // validate terrain adajcency options and choose the next terrain
+            if (nextTerrain == currentType) // if we hit the same terrain we break and wait for more objects to become inactive 
             {
-             /*   Debug.Log("generation step interrutped no objects in pool  :" + currentType + ":  ");*/
+             
                 return;
             }
 
-            currentPool = terrainPools[nextTerrain];
-          /*  Debug.Log("new  terrrain due to all terrain being active   " + nextTerrain);*/
+            currentPool = terrainPools[nextTerrain]; // adjust current terrain pool being used 
+          
 
 
         }
 
+
+        // set up the current terrain object based on the previous terrain chosen in the previous step 
         GameObject previous = activeTerrain[activeTerrain.Count - 1]; 
         TerrainType previousTerrain =  previous.GetComponent<TerrainType>();
         previousTerrain.NextTerrainOn = nextTerrain;
-/*        Debug.Log(" ENEMY SPAWNING set previous terrain  " + previousTerrain.NextTerrainOn + "previous terrain was "+currentType);
-*/
-        requestTerrainFromPool(currentPool.PoolTerrain); 
-        GameObject current = activeTerrain[activeTerrain.Count - 1];
+
+        requestTerrainFromPool(currentPool.PoolTerrain);  // request the final terrain object from the chosen pool above 
+        // set up current chosen terrain object 
+        GameObject current = activeTerrain[activeTerrain.Count - 1]; 
         TerrainType currentTerrain = current.GetComponent<TerrainType>();  
-        previousTerrain.NextAdjacentTerrainTile = current;
+        previousTerrain.NextAdjacentTerrainTile = current; // 
         previousTerrain.NextTerrainType = currentTerrain;
-/*        Debug.Log(" ENEMY SPAWNING set previous terrain next terrain type  " + previousTerrain.NextTerrainType.GetClassification + "game object is null  = " + (previousTerrain.NextAdjacentTerrainTile == null));
-*/
-/*        Debug.Log(activeTerrain.Count + " new active terrain count ");
-*/        spawnCount = spawnCount + 1;
+
+        spawnCount = spawnCount + 1; /// incrment the terrain object spawn count for the next step of the algorithm
+
         Vector3 newPosition = getNewPositionOnX(previous, current);
-    /*    Debug.Log("next position for terrain " + newPosition);*/
+
         current.transform.position = newPosition;
         currentTerrain.TerrainEnable();
         currentTerrain.setGenericValues();
@@ -231,7 +231,7 @@ public class TerrainManager : MonoBehaviour
         }
 
         nextTerrain = terrainOptions[Random.Range(0, terrainOptions.Count)];
-        /*Debug.Log("next terrain on " + nextTerrain);*/
+
 
 
     }
@@ -246,8 +246,8 @@ public class TerrainManager : MonoBehaviour
             Debug.Log("player was not on terrain " + playerController.CurrentTerrain.GetClassification + " but was still visisble ");
          playerController.CurrentTerrain = playerController.CurrentTerrain.NextTerrainType;
            
-/*            Debug.Log(" new player terrain " + playerController.CurrentTerrain);
-*/        }
+
+     }
        
 
 
@@ -269,7 +269,6 @@ public class TerrainManager : MonoBehaviour
 
             if (terrainPools[terrainClassifications].validateTerrainType() && terrainClassifications != exluding)
             {
-                /*Debug.Log("terrain found when excluding " + terrainClassifications);*/
                 terrainOptions.Add(terrainClassifications);
             }
 
@@ -278,12 +277,10 @@ public class TerrainManager : MonoBehaviour
 
         if (terrainOptions.Count == 0)
         {
-         /*   Debug.Log("next terrain exlusion failed terrain: " + exluding);*/
             nextTerrain = exluding;
             return;
         }
         nextTerrain = terrainOptions[Random.Range(0, terrainOptions.Count)];
-      /*  Debug.Log("next terrain " + nextTerrain);*/
 
 
     }
@@ -291,22 +288,22 @@ public class TerrainManager : MonoBehaviour
 
 
 
-    private void requestTerrainFromPool(TerrainClassifications type)
+    private void requestTerrainFromPool(TerrainClassifications type) 
     {
-        GameObject terrain = terrainPools[type].Pool[terrainPools[type].getAvailableObjectIndex()];
-        if (activeTerrain.Count > 0)
+        GameObject terrain = terrainPools[type].Pool[terrainPools[type].getAvailableObjectIndex()]; // get the current available index of the terrain pool and request the object
+        if (activeTerrain.Count > 0) // if we have active terrain objects already 
         {
+            // check for adjacenecy 
             TerrainClassifications previousTerrain = activeTerrain[activeTerrain.Count - 1].GetComponent<TerrainType>().GetClassification;
             bool wasEqualToPrevious = previousTerrain == type;
             terrain.GetComponent<TerrainType>().IsConnected = wasEqualToPrevious;
             if (wasEqualToPrevious || terrainPools[type].MaxPoolNum == 1)
             {
                 terrainPools[type].RequestsInSuccession++;
-           /*     Debug.Log("terrain requested in succession " + terrain.GetComponent<TerrainType>().GetClassification + " number " + terrainPools[type].RequestsInSuccession);*/
             }
 
         }
-        activeTerrain.Add(terrain);
+        activeTerrain.Add(terrain); // add to current active terrain list
 
 
 
@@ -347,6 +344,8 @@ public class TerrainManager : MonoBehaviour
     private void initialzeStartingTerrain()
     {
 
+
+        // init all terrain type objects and pool managers on start 
         foreach (GameObject terrain in terrainTypeObjects)
         {
 
@@ -369,7 +368,7 @@ public class TerrainManager : MonoBehaviour
             interactableObjectPools[classification].setValues(interactables,poolNum);
         }
       
-
+        // set up inital terrain 
 
         activeTerrain = new List<GameObject>();
         requestTerrainFromPool(TerrainClassifications.SALOON);
@@ -402,7 +401,6 @@ public class TerrainManager : MonoBehaviour
         { 
            
             currentTerrainCycles++;
-          Debug.Log("bool to generate terrain hit current number of cycles  " + currentTerrainCycles);
            playerController.getTerrainCycles = currentTerrainCycles;
             return true;
         }

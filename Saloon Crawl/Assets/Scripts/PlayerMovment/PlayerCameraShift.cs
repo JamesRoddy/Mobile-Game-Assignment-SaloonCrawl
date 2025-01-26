@@ -49,7 +49,6 @@ public class PlayerCameraShift : MonoBehaviour
         {
            
              isShiftingBack = true;
-            Debug.Log("is shifting back " + isShiftingBack);
         } 
 
         if(isShiftingBack && playerCamMover.shiftToPlayerPosition())
@@ -57,7 +56,6 @@ public class PlayerCameraShift : MonoBehaviour
             
             playerController.IsViewingNextTerrain = false;
             playerCamMover.FollowPlayer = true;
-            Debug.Log((playerController.IsViewingNextTerrain) + "player cam shifted back ");
             isShiftingBack = false;
             hasCentredOnTerrain = false;
             playerCamMover.resetOrtho();

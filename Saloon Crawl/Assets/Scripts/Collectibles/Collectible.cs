@@ -61,7 +61,6 @@ public  abstract class  Collectible : MonoBehaviour
 
             collectibleCollider = GetComponent<Collider2D>();
              
-            Debug.Log("COLLECTIBLE COLLIDER SET  collider set " + collectibleCollider.GetType());
         }
         GetComponent<SpriteRenderer>().enabled = true;
       
@@ -113,7 +112,6 @@ public  abstract class  Collectible : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-           Debug.Log(" colllectible sound play");
             sound.Play();
             scorePopUp.inistantiateScorePop(transform.position,Quaternion.identity);
             playerController.CurrentScore += scoreIncrement;
@@ -142,7 +140,6 @@ public  abstract class  Collectible : MonoBehaviour
            
             float overlap = 1.0f - (Mathf.Abs(transform.position.y - bottomOfColliderY)/(topOfColliderY - bottomOfColliderY));
             transform.position = new Vector3(transform.position.x , (transform.position.y + collision.collider.bounds.size.y * overlap) + collectibleCollider.bounds.size.y , transform.position.z);
-            Debug.Log(" COLLECTIBLE  new position due to overlap ");
         }
     }
 

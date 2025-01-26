@@ -6,7 +6,7 @@ public class EnemySpawner : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    // main classs repsonsile for spawning enemies of the current pool of the current terrain type this allows there to be one central class that spawns enemies from each enemy pool object that stores particualr enemies 
+    // main class responsible for spawning enemies of the current pool of the current terrain type this allows there to be one central class that spawns enemies from each enemy pool object that stores particualr enemies 
     TerrainManager terrainManager;
     private GameObject currentEnemy;
     playerController player;

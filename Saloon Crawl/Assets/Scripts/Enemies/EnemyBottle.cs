@@ -10,9 +10,8 @@ public class EnemyBottle : EventObject
     float angle = 0.0f;
     float rotSpeed = 3.0f;
     int shotCount = 0;
-    int shotCountCurrentLim = 0;
-    int shotCountMin = 2; 
-    int shotCountMax = 4;
+   
+    int shotCountMax = 3;
     int scoreIncrement = 40;
     bool shouldKill = true;
     Vector3 bottleVelocity;
@@ -39,7 +38,6 @@ public class EnemyBottle : EventObject
     {
         gameObject.SetActive(true);
         bottle.velocity = bottleVelocity;
-        shotCountCurrentLim =  UnityEngine.Random.Range(shotCountMin, shotCountMax + 1);
 
     }
     public override void EventObjUpdate()
@@ -55,9 +53,9 @@ public class EnemyBottle : EventObject
     public void deactivate()
     {
 
-        if(shotCount >= shotCountCurrentLim || !isOnScreenRight())
+        if(shotCount >= shotCountMax || !isOnScreenRight())
         {
-            if(shotCount >= shotCountCurrentLim)
+            if(shotCount >= shotCountMax)
             {
                 scorePopUp.inistantiateScorePop(transform.position,Quaternion.identity);
                 playerController.conactToScore(Convert.ToString(scoreIncrement));
@@ -90,17 +88,7 @@ public class EnemyBottle : EventObject
            
         }
 
-        if (collision.gameObject.CompareTag("Enemy"))
-        {
-            Debug.Log("EVENT beer bottle collided with enemy");
-            if(collision.gameObject.GetComponent<EnemyDescriptorInfo>().GetType() == typeof(Bandit))
-            {
-                Debug.Log("EVENT BEER BOTTLE collided with bandit getting bandit death checker  ");
-                collision.gameObject.GetComponent<DeathChecker>().isAlive=false;
-            }
 
-
-        }
 
 
         if (isOnScreen())

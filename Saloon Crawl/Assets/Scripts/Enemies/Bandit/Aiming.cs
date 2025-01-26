@@ -50,7 +50,6 @@ public class Aiming : MonoBehaviour
         parentLineRenderer.endColor = Color.red;
         parentLineRenderer.startWidth = 0.02f;
         parentLineRenderer.endWidth = 0.02f;
-        Debug.Log("enemy start");
         deathChecker = player.GetComponent<DeathChecker>();
         bulletTrail.enabled = false;
         indicator = transform.parent.Find("Indicator").GetComponent<Animator>();
@@ -58,8 +57,6 @@ public class Aiming : MonoBehaviour
         fireDelay = 0;
         aimingTime = 0;
 
-        Debug.Log("arm not null " + (transform.Find("Arm") != null));
-        /*        boxCollider = GetComponent<BoxCollider2D>();*/
     }
 
     public void AimingUpdate()
@@ -80,7 +77,6 @@ public class Aiming : MonoBehaviour
         }
         else if (isInNotCameraView())
         {
-            Debug.Log("set active false " + isInNotCameraView());
             banditTransform.gameObject.SetActive(false);
         }
 
@@ -115,7 +111,6 @@ public class Aiming : MonoBehaviour
 
         if (parentSprite.flipX != true && currentDifference > 0.0f)
         {
-            /* Debug.Log("should flip " + (currentDifference > 0.0f));*/
             parentSprite.flipX = true;
             transform.localScale = new Vector3(transform.localScale.x, -transform.localScale.y, transform.localScale.z);
 
@@ -152,7 +147,6 @@ public class Aiming : MonoBehaviour
                 bulletTrail.transform.position = gunTransform.position;
                 indicator.SetBool("Warning", true);
                 cockGun.PlayDelayed(0.5f);
-                Debug.Log("position locked " + bulletTrail.transform.position + "gun position " + gunTransform.position);
                 shootDirection = shootPosition - gunTransform.position;
                 shootDirection.Normalize();
             }
@@ -161,12 +155,10 @@ public class Aiming : MonoBehaviour
 
             if (fireDelay > 2) // after 2 seconds shoot
             {
-                Debug.Log("FIRE");
                 aimingTime = 0;
                 fireDelay = 0;
                 parentLineRenderer.enabled = false;
                 bulletTrail.enabled = true;
-                Debug.Log("gun pos " + gunTransform.position + "trail pos" + bulletTrail.transform.position);
                 Fire();
                 shootPosition = Vector3.zero;
                 canFlip = true;
@@ -206,7 +198,6 @@ public class Aiming : MonoBehaviour
 
         if (hit)
         {
-            Debug.Log("has hit player or ground  " + hit.point);
             StartCoroutine(drawTrailToHit(hit));
             return;
         }
@@ -233,7 +224,6 @@ public class Aiming : MonoBehaviour
         while (time < 1.0f)
         {
 
-            Debug.Log("SPANWING TRAIL DUE TO HIT  ");
             bulletTrail.transform.position = Vector3.Lerp(trailStart, hitPos, time);
 
             time += Time.deltaTime / bulletTrail.time;
@@ -246,7 +236,6 @@ public class Aiming : MonoBehaviour
             bulletTrail.transform.position = gunTransform.position;
             bulletTrail.enabled = false;
         }
-        Debug.Log("SPANWING TRAIL DUE TO HIT FINISHED  ");
 
         bulletTrail.transform.position = gunTransform.position;
         bulletTrail.enabled = false;
@@ -262,7 +251,6 @@ public class Aiming : MonoBehaviour
     private IEnumerator drawTrailToOfScreen()
     {
         float direction = shootPosition.x < banditTransform.position.x ? -1.0f : 1.0f;
-        Debug.Log("player pixel width " + playerCam.pixelWidth + "shoot position smaller " + (shootPosition.x < banditTransform.position.x));
 
 
         Vector3 directionVec = new Vector3(shootPosition.x - gunTransform.position.x, shootPosition.y - gunTransform.position.y, 0.0f);
@@ -276,21 +264,18 @@ public class Aiming : MonoBehaviour
 
 
 
-        Debug.Log("trail target for off screen " + finalPos + "direction " + direction);
         float time = 0.0f;
         bulletTrail.transform.position = gunTransform.position;
         bulletTrail.enabled = true;
         Vector3 trailStart = gunTransform.position;
         while (time < 1.0f)
         {
-            Debug.Log("SPANWING TRAIL OFFSCREEN DUE TO MISS  ");
 
             bulletTrail.transform.position = Vector3.Lerp(trailStart, finalPos, time);
 
             time += Time.deltaTime / bulletTrail.time;
             yield return null;
         }
-        Debug.Log("SPANWING TRAIL OFFSCREEN DUE TO MISS FINISHED  ");
         bulletTrail.transform.position = gunTransform.position;
         bulletTrail.enabled = false;
 
@@ -316,19 +301,14 @@ public class Aiming : MonoBehaviour
     {
         fireDelay = 0;
         aimingTime = 0;
-        Debug.Log("aiming reset firing delay "+ fireDelay);
-        Debug.Log("parent line renderer was null " + (parentLineRenderer == null));
-        Debug.Log("aiming enable ");
         shootDirection = Vector3.zero;
         shootPosition = Vector3.zero;
         indicator.SetBool("Warning ", false);
         parentSprite.flipX = false;
         canFlip = true;
-        Debug.Log("bulley trail is null " + bulletTrail == null);
         bulletTrail.transform.position = gunTransform.position;
         transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
 
-        Debug.Log("aiming reset shoot direction vec3 zero " + shootDirection + " bullet trail was reset " + (bulletTrail.transform.position == gunTransform.position));
         bulletTrail.enabled = false;
         setLinePosition(gunTransform.position, gunTransform.position);
 

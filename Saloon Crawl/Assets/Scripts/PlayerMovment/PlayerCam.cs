@@ -144,7 +144,6 @@ public class CamMovement : MonoBehaviour
 
             if (cam.orthographicSize > deathZoomMin)
             {
-                Debug.Log("cam size is  " + cam.orthographicSize);
                 cam.orthographicSize -= deathZoom;
             }
         }

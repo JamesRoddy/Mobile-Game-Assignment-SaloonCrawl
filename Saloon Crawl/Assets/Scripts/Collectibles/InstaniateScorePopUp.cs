@@ -9,7 +9,6 @@ public class InstaniateScorePopUp : MonoBehaviour
 
     public void inistantiateScorePop(Vector3 position, Quaternion rot)
     {
-        Debug.Log("SCORE POP UP instantiating score pop up ");
         Instantiate(prefab, position, rot);
 
 

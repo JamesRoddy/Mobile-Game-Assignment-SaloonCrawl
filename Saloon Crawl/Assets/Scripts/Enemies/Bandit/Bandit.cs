@@ -43,7 +43,6 @@ public class Bandit : EnemyDescriptorInfo
         gunPos = transform.Find("ArmPivot").Find("Arm").GetChild(0);
         spriteRenderer = GetComponent<SpriteRenderer>();*/
     
-        Debug.Log("line renderer null " + (lineRenderer == null) + "spriter renderer null " + (spriteRenderer == null) + "trail is null " + (trailRenderer == null));
         spriteRenderer.flipX = false;
         lineRenderer.enabled = true;
         
