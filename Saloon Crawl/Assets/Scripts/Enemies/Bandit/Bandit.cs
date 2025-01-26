@@ -19,19 +19,28 @@ public class Bandit : EnemyDescriptorInfo
         banditAim = transform.GetChild(0).GetComponent<Aiming>();
         checker = GetComponent<DeathChecker>();
         Debug.Log("bandit aim is null "+(banditAim == null));
-        banditAim.AimingStart();
         lineRenderer = GetComponent<LineRenderer>();
         trailRenderer = transform.Find("TrailPos").gameObject;
-        gunPos = transform.Find("Arm").GetChild(0); 
+        gunPos = transform.Find("ArmPivot").Find("Arm").GetChild(0);
         spriteRenderer = GetComponent<SpriteRenderer>();
+        banditAim.AimingStart();
+      
+        
     }
 
     public override void EnemyEnable()
     {
-        
-        Debug.Log("second call to getting bandit compoenent " + (banditAim == null));
+
+
+        lineRenderer = GetComponent<LineRenderer>();
+        trailRenderer = transform.Find("TrailPos").gameObject;
+        gunPos = transform.Find("ArmPivot").Find("Arm").GetChild(0);
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    
+        Debug.Log("line renderer null " + (lineRenderer == null) + "spriter renderer null " + (spriteRenderer == null) + "trail is null " + (trailRenderer == null));
         spriteRenderer.flipX = false;
         lineRenderer.enabled = true;
+        
         lineRenderer.SetPosition(0, gunPos.position);
         lineRenderer.SetPosition(1, gunPos.position); 
         trailRenderer.transform.position = gunPos.position;
