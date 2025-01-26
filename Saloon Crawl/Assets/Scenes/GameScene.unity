@@ -913,7 +913,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 389000004}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a067dfe4a9aa09a4ab1092b226c0c029, type: 3}
   m_Name: 
@@ -3157,7 +3157,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1647085487
 Transform:
   m_ObjectHideFlags: 0
@@ -3180,12 +3180,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1647085486}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a228c8a6f1f22446830c901d220843e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eventObjects: []
+  eventObjects:
+  - {fileID: 5516997148055927724, guid: 8c9da06cec156884395bf17986ec7cd1, type: 3}
   shouldFireTimer: 10
   timerRandomOffsetMin: 5
   timerRandomOffsetMax: -5

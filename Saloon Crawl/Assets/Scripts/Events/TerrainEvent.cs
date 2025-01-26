@@ -43,10 +43,11 @@ public abstract class TerrainEvent : MonoBehaviour
 
         if (!isFiring  && shouldFire() &&!attachedQueue.Contains(terrainEvent))
         {
-            
+            Debug.Log(" EVENT pushing to queue is firing was" + isFiring);
             attachedQueue.Add(terrainEvent); 
 
             assignNewTriggerTime();
+            Debug.Log(" EVENT new trigger time assigned " + currentShouldFireTimer);
             eventTimer = 0.0f;
         }
 
@@ -61,7 +62,9 @@ public abstract class TerrainEvent : MonoBehaviour
 
         if (alloactedWaitTime > 0.0f)
         {
+            
             alloactedWaitTime -= Time.deltaTime;
+            Debug.Log(" EVENT waiting for allaocted wait time " + alloactedWaitTime);
             return false;
         }
 

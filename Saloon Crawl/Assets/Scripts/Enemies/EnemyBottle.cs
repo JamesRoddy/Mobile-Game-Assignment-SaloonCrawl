@@ -6,14 +6,14 @@ using UnityEngine;
 public class EnemyBottle : EventObject
 {
     Rigidbody2D bottle;
-    float fBottleSpeed = 5.0f;
+    float fBottleSpeed = 3.0f;
     float angle = 0.0f;
-    float rotSpeed = 7.0f;
+    float rotSpeed = 3.0f;
     int shotCount = 0;
     int shotCountCurrentLim = 0;
     int shotCountMin = 2; 
-    int shotCountMax = 4; 
-
+    int shotCountMax = 4;
+    int scoreIncrement = 40;
     Vector3 bottleVelocity;
     Vector3 rotationAxis = Vector3.forward;
  
@@ -24,15 +24,16 @@ public class EnemyBottle : EventObject
     {
         bottle = GetComponent<Rigidbody2D>();
         bottleVelocity = -this.transform.right * fBottleSpeed;
-        playerCam = FindFirstObjectByType<Camera>(); 
+        playerCam = FindFirstObjectByType<Camera>();
+        Debug.Log("EVENT beer bottle start");
         
     }
 
     public override void EventObjEnable()
     {
         gameObject.SetActive(true);
-        shotCount =  UnityEngine.Random.Range(shotCountMin, shotCountMax + 1);
-
+        shotCountCurrentLim =  UnityEngine.Random.Range(shotCountMin, shotCountMax + 1);
+        Debug.Log("EVENT beer bottle enable");
 
     }
     // Update is called once per frame
@@ -51,6 +52,14 @@ public class EnemyBottle : EventObject
 
         if(shotCount >= shotCountCurrentLim || !isOnScreenRight())
         {
+            if(shotCount >= shotCountCurrentLim)
+            {
+                playerController.conactToScore(Convert.ToString(scoreIncrement));
+            }
+            transform.rotation = Quaternion.identity; 
+            angle = 0.0f;
+            shotCount = 0;
+            Debug.Log("EVENT beer bottle deactivate");
             gameObject.SetActive(false);
         }
         
@@ -64,9 +73,22 @@ public class EnemyBottle : EventObject
         if(collision.gameObject.CompareTag( "Player"))
         {
             collision.gameObject.GetComponent<DeathChecker>().isAlive = false;
+            Debug.Log("EVENT beer bottle collided with player");
+
             this.gameObject.SetActive(false);
         }
 
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("EVENT beer bottle collided with enemy");
+            if(collision.gameObject.GetComponent<EnemyDescriptorInfo>().GetType() == typeof(Bandit))
+            {
+                Debug.Log("EVENT BEER BOTTLE collided with bandit getting bandit death checker  ");
+                collision.gameObject.GetComponent<DeathChecker>().isAlive=false;
+            }
+
+
+        }
 
 
         if (isOnScreen())
@@ -78,12 +100,13 @@ public class EnemyBottle : EventObject
 
             }
              
-            if (collision.gameObject.CompareTag("Kickable"))
+          /*  if (collision.gameObject.CompareTag("Kickable"))
             {
                 collision.gameObject.GetComponent<Kick>().Kicked = true;
+                Debug.Log("EVENT beer bottle collided with kickable");
 
 
-            }
+            }*/
 
 
         }
