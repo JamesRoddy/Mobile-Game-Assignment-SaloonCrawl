@@ -13,6 +13,7 @@ public class KillBandit : MonoBehaviour
        // Start is called before the first frame update
    private void Start()
     {
+        controller = FindObjectOfType<playerController>();
         banditDeath = GetComponent<DeathChecker>();
         scorePopUp = GetComponent<InstaniateScorePopUp>(); 
         enemyDescriptorInfo = GetComponent<EnemyDescriptorInfo>();

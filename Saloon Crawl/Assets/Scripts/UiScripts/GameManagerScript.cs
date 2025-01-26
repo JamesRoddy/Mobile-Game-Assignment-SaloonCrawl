@@ -11,7 +11,7 @@ public class GameManagerScript : MonoBehaviour
     public TMP_Text highestScoreText;
     public int finalScore;
     public int highestScore;
-    public AudioMixer audioMixer;
+    [SerializeField] private AudioMixer audioMixer;
     [SerializeField] private Slider MusicSlider;
     [SerializeField] private Slider SFXSlider;
 
