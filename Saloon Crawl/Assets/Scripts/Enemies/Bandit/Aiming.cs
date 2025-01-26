@@ -322,9 +322,12 @@ public class Aiming : MonoBehaviour
         shootDirection = Vector3.zero;
         shootPosition = Vector3.zero;
         indicator.SetBool("Warning ", false);
+        parentSprite.flipX = false;
         canFlip = true;
         Debug.Log("bulley trail is null " + bulletTrail == null);
         bulletTrail.transform.position = gunTransform.position;
+        transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
+
         Debug.Log("aiming reset shoot direction vec3 zero " + shootDirection + " bullet trail was reset " + (bulletTrail.transform.position == gunTransform.position));
         bulletTrail.enabled = false;
         setLinePosition(gunTransform.position, gunTransform.position);

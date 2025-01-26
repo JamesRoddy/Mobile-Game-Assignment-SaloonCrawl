@@ -15,9 +15,7 @@ public class SallonTerrainType : TerrainType
     private Vector3 enemySpawnRight;
     private float baseSaloonDist = 65.0f;
     private float enemySpawnDivider = 4.0f;
-    private float interactableSpawnRadiusOverlap;
     private List<Vector3> EnemySpawnPositions =  new List<Vector3>();
-    private GameObject previousEnemy;
     public override bool Validate()
     {
     /*    Debug.Log("saloon trigger condition hit " + (Vector3.Distance(previousTransFormPosition, player.transform.position) > baseSaloonDist));*/
@@ -73,7 +71,6 @@ public class SallonTerrainType : TerrainType
           
             currentDescriptor.resetDeath();
             currentDescriptor.EnemyEnable();
-            previousEnemy = enemy;
             return;
 
 
@@ -101,7 +98,6 @@ public class SallonTerrainType : TerrainType
         previousTransFormPosition = transform.position;
         enemySpawnRight = new Vector3(transform.position.x + transform.localScale.x / enemySpawnDivider, transform.position.y, transform.position.z);
         enemySpawnLeft = new Vector3(transform.position.x - transform.localScale.x / enemySpawnDivider, enemySpawnRight.y, enemySpawnRight.z);
-        previousEnemy = null;
         hasMetEnemyRequirements = false;
         assignSpawnVlaue();
    
