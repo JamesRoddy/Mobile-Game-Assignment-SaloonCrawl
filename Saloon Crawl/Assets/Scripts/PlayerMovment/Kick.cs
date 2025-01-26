@@ -48,7 +48,6 @@ public class Kick : Interactable
             kickable.velocity = kickableVelocity;
             control.bSwipeRight = false;
             bKicked = true;
-            //deathChecker = player.GetComponent<DeathChecker>();
         }
 
         else if (isNotInCameraView())
