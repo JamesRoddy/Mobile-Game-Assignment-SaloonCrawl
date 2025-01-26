@@ -64,6 +64,8 @@ public class playerController : MonoBehaviour
     public AudioSource jumpSound;
     public AudioSource slideSound;
     public AudioSource kickSound;
+    public AudioSource gameOver;
+    public AudioSource mainMusic;
     private float crossHairDistance = 8.0f;
     public Vector2 Dir;
     public Vector2 touchStore;
@@ -440,10 +442,21 @@ public class playerController : MonoBehaviour
         return hit.collider != null;
     }
 
+    void StopAllSounds()
+    {
+        mainMusic.Stop();
+        runSound.Stop();
+        jumpSound.Stop();
+        kickSound.Stop();
+        slideSound.Stop();
+        bulletShot.Stop();
+    }
+
     private void IsDead()
     {
         if ( deathChecker.IsAlive == false)
         {
+            
             gameManagerScript.finalScore = score;
 
             CowboyAnim.SetBool("IsAlive", false);
@@ -454,6 +467,7 @@ public class playerController : MonoBehaviour
                if(CowboyAnim.GetBool("Kick") == false && CowboyAnim.GetBool("IsSliding") == false)
                 {
                     Time.timeScale = 0;
+                    StopAllSounds();
                 }
             }
             return;
