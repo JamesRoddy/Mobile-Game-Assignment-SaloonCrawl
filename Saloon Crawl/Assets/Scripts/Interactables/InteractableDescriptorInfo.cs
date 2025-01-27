@@ -27,11 +27,10 @@ public abstract class Interactable : MonoBehaviour
 
     void Update()
     {
-        if (!controller.IsViewingNextTerrain)
-        {
+        
             interactableUpdate();
 
-        }
+       
      
 
     }

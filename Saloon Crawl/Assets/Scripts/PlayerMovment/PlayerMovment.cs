@@ -118,7 +118,7 @@ public class playerController : MonoBehaviour
     }
     private void shouldViewNextTerrain()
     {
-        if(currentTerrain.NextTerrainType != null && (touchControls.accelerationHasHitPositve() || touchControls.SwipeLeft) && !IsViewingNextTerrain &&! PlayerCameraShift.IsShiftingBack)
+        if(currentTerrain.NextTerrainType != null && (touchControls.accelerationHasHitPositve()) && !IsViewingNextTerrain &&! PlayerCameraShift.IsShiftingBack)
         {
             IsViewingNextTerrain = true;
             followCam.FollowPlayer = false; 

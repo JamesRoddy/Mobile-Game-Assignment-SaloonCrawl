@@ -76,7 +76,7 @@ public class PlayerCameraShift : MonoBehaviour
 
             Vector2 deltaPos = touchControls.getDragPos(); // allows the player to inspect the next terrain by moving the camera with a single finger 
 
-          
+            
             // keep camera within the bounds of the terrain using the background sprites as a guide 
             Vector3 direction = Vector2.zero;
             direction.x = transform.position.x < playerController.CurrentTerrain.NextTerrainType.transform.position.x ? -1.0f : 1.0f;

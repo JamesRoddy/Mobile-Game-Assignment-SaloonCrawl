@@ -17,10 +17,22 @@ public class TouchControls : MonoBehaviour
     bool bSwiping = false;
     public Vector2 touchPos;
     public bool bSwipeRight = false;
-    private bool bSwipeLeft = false;
+    private int bSwipeLeft  = 0;
+    private int bSwipeUp =   0;
+    private bool bSwipeDown = false;
+    
+    private int swipeingDown = 0;
+    private int swipingDown = 0;
+    private int swipingRight = 0;
+    private int accelRight  =0;
+    private int accelLeft =  0;
+    private int tap = 0;
     private float dragDistance = 0.0f;
     float t;
   
+   
+
+
     private float swipeHorizontalPercent = 0.2f;
     private float swipeRightPercent = 0.05f; // used to make it so that the amount the player has to swiipe relates to their screen size 
     private float swipeVerticalPercent = 0.1f;
@@ -29,6 +41,13 @@ public class TouchControls : MonoBehaviour
 
     private float accelthresh = 0.5f; // define thresh hold that the accelerometer must reach for input 
     private float zoomSpeed = 0.1f; // define the zoom speed for multi touch zoom
+    private int zooming = 0;
+    private int dragging = 0;
+
+   
+   public  Dictionary<string, int> inputDictionary = new Dictionary<string, int>();
+
+       
     void Start()
     {
         player = FindObjectOfType<playerController>();
@@ -38,6 +57,23 @@ public class TouchControls : MonoBehaviour
         swipeHorizontalPercent *= Screen.width;
         swipeVerticalPercent *= Screen.height;
         swipeRightPercent *= Screen.width;
+
+
+        inputDictionary = new Dictionary<string,  int>
+        {
+            {"swipeRight", 0 },
+            {"swipeDown",0 },
+            {"swipeUp",0 },
+            {"accelRight",0 },
+            {"tap",0 },
+            {"accelLeft",0 },
+            {"dragged", 0 },
+            {"zoomed",0 },
+           
+
+        };
+
+
     }
 
     
@@ -86,7 +122,7 @@ public class TouchControls : MonoBehaviour
         {
             player.CowboyAnim.SetBool("Kick", false);
             player.shouldShoot = true;
-
+            inputDictionary["tap"] = 1;
             touchPos = Camera.main.ScreenToWorldPoint(touch.position);
             player.touchStore = touchPos;
 
@@ -104,7 +140,7 @@ public class TouchControls : MonoBehaviour
         {
             Touch touch0 = Input.GetTouch(0);
             Touch touch1 = Input.GetTouch(1);
-
+            inputDictionary["zoom"] = 1;
             Vector2 deltaDifference0 = touch0.position - touch0.deltaPosition; // get the difference between the delta position(difference between last update and current) and subtarct from current
             Vector2 deltaDifference1 = touch1.position - touch1.deltaPosition;
             float prevPositionDifference = (deltaDifference0 - deltaDifference1).magnitude; // get the maginutde/distance between the position on last 
@@ -129,8 +165,7 @@ public class TouchControls : MonoBehaviour
     {
         if( Input.touchCount == 1 &&  Input.GetTouch(0).phase == TouchPhase.Moved)
         {
-
-           
+            inputDictionary["dragging"] = 1;
             return Input.GetTouch(0).deltaPosition; // return the delta position of the current touch when dragging 
 
 
@@ -152,10 +187,11 @@ public class TouchControls : MonoBehaviour
 
         if (touch.phase == TouchPhase.Ended && direction.y > swipeVerticalPercent && player.Grounded)
         {
-
+            inputDictionary["swipeUp"] = 1;
             player.ShouldJump = true;
             direction = Vector2.zero;
             bSwiping = true ;
+
         }
 
         else if(touch.phase == TouchPhase.Ended && direction.x > swipeRightPercent)
@@ -163,6 +199,8 @@ public class TouchControls : MonoBehaviour
             player.CowboyAnim.SetBool("Kick", true);
             player.kickSound.Play();
             direction = Vector2.zero;
+            inputDictionary["swipeRight"] = 1;
+            Debug.Log("swiping right" + swipingRight);
             bSwiping = true;
             bSwipeRight = true;
            
@@ -171,16 +209,21 @@ public class TouchControls : MonoBehaviour
         else if(touch.phase == TouchPhase.Ended && direction.y < -swipeVerticalPercent)
         {
             player.shouldSlide = true;
-
+            bSwipeDown = true;
             direction = Vector2.zero;
+            inputDictionary["swipeDown"] = 1;
+
             bSwiping = true;
-            
+            swipingDown = 1;
         }
       
 
         else
         {
-            bSwipeLeft =false;
+            bSwipeUp = 0;
+            bSwipeLeft =0; 
+            swipeingDown = 0;
+           
             bSwiping = false ;
             bSwipeRight = false ;
         }
@@ -193,10 +236,12 @@ public class TouchControls : MonoBehaviour
     // getters to return when the accelerometer hits a particualr thesh hold 
     public bool accelerationHasHitNegative()
     {
+        inputDictionary["accelRight"] = Convert.ToInt32(accelMoveX < -accelthresh);
         return accelMoveX < -accelthresh; // if the accelX is smaller than the negated accelThresh 
     }
     public bool accelerationHasHitPositve()
     {
+        inputDictionary["accelLeft"] = Convert.ToInt32( accelMoveX < -accelthresh);
         return accelMoveX > accelthresh;// if the accelX is smaller than the  accelThresh 
     }
     public Vector2 getTouchPos()
@@ -210,10 +255,6 @@ public class TouchControls : MonoBehaviour
 
         get { return accelMoveX; } 
     }
-    public bool SwipeLeft
-    {
-        get { return bSwipeLeft; } 
-
-    }
+   
 
 }
