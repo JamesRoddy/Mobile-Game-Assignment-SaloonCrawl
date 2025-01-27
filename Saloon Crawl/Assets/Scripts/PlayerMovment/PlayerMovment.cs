@@ -70,9 +70,13 @@ public class playerController : MonoBehaviour
     public AudioSource gameOver;
     public AudioSource mainMusic;
     private float crossHairDistance = 8.0f;
+    private float spriteTutRaise = 10.0f;
     public Vector2 Dir;
     public Vector2 touchStore;
     float t;
+    private int isViewingTerrainForFistTime;
+    GameObject spriteTutSequence;
+
 
     [SerializeField] private GameObject gameOverScreen;
 
@@ -93,7 +97,9 @@ public class playerController : MonoBehaviour
         crossHairRenderer = spriteCrossHair.GetComponent<SpriteRenderer>(); 
         crossHairRenderer.enabled = false;
         deathChecker = GetComponent<DeathChecker>();
-        playerRigidBody.velocity = new Vector2(playerSpeed, 0.0f);
+       playerRigidBody.velocity = new Vector2(playerSpeed, 0.0f);
+        spriteTutSequence = transform.Find("TutSpiteSequenceHolder").gameObject;
+        spriteTutSequence.SetActive(false);
 
     }
 
@@ -120,9 +126,18 @@ public class playerController : MonoBehaviour
     {
         if(currentTerrain.NextTerrainType != null && (touchControls.accelerationHasHitPositve()) && !IsViewingNextTerrain &&! PlayerCameraShift.IsShiftingBack)
         {
+            isViewingTerrainForFistTime = 1 - PlayerPrefs.GetInt("viewingTerrainFirstTime");
+            nextTerrainPos = new Vector3(currentTerrain.NextTerrainType.transform.position.x, transform.position.y, transform.position.z);
+            if (Convert.ToBoolean(isViewingTerrainForFistTime))
+            {
+                spriteTutSequence.transform.position = new Vector3(nextTerrainPos.x,transform.position.y + spriteTutRaise,transform.position.z);
+                spriteTutSequence.SetActive(true);
+              
+                PlayerPrefs.SetInt("viewingTerrainFirstTime", 1);
+            }
             IsViewingNextTerrain = true;
             followCam.FollowPlayer = false; 
-            nextTerrainPos = new Vector3(currentTerrain.NextTerrainType.transform.position.x, transform.position.y, transform.position.z);
+            
         }
 
         if (!IsViewingNextTerrain )
@@ -174,9 +189,8 @@ public class playerController : MonoBehaviour
     }
     private void addMomentum()
     {
+      playerRigidBody.velocity = new Vector2(playerSpeed, playerRigidBody.velocity.y);   
 
-        playerRigidBody.velocity = new Vector2(playerSpeed, playerRigidBody.velocity.y);   
-    
     }
 
     
