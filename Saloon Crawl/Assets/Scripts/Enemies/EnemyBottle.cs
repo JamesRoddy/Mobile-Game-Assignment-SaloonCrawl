@@ -79,7 +79,7 @@ public class EnemyBottle : EventObject
         {
            
 
-            if (!collision.gameObject.GetComponent<playerController>().IsSliding && shouldKill)
+            if (!collision.gameObject.GetComponent<playerController>().IsSliding )
             {
                 collision.gameObject.GetComponent<DeathChecker>().isAlive = false;
 

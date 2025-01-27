@@ -11,30 +11,65 @@ public class tutorialtrigger : MonoBehaviour
      TouchControls playerTouch;
      SpriteRenderer tutorialSpirte;
      [SerializeField]  string expectedInput;
+    [SerializeField] private GameObject symbol;
+    [SerializeField] private GameObject text;
+    SpriteRenderer symbolSprite;
+    SpriteRenderer textSprite;
+    [SerializeField] private float timeScalar;
+    [SerializeField] private float distcanceCheck;
+    private bool shouldUpdateDistance = false;
+    playerController playerController;
     void Start()
     {
         
         trigger  = GetComponent<Collider2D>();
         playerTouch = FindFirstObjectByType<TouchControls>();
         Debug.Log("tutorial trigger bool set to  " + Convert.ToBoolean(1 - PlayerPrefs.GetInt(expectedInput)));
-        tutorialSpirte = GetComponent < SpriteRenderer >();
-        tutorialSpirte.enabled = false;
+        Debug.Log(expectedInput);
+        symbolSprite = symbol.GetComponent < SpriteRenderer >(); 
+        textSprite = text.GetComponent < SpriteRenderer >();
+        textSprite.enabled = false;
+        symbolSprite.enabled = false;
+        playerController = FindFirstObjectByType<playerController>();
         trigger.enabled = Convert.ToBoolean(1 - PlayerPrefs.GetInt(expectedInput)); ;
 
 
     }
 
+
+
+    private void updateDistance()
+    {
+        if (shouldUpdateDistance)
+        {
+
+            if (Vector3.Distance(transform.position, playerController.transform.position) > distcanceCheck) {
+                
+                Time.timeScale = 1.0f;
+                gameObject.SetActive(false);
+            
+            }
+
+
+
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
+
+        updateDistance();
         Debug.Log("has input "+playerTouch.inputDictionary[expectedInput]);
-        if (Convert.ToBoolean( playerTouch.inputDictionary[expectedInput])) 
+        if (Convert.ToBoolean( playerTouch.inputDictionary[expectedInput] ) || PlayerPrefs.GetInt(expectedInput)>0) 
         {
             Debug.Log("input recived " + expectedInput);
             Time.timeScale = 1.0f;
-            PlayerPrefs.SetInt(expectedInput,playerTouch.inputDictionary[expectedInput]); 
-            
-            
+            PlayerPrefs.SetInt(expectedInput,playerTouch.inputDictionary[expectedInput]);
+            symbolSprite.enabled = false;
+            textSprite.enabled = false;
+            gameObject.SetActive(false);
+
         }
 
 
@@ -46,11 +81,12 @@ public class tutorialtrigger : MonoBehaviour
         
         if(collision.gameObject.CompareTag("Player"))
         {
-            
-            Time.timeScale = 0.2f;
+            shouldUpdateDistance = true;
+            Time.timeScale = timeScalar;
+            Debug.Log(Time.timeScale + "new time scale for " + expectedInput);
             Debug.Log("input required " + expectedInput);
-            tutorialSpirte.enabled=true;
-
+            symbolSprite.enabled=true;
+            textSprite.enabled=true;
         }
 
 

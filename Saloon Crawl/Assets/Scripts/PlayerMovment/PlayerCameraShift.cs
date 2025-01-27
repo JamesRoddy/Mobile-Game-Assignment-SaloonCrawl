@@ -11,7 +11,7 @@ public class PlayerCameraShift : MonoBehaviour
     private playerController playerController;
     private TouchControls touchControls;
     private float lerpShiftSmoothing = 0.85f;
-    private float lerpDragSmoothing = 1.5f;
+    private float lerpDragSmoothing = 0.65f;
     private float orthoSizeWhenViewing = 4.0f;
     private float OrothoSizeWhenViewingMin = 1.0f;
     private bool hasCentredOnTerrain = false;

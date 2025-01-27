@@ -69,3 +69,9 @@ TagManager:
   - name: crossHair
     uniqueID: 3166979285
     locked: 0
+  - name: tutSymbol
+    uniqueID: 1382224477
+    locked: 0
+  - name: tutText
+    uniqueID: 1441945837
+    locked: 0

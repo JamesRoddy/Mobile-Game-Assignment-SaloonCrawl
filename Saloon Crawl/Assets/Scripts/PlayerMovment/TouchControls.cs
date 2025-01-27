@@ -236,12 +236,12 @@ public class TouchControls : MonoBehaviour
     // getters to return when the accelerometer hits a particualr thesh hold 
     public bool accelerationHasHitNegative()
     {
-        inputDictionary["accelRight"] = Convert.ToInt32(accelMoveX < -accelthresh);
+        inputDictionary["accelLeft"] = Convert.ToInt32(accelMoveX < -accelthresh);
         return accelMoveX < -accelthresh; // if the accelX is smaller than the negated accelThresh 
     }
     public bool accelerationHasHitPositve()
     {
-        inputDictionary["accelLeft"] = Convert.ToInt32( accelMoveX < -accelthresh);
+        inputDictionary["accelRight"] = Convert.ToInt32( accelMoveX < -accelthresh);
         return accelMoveX > accelthresh;// if the accelX is smaller than the  accelThresh 
     }
     public Vector2 getTouchPos()
