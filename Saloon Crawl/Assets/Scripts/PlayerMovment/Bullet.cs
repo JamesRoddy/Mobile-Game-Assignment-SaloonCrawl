@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class Bullet : MonoBehaviour
 {
     Rigidbody2D bullet;
-    float fBulletSpeed = 60f;
+    float fBulletSpeed = 50f;
     float bulletDestroyTime = 0.025f;
     TouchControls control;
     playerController player;

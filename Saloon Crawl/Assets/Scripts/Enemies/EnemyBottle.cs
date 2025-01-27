@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyBottle : EventObject
 {
     Rigidbody2D bottle;
-    float fBottleSpeed = 3.0f;
+    float fBottleSpeed = 5.0f;
     float angle = 0.0f;
     float rotSpeed = 3.0f;
     int shotCount = 0;

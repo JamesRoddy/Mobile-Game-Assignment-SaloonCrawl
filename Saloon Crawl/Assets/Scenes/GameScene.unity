@@ -369,6 +369,30 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1453898546}
+        m_TargetAssemblyTypeName: MenuButtonScript, Assembly-CSharp
+        m_MethodName: VibrationToggleChange
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2101969160}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Toggle, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1453898546}
+        m_TargetAssemblyTypeName: MenuButtonScript, Assembly-CSharp
+        m_MethodName: Vibrate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 208676861}
         m_TargetAssemblyTypeName: MenuManagerScript, Assembly-CSharp
         m_MethodName: ChangeScene
@@ -1403,6 +1427,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eee14a7535e5b04cb416d3c4c8bf0a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vibrate: 0
 --- !u!114 &285592832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2917,6 +2942,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eee14a7535e5b04cb416d3c4c8bf0a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vibrate: 0
 --- !u!114 &719913558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3237,6 +3263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eee14a7535e5b04cb416d3c4c8bf0a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  vibrate: 0
 --- !u!95 &972536438
 Animator:
   serializedVersion: 5
@@ -3775,6 +3802,30 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1453898546}
+        m_TargetAssemblyTypeName: MenuButtonScript, Assembly-CSharp
+        m_MethodName: VibrationToggleChange
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2101969160}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Toggle, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1453898546}
+        m_TargetAssemblyTypeName: MenuButtonScript, Assembly-CSharp
+        m_MethodName: Vibrate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 208676861}
         m_TargetAssemblyTypeName: MenuManagerScript, Assembly-CSharp
         m_MethodName: ChangeScene
@@ -4241,6 +4292,30 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1453898546}
+        m_TargetAssemblyTypeName: MenuButtonScript, Assembly-CSharp
+        m_MethodName: VibrationToggleChange
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2101969160}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Toggle, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1453898546}
+        m_TargetAssemblyTypeName: MenuButtonScript, Assembly-CSharp
+        m_MethodName: Vibrate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 285592831}
         m_TargetAssemblyTypeName: MenuButtonScript, Assembly-CSharp
         m_MethodName: EnableMenu
@@ -4496,10 +4571,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+
     - target: {fileID: 3558759579558165776, guid: 03d68603cadcdf547a5440a956157da5, type: 3}
       propertyPath: cam
       value: 
       objectReference: {fileID: 673665229}
+
+
     - target: {fileID: 3781977167510447231, guid: 03d68603cadcdf547a5440a956157da5, type: 3}
       propertyPath: gameOverScreen
       value: 
@@ -5649,6 +5727,30 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1453898546}
+        m_TargetAssemblyTypeName: MenuButtonScript, Assembly-CSharp
+        m_MethodName: VibrationToggleChange
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 2101969160}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.UI.Toggle, UnityEngine.UI
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1453898546}
+        m_TargetAssemblyTypeName: MenuButtonScript, Assembly-CSharp
+        m_MethodName: Vibrate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 719913558}
         m_TargetAssemblyTypeName: PauseGame, Assembly-CSharp
         m_MethodName: Play
@@ -5711,6 +5813,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1442539748}
   m_CullTransparentMesh: 1
+--- !u!1 &1453898545
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1453898547}
+  - component: {fileID: 1453898546}
+  m_Layer: 0
+  m_Name: VibrationMenu
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1453898546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453898545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eee14a7535e5b04cb416d3c4c8bf0a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vibrate: 0
+--- !u!4 &1453898547
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1453898545}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -97.464096, y: 6028, z: 20.027727}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1497226137
 GameObject:
   m_ObjectHideFlags: 0
@@ -7834,6 +7981,7 @@ SceneRoots:
   - {fileID: 1197590509}
   - {fileID: 208676862}
   - {fileID: 389000006}
+
   - {fileID: 183445250}
   - {fileID: 653281664}
   - {fileID: 103020024}
@@ -7841,3 +7989,4 @@ SceneRoots:
   - {fileID: 1103218347}
   - {fileID: 2096529121}
   - {fileID: 652720669}
+
