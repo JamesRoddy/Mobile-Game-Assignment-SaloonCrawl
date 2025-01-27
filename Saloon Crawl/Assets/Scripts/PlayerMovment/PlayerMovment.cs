@@ -463,6 +463,7 @@ public class playerController : MonoBehaviour
                 {
                     Time.timeScale = 0;
                     gameOverScreen.GetComponent<MenuButtonScript>().EnableMenu();
+                    Handheld.Vibrate();
                     StopAllSounds();
                 }
             }
