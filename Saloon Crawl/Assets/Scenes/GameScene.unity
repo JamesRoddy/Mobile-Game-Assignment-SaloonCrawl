@@ -2733,7 +2733,7 @@ MonoBehaviour:
   expectedInput: tap
   symbol: {fileID: 1271249879}
   text: {fileID: 1562314614}
-  timeScalar: 0.2
+  timeScalar: 0.015
   distcanceCheck: 5
   hasGameObject: 1
   objectToSpawn: {fileID: 5516997148055927724, guid: 8c9da06cec156884395bf17986ec7cd1, type: 3}
@@ -2870,7 +2870,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.26160455, y: 0.2474637}
+  m_Offset: {x: -1.7220697, y: 0.2474637}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2881,7 +2881,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.5232091, y: 10.233926}
+  m_Size: {x: 1.7345524, y: 10.233926}
   m_EdgeRadius: 0
 --- !u!4 &652720669
 Transform:
@@ -2892,7 +2892,7 @@ Transform:
   m_GameObject: {fileID: 652720664}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 36.9, y: 2.46, z: 0}
+  m_LocalPosition: {x: 34.14, y: 2.46, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
