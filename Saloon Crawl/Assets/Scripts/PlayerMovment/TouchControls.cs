@@ -17,20 +17,11 @@ public class TouchControls : MonoBehaviour
     bool bSwiping = false;
     public Vector2 touchPos;
     public bool bSwipeRight = false;
-    private int bSwipeLeft  = 0;
-    private int bSwipeUp =   0;
-    private bool bSwipeDown = false;
+    public bool bSwipeDown = false;
     
-    private int swipeingDown = 0;
-    private int swipingDown = 0;
-    private int swipingRight = 0;
-    private int accelRight  =0;
-    private int accelLeft =  0;
-    private int tap = 0;
-    private float dragDistance = 0.0f;
+    
     float t;
-  
-   
+
 
 
     private float swipeHorizontalPercent = 0.2f;
@@ -41,8 +32,6 @@ public class TouchControls : MonoBehaviour
 
     private float accelthresh = 0.5f; // define thresh hold that the accelerometer must reach for input 
     private float zoomSpeed = 0.1f; // define the zoom speed for multi touch zoom
-    private int zooming = 0;
-    private int dragging = 0;
 
    
    public  Dictionary<string, int> inputDictionary = new Dictionary<string, int>();
@@ -200,7 +189,6 @@ public class TouchControls : MonoBehaviour
             player.kickSound.Play();
             direction = Vector2.zero;
             inputDictionary["swipeRight"] = 1;
-            Debug.Log("swiping right" + swipingRight);
             bSwiping = true;
             bSwipeRight = true;
            
@@ -212,18 +200,12 @@ public class TouchControls : MonoBehaviour
             bSwipeDown = true;
             direction = Vector2.zero;
             inputDictionary["swipeDown"] = 1;
-
             bSwiping = true;
-            swipingDown = 1;
         }
       
 
         else
         {
-            bSwipeUp = 0;
-            bSwipeLeft =0; 
-            swipeingDown = 0;
-           
             bSwiping = false ;
             bSwipeRight = false ;
         }

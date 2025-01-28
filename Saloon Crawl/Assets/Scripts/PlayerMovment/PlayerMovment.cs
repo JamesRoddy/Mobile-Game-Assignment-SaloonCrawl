@@ -70,7 +70,7 @@ public class playerController : MonoBehaviour
     public AudioSource gameOver;
     public AudioSource mainMusic;
     private float crossHairDistance = 8.0f;
-    private float spriteTutRaise = 10.0f;
+    private float spriteTutRaise = 2.0f;
     public Vector2 Dir;
     public Vector2 touchStore;
     float t;
@@ -97,7 +97,6 @@ public class playerController : MonoBehaviour
         crossHairRenderer = spriteCrossHair.GetComponent<SpriteRenderer>(); 
         crossHairRenderer.enabled = false;
         deathChecker = GetComponent<DeathChecker>();
-       playerRigidBody.velocity = new Vector2(playerSpeed, 0.0f);
         spriteTutSequence = transform.Find("TutSpiteSequenceHolder").gameObject;
         spriteTutSequence.SetActive(false);
 
@@ -124,7 +123,7 @@ public class playerController : MonoBehaviour
     }
     private void shouldViewNextTerrain()
     {
-        if(currentTerrain.NextTerrainType != null && (touchControls.accelerationHasHitPositve()) && !IsViewingNextTerrain &&! PlayerCameraShift.IsShiftingBack)
+        if(currentTerrain.NextTerrainType != null && (touchControls.accelerationHasHitPositve() ) && !IsViewingNextTerrain &&! PlayerCameraShift.IsShiftingBack)
         {
             isViewingTerrainForFistTime = 1 - PlayerPrefs.GetInt("viewingTerrainFirstTime");
             nextTerrainPos = new Vector3(currentTerrain.NextTerrainType.transform.position.x, transform.position.y, transform.position.z);
@@ -370,6 +369,7 @@ public class playerController : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        
         if (collision.collider.gameObject.CompareTag("Enemy"))
         {
             collision.collider.enabled = false;
@@ -447,7 +447,7 @@ public class playerController : MonoBehaviour
         RaycastHit2D hit = Physics2D.BoxCast(playerBoxCollider.bounds.center, playerBoxCollider.bounds.size, 0, Vector2.down, 0.01f, groundLayer);
 
 
-        return hit.collider != null;
+        return hit.collider != null ;
     }
 
     public void StopAllSounds()
@@ -492,7 +492,10 @@ public class playerController : MonoBehaviour
         get { return isSliding; }
     }
 
-    
+    public bool IsEnabledFalse
+    {
+        get { return !deathChecker.isAlive; }
+    }
 
 }
 

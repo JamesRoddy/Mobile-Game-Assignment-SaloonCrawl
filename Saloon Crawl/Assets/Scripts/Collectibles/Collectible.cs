@@ -42,7 +42,7 @@ public  abstract class  Collectible : MonoBehaviour
         scorePopUp = GetComponent<InstaniateScorePopUp>();
          
      
-        Debug.Log("collider null " + (collectibleCollider == null));
+       
      
 
 
@@ -64,7 +64,6 @@ public  abstract class  Collectible : MonoBehaviour
         }
         GetComponent<SpriteRenderer>().enabled = true;
       
-       /*StartCoroutine( checkLateOverlap());*/
     }
 
     public void instaniateScoreObject()

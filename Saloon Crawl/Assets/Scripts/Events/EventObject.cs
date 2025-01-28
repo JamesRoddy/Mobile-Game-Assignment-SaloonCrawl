@@ -10,18 +10,9 @@ public abstract class EventObject : EventObjectDescriptor
     // allows for generic istaniation of each event object pool without requring multiple different methods inn order to instaniate pools for each 
     // this means that the instantiation of event objects can be done in a single for loop
 
-    protected playerController playerController;
+   
 
-    protected Collider2D playerCol;
-    private bool eventStarted = false;
-    public void Start()
-    {
-        playerController = FindFirstObjectByType<playerController>();
-       
-        playerCol = playerController.GetComponent<Collider2D>();
-      
-        
-    }
+    
 
     public abstract void EventStart();
     public abstract void EventObjUpdate();

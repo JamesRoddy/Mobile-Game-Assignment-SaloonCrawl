@@ -47,7 +47,10 @@ public class ZombieMovement : EnemyDescriptorInfo
         Vector3 camViewPortPos = playerCam.WorldToViewportPoint(new Vector3(transform.position.x, transform.position.y, transform.position.z));
         return camViewPortPos.x < 0.0f;
     }
-
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("collsion with " + collision.gameObject.name);
+    }
     private void isDead()
     {   
         

@@ -307,7 +307,12 @@ public class Aiming : MonoBehaviour
         parentSprite.flipX = false;
         canFlip = true;
         bulletTrail.transform.position = gunTransform.position;
-        transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
+        transform.rotation = Quaternion.identity;
+        if (transform.localScale.y < 0.0f)
+        {
+            transform.localScale = new Vector3(transform.localScale.x, -transform.localScale.y, transform.localScale.z);
+
+        }
 
         bulletTrail.enabled = false;
         setLinePosition(gunTransform.position, gunTransform.position);

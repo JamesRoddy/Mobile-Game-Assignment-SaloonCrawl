@@ -10,11 +10,13 @@ public abstract class Interactable : MonoBehaviour
     [SerializeField] protected int numberThatCanSpawn; // set in inspector not in code  
     [SerializeField] protected int scoreIncrement;
     playerController controller;
+    PlayerCameraShift playerCameraShift;
     private bool defferedSpawn = false;// tells pool to wait for the object to deactivate then spawn again 
     void Start()
     {
         controller = FindFirstObjectByType<playerController>();
         interactableStart();
+        playerCameraShift = FindFirstObjectByType<PlayerCameraShift>(); 
     }
 
     public abstract void interactableStart();
@@ -27,8 +29,14 @@ public abstract class Interactable : MonoBehaviour
 
     void Update()
     {
+        if ((controller.IsViewingNextTerrain && controller.CurrentTerrain.containsPoint(transform.position)) || playerCameraShift.IsShiftingBack) // if the player has not started viewing the next terrain menaing that they cant see their current 
+        {
+            return;
+        }
         
             interactableUpdate();
+        
+            
 
        
      

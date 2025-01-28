@@ -15,7 +15,7 @@ public abstract class EnemyDescriptorInfo : MonoBehaviour
     private float spawnInterval = 0.0f;
     protected DeathChecker alive;
     protected InstaniateScorePopUp scorePopUp;
-
+    private PlayerCameraShift playerCameraShift;
     
     public float SpawnInterval
     {
@@ -27,7 +27,7 @@ public abstract class EnemyDescriptorInfo : MonoBehaviour
     {
         controller =  FindFirstObjectByType<playerController>();
         scorePopUp = GetComponent<InstaniateScorePopUp>();
-
+        playerCameraShift = FindFirstObjectByType<PlayerCameraShift>();
        
          
 
@@ -53,7 +53,7 @@ public abstract class EnemyDescriptorInfo : MonoBehaviour
     private void Update()
     {
 
-        if (controller.IsViewingNextTerrain && controller.CurrentTerrain.containsPoint(transform.position)) // if the player has not started viewing the next terrain menaing that they cant see their current 
+        if ((controller.IsViewingNextTerrain && controller.CurrentTerrain.containsPoint(transform.position)) || playerCameraShift.IsShiftingBack ) // if the player has not started viewing the next terrain menaing that they cant see their current 
         {
             return;
         }
