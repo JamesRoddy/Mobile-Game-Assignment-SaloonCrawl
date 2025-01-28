@@ -11,9 +11,8 @@ public class EnemyBottle : EventObject
     float rotSpeed = 3.0f;
     int shotCount = 0;
    
-    int shotCountMax = 3;
+    int shotCountMax = 2;
     int scoreIncrement = 40;
-    bool shouldKill = true;
     Vector3 bottleVelocity;
     Vector3 rotationAxis = Vector3.forward;
     SpriteRenderer sprite;
@@ -30,8 +29,9 @@ public class EnemyBottle : EventObject
         bottleVelocity = -this.transform.right * fBottleSpeed;
         scorePopUp = GetComponent<InstaniateScorePopUp>(); 
         col = GetComponent<Collider2D>();
-     
         
+        bottle.velocity = bottleVelocity;
+
     }
 
     public override void EventObjEnable()
@@ -42,7 +42,8 @@ public class EnemyBottle : EventObject
     }
     public override void EventObjUpdate()
     {
-       
+
+     
         angle += rotSpeed * Time.deltaTime;
         transform.Rotate(rotationAxis, angle);
         deactivate();

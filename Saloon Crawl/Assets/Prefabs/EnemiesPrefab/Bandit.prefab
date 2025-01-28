@@ -526,7 +526,6 @@ GameObject:
   - component: {fileID: 6915674912826126957}
   - component: {fileID: 963395713428297035}
   - component: {fileID: 3734535144092733331}
-  - component: {fileID: 7453179041923465471}
   - component: {fileID: 239709707458224751}
   - component: {fileID: 3012005820178565207}
   - component: {fileID: 5393567678069370256}
@@ -772,18 +771,6 @@ MonoBehaviour:
   - Kickable
   - Bullet
   isAlive: 1
---- !u!114 &7453179041923465471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6954496311966897436}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f330b58f84f851a4db185698433c892f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &239709707458224751
 Rigidbody2D:
   serializedVersion: 4

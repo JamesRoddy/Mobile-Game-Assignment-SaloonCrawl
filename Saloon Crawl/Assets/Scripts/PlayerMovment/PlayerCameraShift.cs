@@ -137,4 +137,12 @@ public class PlayerCameraShift : MonoBehaviour
     }
 
 
+
+    public bool hasCentred
+    {
+        get { return hasCentredOnTerrain; }
+
+    }
+
+
 }

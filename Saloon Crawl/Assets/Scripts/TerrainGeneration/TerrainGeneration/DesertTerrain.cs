@@ -10,7 +10,7 @@ public class DesertTerrainType : TerrainType
     private float maxSpawnInterval = 0.0f;
     private bool firstSpawn = true;
     private GameObject currentEnemy;
-
+    float genericPadding = 2.0f;
 
     public override void setSpawnPositions()
     {
@@ -29,7 +29,7 @@ public class DesertTerrainType : TerrainType
         {
 
             activateObject(ref enemy,spawnPos);
-            enemy.transform.position = new Vector3(enemy.transform.position.x, enemy.transform.position.y + enemy.GetComponent<Collider2D>().bounds.size.y, enemy.transform.position.z);
+            enemy.transform.position = new Vector3(enemy.transform.position.x, enemy.transform.position.y + (enemy.GetComponent<Collider2D>().bounds.size.y+genericPadding), enemy.transform.position.z);
             maxSpawnInterval = currentDescriptor.SpawnInterval;
             firstSpawn = false;
             return;
@@ -51,7 +51,7 @@ public class DesertTerrainType : TerrainType
         isSpawningEnemy = false;
         
         activateObject(ref enemy,spawnPos);
-        enemy.transform.position = new Vector3(enemy.transform.position.x, enemy.transform.position.y + enemy.GetComponent<Collider2D>().bounds.size.y, enemy.transform.position.z);
+        enemy.transform.position = new Vector3(enemy.transform.position.x, enemy.transform.position.y + (enemy.GetComponent<Collider2D>().bounds.size.y + genericPadding), enemy.transform.position.z);
 
         currentDescriptor.resetDeath();
         currentDescriptor.EnemyEnable();

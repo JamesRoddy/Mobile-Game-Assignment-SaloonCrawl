@@ -17,7 +17,6 @@ public class ScorePopUp : MonoBehaviour
 
     private float currentTimer = 0.0f;
 
-    private bool displayScore = false;
     private Vector2 randomDirection;
     private Vector3 startPos;
    

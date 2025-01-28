@@ -10,7 +10,6 @@ public class BeerBottleEvent : TerrainEvent
     private EventObject beerBottleEventScript;
     private Collider2D bottleCol; 
     private float boundsScalarMax = 1.0f;
-    private float boundPercentMin = 2.0f;
 
 
 
@@ -63,7 +62,7 @@ public class BeerBottleEvent : TerrainEvent
             return;
         }
 
-        beerBottleEventScript.EventObjUpdate();
+  
 
 
     }

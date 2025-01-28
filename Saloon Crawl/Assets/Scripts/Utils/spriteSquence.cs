@@ -14,16 +14,27 @@ public class spriteSquence : MonoBehaviour
     [SerializeField] Camera cam;
     [SerializeField] float minDisance;
     float currentTimer = 0.0f;
+    PlayerCameraShift cameraShift;
+   
     void Start()
     {
         count = 0;
+        cameraShift = FindFirstObjectByType<PlayerCameraShift>();
+       
+        for(int i = 1;i<spriteSequence.Count;i++)
+        {
+            spriteSequence[i].SetActive(false);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(cam.transform.position, transform.position) < minDisance)
+
+        Debug.Log(" updating sprite sequence " + cameraHasReachedPosition);
+        if(cameraShift.hasCentred )
         {
+            Debug.Log("camera has reached position");
             cameraHasReachedPosition = true;
         }
 
@@ -31,6 +42,7 @@ public class spriteSquence : MonoBehaviour
 
         if (cameraHasReachedPosition)
         {
+            transform.position = new Vector3(cam.transform.position.x,cam.transform.position.y,transform.position.z);    
             spriteSequenceUpdate();
 
         }
@@ -47,21 +59,27 @@ public class spriteSquence : MonoBehaviour
         if (count == spriteSequence.Count)
 
         {
-
+            Debug.Log("sprite count hit ");
             Debug.Log("deactivating sequnce ");
-            this.gameObject.SetActive(false);
+            gameObject.SetActive(false);
+            
         }
-        spriteSequence[count].SetActive(true);
-
-        if (currentTimer < waitTime)
+        else
         {
-            Debug.Log("sequence waiting to switch " + currentTimer);
-            return;
-        }
+            spriteSequence[count].SetActive(true);
 
-        spriteSequence[count].SetActive(false);
-        count++;
-        currentTimer = 0.0f;
+            if (currentTimer < waitTime)
+            {
+                Debug.Log("sequence waiting to switch " + currentTimer +" max switch time "+waitTime);
+                currentTimer += Time.deltaTime;
+                return;
+            }
+
+            spriteSequence[count].SetActive(false);
+            count++;
+            currentTimer = 0.0f;
+        }
+       
 
 
 
